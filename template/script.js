@@ -854,7 +854,7 @@ function setLanguage(lang) {
   setText('histoire-titre',   tr('histoire_titre'));
   const histWrapLang = document.getElementById('histoire-wrap');
   if (histWrapLang) {
-    histWrapLang.innerHTML = tr('histoire').map(h => `
+    histWrapLang.innerHTML = (tr('histoire') || []).filter(h => h.texte && h.texte.trim()).map(h => `
       <div class="hist-item" data-align="${h.align}">
         <div class="hist-year">${h.annee}</div>
         <div class="hist-dot"></div>
@@ -872,7 +872,7 @@ function setLanguage(lang) {
   if (progWrap) {
     progWrap.innerHTML = tr('programme').map(p => `
       <div class="prog-item">
-        <span class="prog-time">${p.heure}</span>
+        <div class="prog-time">${p.heure}</div>
         <div class="prog-icon">${p.icon}</div>
         <div class="prog-card"><h3>${p.titre}</h3><p>${p.lieu}</p></div>
       </div>`).join('');
@@ -888,7 +888,7 @@ function setLanguage(lang) {
   const lieuxCards = document.getElementById('lieux-cards');
   if (lieuxCards) {
     const transLieux = tr('lieux') || [];
-    lieuxCards.innerHTML = M.lieux.map((l, i) => {
+    lieuxCards.innerHTML = M.lieux.filter(l => l.nom && l.nom.trim()).map((l, i) => {
       const tl = transLieux[i] || {};
       const type  = tl.type  || l.type;
       const badge = (tl.badge !== undefined ? tl.badge : l.badge);
@@ -952,7 +952,7 @@ function setLanguage(lang) {
   setText('infos-titre',   tr('infos_titre'));
   const infosGrid = document.getElementById('infos-grid');
   if (infosGrid) {
-    infosGrid.innerHTML = tr('infos').map(info => `
+    infosGrid.innerHTML = (tr('infos') || []).filter(i => i.texte && i.texte.trim()).map(info => `
       <div class="info-card">
         <span class="info-ico">${info.icon}</span>
         <h3>${info.titre}</h3>
@@ -964,7 +964,7 @@ function setLanguage(lang) {
   setText('faq-titre', tr('faq_titre'));
   const faqList = document.getElementById('faq-list');
   if (faqList) {
-    faqList.innerHTML = tr('faq').map(f => `
+    faqList.innerHTML = (tr('faq') || []).filter(f => f.q && f.q.trim()).map(f => `
       <div class="faq-item">
         <button class="faq-q">${f.q} <span class="faq-arrow">▾</span></button>
         <div class="faq-a"><p>${f.r}</p></div>
