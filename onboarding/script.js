@@ -8,7 +8,6 @@ const EMAILJS_TEMPLATE_ID = 'VOTRE_TEMPLATE_ID';
 const EMAILJS_PUBLIC_KEY  = 'VOTRE_PUBLIC_KEY';
 const RECIPIENT_EMAIL     = 'votre@email.com';
 
-emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
 // ── ÉTAT DU WIZARD ──
 const TOTAL_STEPS = 14;
@@ -31,16 +30,21 @@ const REQUIRED_BY_STEP = {
 function validateStep(n) {
   const required = REQUIRED_BY_STEP[n];
   if (!required) return true;
+  let valid = true;
+  let firstInvalid = null;
   for (const id of required) {
     const el = document.getElementById(id);
     if (!el || !el.value.trim()) {
-      el && el.focus();
-      el && (el.style.borderColor = '#c0392b');
-      setTimeout(() => { if (el) el.style.borderColor = ''; }, 2000);
-      return false;
+      if (el) {
+        el.style.borderColor = '#c0392b';
+        setTimeout(() => { el.style.borderColor = ''; }, 2000);
+        if (!firstInvalid) firstInvalid = el;
+      }
+      valid = false;
     }
   }
-  return true;
+  if (firstInvalid) firstInvalid.focus();
+  return valid;
 }
 
 function showStep(n) {
