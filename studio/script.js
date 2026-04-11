@@ -21,6 +21,7 @@ let templateHTML   = null;    // contenu de template/index.html
 let templateCSS    = null;    // contenu de template/style.css
 let templateJS     = null;    // contenu de template/script.js
 let debounceTimer  = null;
+let currentBlobUrl = null;    // Blob URL en cours (pour révocation)
 
 // ── CHARGEMENT DES ASSETS TEMPLATE (fetch — nécessite serveur) ──
 async function loadTemplateAssets() {
@@ -77,24 +78,32 @@ function showPreview(m) {
   const html = buildPreviewHTML(m);
   if (!html) return;
 
+  // Révoquer l'ancienne URL si elle n'a pas encore été chargée
+  if (currentBlobUrl) {
+    URL.revokeObjectURL(currentBlobUrl);
+    currentBlobUrl = null;
+  }
+
   dropZone.classList.add('hidden');
   previewLoading.style.display = 'flex';
   iframe.style.display = 'none';
 
   const blob = new Blob([html], { type: 'text/html' });
   const url  = URL.createObjectURL(blob);
+  currentBlobUrl = url;
 
   iframe.onload = () => {
     previewLoading.style.display = 'none';
     iframe.style.display = 'block';
-    // Révoquer l'ancienne URL après chargement
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    setTimeout(() => {
+      URL.revokeObjectURL(currentBlobUrl);
+      currentBlobUrl = null;
+    }, 1000);
   };
 
   iframe.src = url;
   currentMARIAGE = m;
 
-  // Mettre à jour topbar
   topbarClient.innerHTML = `<span>${m.prenom1} &amp; ${m.prenom2}</span> — ${m.date_affichage}`;
   btnExport.disabled = false;
 }
@@ -102,14 +111,20 @@ function showPreview(m) {
 // ── LECTURE D'UN FICHIER config.js ──
 function parseConfigFile(text) {
   try {
-    // Extraire le contenu de l'objet MARIAGE
-    // Supporte : const MARIAGE = {...}; ou var MARIAGE = {...};
-    const match = text.match(/(?:const|var|let)\s+MARIAGE\s*=\s*(\{[\s\S]*\})\s*;?\s*$/m);
-    if (!match) throw new Error('Pattern MARIAGE non trouvé');
-    // Évaluer de façon sécurisée via Function
+    const varIdx = text.search(/(?:const|var|let)\s+MARIAGE\s*=/);
+    if (varIdx === -1) throw new Error('MARIAGE non trouvé');
+    const braceStart = text.indexOf('{', varIdx);
+    if (braceStart === -1) throw new Error('Objet non trouvé');
+
+    let depth = 0, end = -1;
+    for (let i = braceStart; i < text.length; i++) {
+      if (text[i] === '{') depth++;
+      else if (text[i] === '}') { depth--; if (depth === 0) { end = i; break; } }
+    }
+    if (end === -1) throw new Error('Accolades non fermées');
+
     // eslint-disable-next-line no-new-func
-    const fn = new Function(`return ${match[1]}`);
-    return fn();
+    return new Function(`return ${text.slice(braceStart, end + 1)}`)();
   } catch (e) {
     alert('Impossible de lire ce fichier config.js. Vérifiez qu\'il contient `const MARIAGE = {...}`.');
     return null;
@@ -166,7 +181,8 @@ function readFormIntoMARIAGE() {
   m.hero_intro     = v('s_hero_intro')     || m.hero_intro;
   m.hero_cta       = v('s_hero_cta')       || m.hero_cta;
   m.citation       = v('s_citation');
-  m.bandeau        = v('s_bandeau') ? v('s_bandeau').split(',').map(s=>s.trim()).filter(Boolean) : [];
+  const bandeauVal = v('s_bandeau');
+  m.bandeau        = bandeauVal ? bandeauVal.split(',').map(s => s.trim()).filter(Boolean) : [];
   m.dress_intro    = v('s_dress_intro');
   m.video_hero     = { type: v('s_video_type') || 'local', src: v('s_video_src') || 'hero.mp4' };
   m.rsvp_intro     = v('s_rsvp_intro');
@@ -261,7 +277,7 @@ btnFormPreview.addEventListener('click', () => {
     scroll_label: 'Découvrir',
     citation: v('s_citation'),
     sr_line1: 'Avant ce jour,', sr_line2: "notre histoire s'écrivait",
-    bandeau: v('s_bandeau') ? v('s_bandeau').split(',').map(s=>s.trim()).filter(Boolean) : [],
+    bandeau: (() => { const b = v('s_bandeau'); return b ? b.split(',').map(s => s.trim()).filter(Boolean) : []; })(),
     histoire_eyebrow: '', histoire_titre: 'Notre Histoire',
     histoire: [{ annee:'', titre:'', texte:'', align:'left' }],
     programme_eyebrow: '', programme_titre: 'Le Jour J',
