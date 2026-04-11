@@ -342,10 +342,11 @@ function downloadConfig(content, prenom1, prenom2) {
   a.href     = url;
   a.download = filename;
   a.click();
-  URL.revokeObjectURL(url);
+  setTimeout(() => URL.revokeObjectURL(url), 100);
 }
 
 // ── SOUMISSION ──
+let _emailjsReady = false;
 async function handleSubmit() {
   const m         = generateMAIRIAGE();
   const configStr = generateConfigJS(m);
@@ -359,7 +360,10 @@ async function handleSubmit() {
 
   // 3. Envoi email via EmailJS
   try {
-    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+    if (!_emailjsReady) {
+      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+      _emailjsReady = true;
+    }
     await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
       to_email:       RECIPIENT_EMAIL,
       subject:        `Nouveau client — ${m.prenom1} & ${m.prenom2}`,
