@@ -332,3 +332,52 @@ function generateConfigJS(m) {
 const MARIAGE = ${JSON.stringify(m, null, 2)};
 `;
 }
+
+// ── TÉLÉCHARGEMENT DU FICHIER ──
+function downloadConfig(content, prenom1, prenom2) {
+  const filename = `config-${prenom1.toLowerCase()}-${prenom2.toLowerCase()}.js`;
+  const blob = new Blob([content], { type: 'text/javascript' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ── SOUMISSION ──
+async function handleSubmit() {
+  const m         = generateMAIRIAGE();
+  const configStr = generateConfigJS(m);
+
+  // 1. Téléchargement immédiat (même si l'email échoue)
+  downloadConfig(configStr, m.prenom1, m.prenom2);
+
+  // 2. Désactiver le bouton
+  btnSubmit.disabled    = true;
+  btnSubmit.textContent = 'Envoi en cours…';
+
+  // 3. Envoi email via EmailJS
+  try {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      to_email:       RECIPIENT_EMAIL,
+      subject:        `Nouveau client — ${m.prenom1} & ${m.prenom2}`,
+      prenom1:        m.prenom1,
+      prenom2:        m.prenom2,
+      date:           m.date_affichage,
+      lieu:           `${m.domaine}, ${m.ville}`,
+      email_client:   m.email,
+      config_content: configStr,
+    });
+  } catch (err) {
+    console.error('EmailJS error:', err);
+    // L'email a échoué mais le fichier a déjà été téléchargé — on continue
+  }
+
+  // 4. Afficher la confirmation
+  document.getElementById('wizard').style.display     = 'none';
+  document.getElementById('confirmation').classList.remove('hidden');
+}
+
+btnSubmit.addEventListener('click', handleSubmit);
