@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wedoria — Votre site de mariage</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div id="wizard">
+  <div class="wizard-header">
+    <div class="wizard-logo">◆ Wedoria</div>
+    <div class="wizard-progress">
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      <span class="progress-label" id="progress-label">Étape 1 / 14</span>
+    </div>
+  </div>
+
+  <!-- ── 01 · MARIÉS ── -->
+  <div class="wizard-step active" data-step="1">
+    <div class="step-header">
+      <span class="step-number">01</span>
+      <h2>Les Mariés</h2>
+      <button class="btn-demo" id="btn-demo" type="button">✨ Couple démo</button>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="prenom1">Prénom <span class="req">*</span></label>
+        <input type="text" id="prenom1" name="prenom1" placeholder="Sophie" required />
+      </div>
+      <div class="form-group">
+        <label for="nom1">Nom <span class="req">*</span></label>
+        <input type="text" id="nom1" name="nom1" placeholder="Martin" required />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="prenom2">Prénom <span class="req">*</span></label>
+        <input type="text" id="prenom2" name="prenom2" placeholder="Thomas" required />
+      </div>
+      <div class="form-group">
+        <label for="nom2">Nom <span class="req">*</span></label>
+        <input type="text" id="nom2" name="nom2" placeholder="Dupont" required />
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 02 · DATE & LIEU ── -->
+  <div class="wizard-step" data-step="2">
+    <div class="step-header"><span class="step-number">02</span><h2>Date &amp; Lieu</h2></div>
+    <div class="form-group">
+      <label for="date_affichage">Date affichée sur le site <span class="req">*</span></label>
+      <input type="text" id="date_affichage" name="date_affichage" placeholder="Samedi 12 Juillet 2025" required />
+      <span class="hint">Ex : Samedi 12 Juillet 2025</span>
+    </div>
+    <div class="form-group">
+      <label for="date_iso">Date ISO (pour le compte à rebours) <span class="req">*</span></label>
+      <input type="text" id="date_iso" name="date_iso" placeholder="2025-07-12T14:00:00" required />
+      <span class="hint">Format : AAAA-MM-JJTHH:MM:SS</span>
+    </div>
+    <div class="form-group">
+      <label for="rsvp_deadline">Deadline RSVP <span class="opt">(optionnel)</span></label>
+      <input type="text" id="rsvp_deadline" name="rsvp_deadline" placeholder="1er Mai 2025" />
+      <span class="hint">Affiché "Avant le …"</span>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="domaine">Nom du domaine / lieu <span class="req">*</span></label>
+        <input type="text" id="domaine" name="domaine" placeholder="Domaine des Brumes" required />
+      </div>
+      <div class="form-group">
+        <label for="ville">Ville &amp; région <span class="req">*</span></label>
+        <input type="text" id="ville" name="ville" placeholder="Beaune, Bourgogne" required />
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 03 · CONTACT ── -->
+  <div class="wizard-step" data-step="3">
+    <div class="step-header"><span class="step-number">03</span><h2>Contact</h2></div>
+    <div class="form-group">
+      <label for="email">Email des mariés <span class="req">*</span></label>
+      <input type="email" id="email" name="email" placeholder="sophie.thomas@exemple.com" required />
+    </div>
+    <div class="form-group">
+      <label for="whatsapp">WhatsApp <span class="opt">(optionnel)</span></label>
+      <input type="text" id="whatsapp" name="whatsapp" placeholder="06 12 34 56 78" />
+      <span class="hint">Laissez vide pour masquer dans la FAQ</span>
+    </div>
+  </div>
+
+  <!-- ── 04 · LANGUES ── -->
+  <div class="wizard-step" data-step="4">
+    <div class="step-header"><span class="step-number">04</span><h2>Langues du site</h2></div>
+    <div class="form-group">
+      <label>Langues actives <span class="req">*</span></label>
+      <div class="checkbox-group">
+        <label class="checkbox-label"><input type="checkbox" name="lang_fr" value="fr" checked disabled /> 🇫🇷 Français (toujours inclus)</label>
+        <label class="checkbox-label"><input type="checkbox" name="lang_en" value="en" id="lang_en" /> 🇬🇧 English</label>
+        <label class="checkbox-label"><input type="checkbox" name="lang_vi" value="vi" id="lang_vi" /> 🇻🇳 Tiếng Việt</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 05 · PHOTO COUPLE ── -->
+  <div class="wizard-step" data-step="5">
+    <div class="step-header"><span class="step-number">05</span><h2>Photo du couple</h2></div>
+    <div class="form-group">
+      <label for="photo_couple">Nom du fichier photo <span class="opt">(optionnel)</span></label>
+      <input type="text" id="photo_couple" name="photo_couple" placeholder="photo-couple.jpg" />
+      <span class="hint">Laissez vide pour masquer cette section. Le fichier sera à déposer dans le dossier du client.</span>
+    </div>
+    <div class="form-group">
+      <label for="photo_couple_caption">Légende de la photo <span class="opt">(optionnel)</span></label>
+      <input type="text" id="photo_couple_caption" name="photo_couple_caption" placeholder="Sophie & Thomas · Paris, France" />
+    </div>
+  </div>
+
+  <!-- ── 06 · TEXTES INTRO ── -->
+  <div class="wizard-step" data-step="6">
+    <div class="step-header"><span class="step-number">06</span><h2>Textes d'introduction</h2></div>
+    <div class="form-group">
+      <label for="hero_intro">Texte d'invitation (hero)</label>
+      <input type="text" id="hero_intro" name="hero_intro" value="Vous êtes invités au mariage de" />
+    </div>
+    <div class="form-group">
+      <label for="hero_cta">Bouton CTA hero</label>
+      <input type="text" id="hero_cta" name="hero_cta" value="Confirmer ma présence" />
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="sr_line1">Sticky reveal — ligne 1</label>
+        <input type="text" id="sr_line1" name="sr_line1" value="Avant ce jour," />
+      </div>
+      <div class="form-group">
+        <label for="sr_line2">Sticky reveal — ligne 2</label>
+        <input type="text" id="sr_line2" name="sr_line2" value="notre histoire s'écrivait" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="citation">Citation (footer)</label>
+      <input type="text" id="citation" name="citation" placeholder="« Aimer, c'est trouver sa richesse en l'autre. »" />
+    </div>
+    <div class="form-group">
+      <label for="bandeau">Bandeau défilant <span class="opt">(optionnel — virgules)</span></label>
+      <input type="text" id="bandeau" name="bandeau" placeholder="France, Barcelone, Sophie, Thomas, Juillet 2025" />
+      <span class="hint">Laissez vide pour masquer le bandeau</span>
+    </div>
+  </div>
+
+  <!-- ── 07 · NOTRE HISTOIRE ── -->
+  <div class="wizard-step" data-step="7">
+    <div class="step-header"><span class="step-number">07</span><h2>Notre Histoire</h2></div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="histoire_eyebrow">Sous-titre (eyebrow)</label>
+        <input type="text" id="histoire_eyebrow" name="histoire_eyebrow" placeholder="Depuis 2019" />
+      </div>
+      <div class="form-group">
+        <label for="histoire_titre">Titre de section</label>
+        <input type="text" id="histoire_titre" name="histoire_titre" value="Notre Histoire" />
+      </div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Bloc 1</div>
+      <div class="form-row">
+        <div class="form-group"><label for="h0_annee">Année</label><input type="text" id="h0_annee" name="h0_annee" placeholder="2019" /></div>
+        <div class="form-group"><label for="h0_align">Alignement</label><select id="h0_align" name="h0_align"><option value="left">Gauche</option><option value="right">Droite</option></select></div>
+      </div>
+      <div class="form-group"><label for="h0_titre">Titre</label><input type="text" id="h0_titre" name="h0_titre" placeholder="La Rencontre" /></div>
+      <div class="form-group"><label for="h0_texte">Texte <span class="hint">(laisser vide pour masquer)</span></label><textarea id="h0_texte" name="h0_texte" placeholder="Un soir de novembre…"></textarea></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Bloc 2</div>
+      <div class="form-row">
+        <div class="form-group"><label for="h1_annee">Année</label><input type="text" id="h1_annee" name="h1_annee" /></div>
+        <div class="form-group"><label for="h1_align">Alignement</label><select id="h1_align" name="h1_align"><option value="left">Gauche</option><option value="right" selected>Droite</option></select></div>
+      </div>
+      <div class="form-group"><label for="h1_titre">Titre</label><input type="text" id="h1_titre" name="h1_titre" /></div>
+      <div class="form-group"><label for="h1_texte">Texte</label><textarea id="h1_texte" name="h1_texte"></textarea></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Bloc 3</div>
+      <div class="form-row">
+        <div class="form-group"><label for="h2_annee">Année</label><input type="text" id="h2_annee" name="h2_annee" /></div>
+        <div class="form-group"><label for="h2_align">Alignement</label><select id="h2_align" name="h2_align"><option value="left" selected>Gauche</option><option value="right">Droite</option></select></div>
+      </div>
+      <div class="form-group"><label for="h2_titre">Titre</label><input type="text" id="h2_titre" name="h2_titre" /></div>
+      <div class="form-group"><label for="h2_texte">Texte</label><textarea id="h2_texte" name="h2_texte"></textarea></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Bloc 4</div>
+      <div class="form-row">
+        <div class="form-group"><label for="h3_annee">Année</label><input type="text" id="h3_annee" name="h3_annee" /></div>
+        <div class="form-group"><label for="h3_align">Alignement</label><select id="h3_align" name="h3_align"><option value="left">Gauche</option><option value="right" selected>Droite</option></select></div>
+      </div>
+      <div class="form-group"><label for="h3_titre">Titre</label><input type="text" id="h3_titre" name="h3_titre" /></div>
+      <div class="form-group"><label for="h3_texte">Texte</label><textarea id="h3_texte" name="h3_texte"></textarea></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Bloc 5 <span class="opt">(optionnel)</span></div>
+      <div class="form-row">
+        <div class="form-group"><label for="h4_annee">Année</label><input type="text" id="h4_annee" name="h4_annee" /></div>
+        <div class="form-group"><label for="h4_align">Alignement</label><select id="h4_align" name="h4_align"><option value="left" selected>Gauche</option><option value="right">Droite</option></select></div>
+      </div>
+      <div class="form-group"><label for="h4_titre">Titre</label><input type="text" id="h4_titre" name="h4_titre" /></div>
+      <div class="form-group"><label for="h4_texte">Texte</label><textarea id="h4_texte" name="h4_texte"></textarea></div>
+    </div>
+  </div>
+
+  <!-- ── 08 · PROGRAMME ── -->
+  <div class="wizard-step" data-step="8">
+    <div class="step-header"><span class="step-number">08</span><h2>Programme du Jour J</h2></div>
+    <div class="form-row">
+      <div class="form-group"><label for="programme_eyebrow">Eyebrow</label><input type="text" id="programme_eyebrow" name="programme_eyebrow" placeholder="12 Juillet 2025" /></div>
+      <div class="form-group"><label for="programme_titre">Titre</label><input type="text" id="programme_titre" name="programme_titre" value="Le Jour J" /></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Créneau 1</div>
+      <div class="form-row">
+        <div class="form-group"><label for="p0_heure">Heure</label><input type="text" id="p0_heure" name="p0_heure" placeholder="14h00" /></div>
+        <div class="form-group"><label for="p0_icon">Icône (emoji)</label><input type="text" id="p0_icon" name="p0_icon" placeholder="💍" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label for="p0_titre">Intitulé</label><input type="text" id="p0_titre" name="p0_titre" placeholder="Cérémonie Laïque" /></div>
+        <div class="form-group"><label for="p0_lieu">Lieu</label><input type="text" id="p0_lieu" name="p0_lieu" placeholder="Chapelle du Domaine" /></div>
+      </div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Créneau 2</div>
+      <div class="form-row">
+        <div class="form-group"><label for="p1_heure">Heure</label><input type="text" id="p1_heure" name="p1_heure" placeholder="15h30" /></div>
+        <div class="form-group"><label for="p1_icon">Icône</label><input type="text" id="p1_icon" name="p1_icon" placeholder="🥂" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label for="p1_titre">Intitulé</label><input type="text" id="p1_titre" name="p1_titre" placeholder="Vin d'Honneur" /></div>
+        <div class="form-group"><label for="p1_lieu">Lieu</label><input type="text" id="p1_lieu" name="p1_lieu" /></div>
+      </div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Créneau 3</div>
+      <div class="form-row">
+        <div class="form-group"><label for="p2_heure">Heure</label><input type="text" id="p2_heure" name="p2_heure" placeholder="19h30" /></div>
+        <div class="form-group"><label for="p2_icon">Icône</label><input type="text" id="p2_icon" name="p2_icon" placeholder="🍽️" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label for="p2_titre">Intitulé</label><input type="text" id="p2_titre" name="p2_titre" placeholder="Dîner de Gala" /></div>
+        <div class="form-group"><label for="p2_lieu">Lieu</label><input type="text" id="p2_lieu" name="p2_lieu" /></div>
+      </div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Créneau 4</div>
+      <div class="form-row">
+        <div class="form-group"><label for="p3_heure">Heure</label><input type="text" id="p3_heure" name="p3_heure" placeholder="22h00" /></div>
+        <div class="form-group"><label for="p3_icon">Icône</label><input type="text" id="p3_icon" name="p3_icon" placeholder="🎵" /></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label for="p3_titre">Intitulé</label><input type="text" id="p3_titre" name="p3_titre" placeholder="Soirée Dansante" /></div>
+        <div class="form-group"><label for="p3_lieu">Lieu</label><input type="text" id="p3_lieu" name="p3_lieu" /></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 09 · GALERIE ── -->
+  <div class="wizard-step" data-step="9">
+    <div class="step-header"><span class="step-number">09</span><h2>Galerie du Domaine</h2></div>
+    <div class="form-row">
+      <div class="form-group"><label for="galerie_eyebrow">Eyebrow</label><input type="text" id="galerie_eyebrow" name="galerie_eyebrow" placeholder="Le décor de notre amour" /></div>
+      <div class="form-group"><label for="galerie_titre">Titre</label><input type="text" id="galerie_titre" name="galerie_titre" value="Le Domaine" /></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Photo 1</div>
+      <div class="form-row">
+        <div class="form-group"><label for="g0_icon">Icône placeholder</label><input type="text" id="g0_icon" name="g0_icon" value="🏰" /></div>
+        <div class="form-group"><label for="g0_label">Légende</label><input type="text" id="g0_label" name="g0_label" placeholder="Façade du Domaine" /></div>
+      </div>
+      <div class="form-group"><label for="g0_photo">Fichier photo <span class="opt">(optionnel)</span></label><input type="text" id="g0_photo" name="g0_photo" placeholder="galerie/photo1.jpg" /></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Photo 2</div>
+      <div class="form-row">
+        <div class="form-group"><label for="g1_icon">Icône</label><input type="text" id="g1_icon" name="g1_icon" value="🌿" /></div>
+        <div class="form-group"><label for="g1_label">Légende</label><input type="text" id="g1_label" name="g1_label" placeholder="Les Jardins" /></div>
+      </div>
+      <div class="form-group"><label for="g1_photo">Fichier photo <span class="opt">(optionnel)</span></label><input type="text" id="g1_photo" name="g1_photo" /></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Photo 3</div>
+      <div class="form-row">
+        <div class="form-group"><label for="g2_icon">Icône</label><input type="text" id="g2_icon" name="g2_icon" value="✨" /></div>
+        <div class="form-group"><label for="g2_label">Légende</label><input type="text" id="g2_label" name="g2_label" placeholder="Grande Salle" /></div>
+      </div>
+      <div class="form-group"><label for="g2_photo">Fichier photo <span class="opt">(optionnel)</span></label><input type="text" id="g2_photo" name="g2_photo" /></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Photo 4</div>
+      <div class="form-row">
+        <div class="form-group"><label for="g3_icon">Icône</label><input type="text" id="g3_icon" name="g3_icon" value="⛪" /></div>
+        <div class="form-group"><label for="g3_label">Légende</label><input type="text" id="g3_label" name="g3_label" placeholder="Chapelle" /></div>
+      </div>
+      <div class="form-group"><label for="g3_photo">Fichier photo <span class="opt">(optionnel)</span></label><input type="text" id="g3_photo" name="g3_photo" /></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Photo 5</div>
+      <div class="form-row">
+        <div class="form-group"><label for="g4_icon">Icône</label><input type="text" id="g4_icon" name="g4_icon" value="🌸" /></div>
+        <div class="form-group"><label for="g4_label">Légende</label><input type="text" id="g4_label" name="g4_label" placeholder="Terrasse" /></div>
+      </div>
+      <div class="form-group"><label for="g4_photo">Fichier photo <span class="opt">(optionnel)</span></label><input type="text" id="g4_photo" name="g4_photo" /></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Photo 6</div>
+      <div class="form-row">
+        <div class="form-group"><label for="g5_icon">Icône</label><input type="text" id="g5_icon" name="g5_icon" value="🕯️" /></div>
+        <div class="form-group"><label for="g5_label">Légende</label><input type="text" id="g5_label" name="g5_label" placeholder="Décoration de Table" /></div>
+      </div>
+      <div class="form-group"><label for="g5_photo">Fichier photo <span class="opt">(optionnel)</span></label><input type="text" id="g5_photo" name="g5_photo" /></div>
+    </div>
+  </div>
+
+  <!-- ── 10 · LIEUX ── -->
+  <div class="wizard-step" data-step="10">
+    <div class="step-header"><span class="step-number">10</span><h2>Les Lieux</h2></div>
+    <div class="block-section">
+      <div class="block-title">Cérémonie</div>
+      <div class="form-row">
+        <div class="form-group"><label for="l0_icon">Icône</label><input type="text" id="l0_icon" name="l0_icon" value="⛪" /></div>
+        <div class="form-group"><label for="l0_type">Type</label><input type="text" id="l0_type" name="l0_type" placeholder="Cérémonie Laïque" /></div>
+      </div>
+      <div class="form-group"><label for="l0_nom">Nom du lieu</label><input type="text" id="l0_nom" name="l0_nom" placeholder="Chapelle Saint-Jean" /></div>
+      <div class="form-group"><label for="l0_adresse1">Adresse ligne 1</label><input type="text" id="l0_adresse1" name="l0_adresse1" placeholder="12 Route des Vignes" /></div>
+      <div class="form-group"><label for="l0_adresse2">Adresse ligne 2</label><input type="text" id="l0_adresse2" name="l0_adresse2" placeholder="21200 Beaune, Bourgogne" /></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Réception (lieu principal)</div>
+      <div class="form-row">
+        <div class="form-group"><label for="l1_icon">Icône</label><input type="text" id="l1_icon" name="l1_icon" value="🏰" /></div>
+        <div class="form-group"><label for="l1_type">Type</label><input type="text" id="l1_type" name="l1_type" placeholder="Réception" /></div>
+      </div>
+      <div class="form-group"><label for="l1_nom">Nom du lieu</label><input type="text" id="l1_nom" name="l1_nom" placeholder="Domaine des Brumes" /></div>
+      <div class="form-group"><label for="l1_adresse1">Adresse ligne 1</label><input type="text" id="l1_adresse1" name="l1_adresse1" /></div>
+      <div class="form-group"><label for="l1_adresse2">Adresse ligne 2</label><input type="text" id="l1_adresse2" name="l1_adresse2" /></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Hébergement conseillé <span class="opt">(optionnel — laisser vide pour masquer)</span></div>
+      <div class="form-group"><label for="l2_nom">Nom de l'hôtel</label><input type="text" id="l2_nom" name="l2_nom" placeholder="Hôtel Le Cep ★★★★" /></div>
+      <div class="form-group"><label for="l2_adresse1">Adresse ligne 1</label><input type="text" id="l2_adresse1" name="l2_adresse1" /></div>
+      <div class="form-group"><label for="l2_adresse2">Adresse ligne 2</label><input type="text" id="l2_adresse2" name="l2_adresse2" /></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Carte GPS <span class="opt">(optionnel — laisser lat/lng vides pour masquer)</span></div>
+      <div class="form-row">
+        <div class="form-group"><label for="carte_lat">Latitude</label><input type="text" id="carte_lat" name="carte_lat" placeholder="47.0239" /></div>
+        <div class="form-group"><label for="carte_lng">Longitude</label><input type="text" id="carte_lng" name="carte_lng" placeholder="4.8397" /></div>
+      </div>
+      <div class="form-group"><label for="carte_nom">Nom affiché sur la carte</label><input type="text" id="carte_nom" name="carte_nom" placeholder="Domaine des Brumes" /></div>
+      <div class="form-group"><label for="carte_caption">Légende sous la carte</label><input type="text" id="carte_caption" name="carte_caption" placeholder="📍 Domaine des Brumes · Beaune" /></div>
+    </div>
+  </div>
+
+  <!-- ── 11 · DRESS CODE ── -->
+  <div class="wizard-step" data-step="11">
+    <div class="step-header"><span class="step-number">11</span><h2>Code Vestimentaire</h2></div>
+    <div class="form-group">
+      <label for="dress_intro">Description du dress code</label>
+      <textarea id="dress_intro" name="dress_intro" placeholder="Tenue de soirée souhaitée. Inspirez-vous des teintes printanières !"></textarea>
+    </div>
+    <p class="hint" style="margin-bottom:1rem">Palette de couleurs (6 swatches — cocher "À éviter" pour les couleurs déconseillées)</p>
+    <div class="block-section">
+      <div class="block-title">Couleur 1</div>
+      <div class="form-row">
+        <div class="form-group"><label for="c0_nom">Nom</label><input type="text" id="c0_nom" name="c0_nom" placeholder="Rose poudré" /></div>
+        <div class="form-group"><label for="c0_hex">Couleur</label><input type="color" id="c0_hex" name="c0_hex" value="#F2C4CE" /></div>
+        <div class="form-group"><label>&nbsp;</label><label class="checkbox-label"><input type="checkbox" name="c0_eviter" id="c0_eviter" /> À éviter</label></div>
+      </div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Couleur 2</div>
+      <div class="form-row">
+        <div class="form-group"><label for="c1_nom">Nom</label><input type="text" id="c1_nom" name="c1_nom" placeholder="Champagne" /></div>
+        <div class="form-group"><label for="c1_hex">Couleur</label><input type="color" id="c1_hex" name="c1_hex" value="#F0DCA0" /></div>
+        <div class="form-group"><label>&nbsp;</label><label class="checkbox-label"><input type="checkbox" name="c1_eviter" id="c1_eviter" /> À éviter</label></div>
+      </div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Couleur 3</div>
+      <div class="form-row">
+        <div class="form-group"><label for="c2_nom">Nom</label><input type="text" id="c2_nom" name="c2_nom" placeholder="Sauge" /></div>
+        <div class="form-group"><label for="c2_hex">Couleur</label><input type="color" id="c2_hex" name="c2_hex" value="#87A878" /></div>
+        <div class="form-group"><label>&nbsp;</label><label class="checkbox-label"><input type="checkbox" name="c2_eviter" id="c2_eviter" /> À éviter</label></div>
+      </div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Couleur 4</div>
+      <div class="form-row">
+        <div class="form-group"><label for="c3_nom">Nom</label><input type="text" id="c3_nom" name="c3_nom" placeholder="Ivoire" /></div>
+        <div class="form-group"><label for="c3_hex">Couleur</label><input type="color" id="c3_hex" name="c3_hex" value="#F5F0E0" /></div>
+        <div class="form-group"><label>&nbsp;</label><label class="checkbox-label"><input type="checkbox" name="c3_eviter" id="c3_eviter" /> À éviter</label></div>
+      </div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Couleur 5</div>
+      <div class="form-row">
+        <div class="form-group"><label for="c4_nom">Nom</label><input type="text" id="c4_nom" name="c4_nom" placeholder="Blanc" /></div>
+        <div class="form-group"><label for="c4_hex">Couleur</label><input type="color" id="c4_hex" name="c4_hex" value="#F5F5F5" /></div>
+        <div class="form-group"><label>&nbsp;</label><label class="checkbox-label"><input type="checkbox" name="c4_eviter" id="c4_eviter" checked /> À éviter</label></div>
+      </div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Couleur 6</div>
+      <div class="form-row">
+        <div class="form-group"><label for="c5_nom">Nom</label><input type="text" id="c5_nom" name="c5_nom" placeholder="Noir" /></div>
+        <div class="form-group"><label for="c5_hex">Couleur</label><input type="color" id="c5_hex" name="c5_hex" value="#1A1A1A" /></div>
+        <div class="form-group"><label>&nbsp;</label><label class="checkbox-label"><input type="checkbox" name="c5_eviter" id="c5_eviter" checked /> À éviter</label></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 12 · INFOS PRATIQUES ── -->
+  <div class="wizard-step" data-step="12">
+    <div class="step-header"><span class="step-number">12</span><h2>Infos Pratiques</h2></div>
+    <p class="hint" style="margin-bottom:1rem">Laisser le texte vide pour masquer une ligne.</p>
+    <div class="block-section">
+      <div class="block-title">🚗 Parking</div>
+      <div class="form-group"><textarea id="i0_texte" name="i0_texte" placeholder="Parking gratuit sur le domaine. Depuis Paris : A6 sortie Beaune."></textarea></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">🚂 Train</div>
+      <div class="form-group"><textarea id="i1_texte" name="i1_texte" placeholder="Gare de Beaune à 8 km. Navettes organisées depuis la gare."></textarea></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">🏨 Hébergement</div>
+      <div class="form-group"><textarea id="i2_texte" name="i2_texte" placeholder="Des chambres ont été pré-réservées à l'Hôtel Le Cep."></textarea></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">👶 Enfants</div>
+      <div class="form-group"><textarea id="i3_texte" name="i3_texte" placeholder="Soirée adultes uniquement."></textarea></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">📸 Photos</div>
+      <div class="form-group"><textarea id="i4_texte" name="i4_texte" placeholder="Un photographe professionnel sera présent."></textarea></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">➕ Info supplémentaire <span class="opt">(optionnel)</span></div>
+      <div class="form-row">
+        <div class="form-group"><label for="i5_icon">Icône</label><input type="text" id="i5_icon" name="i5_icon" value="➕" /></div>
+        <div class="form-group"><label for="i5_titre">Titre</label><input type="text" id="i5_titre" name="i5_titre" /></div>
+      </div>
+      <div class="form-group"><textarea id="i5_texte" name="i5_texte"></textarea></div>
+    </div>
+  </div>
+
+  <!-- ── 13 · FAQ ── -->
+  <div class="wizard-step" data-step="13">
+    <div class="step-header"><span class="step-number">13</span><h2>Questions Fréquentes</h2></div>
+    <p class="hint" style="margin-bottom:1rem">Laisser la question vide pour masquer une entrée.</p>
+    <div class="block-section">
+      <div class="block-title">Q&amp;R 1</div>
+      <div class="form-group"><label for="faq0_q">Question</label><input type="text" id="faq0_q" name="faq0_q" placeholder="Puis-je amener un +1 non mentionné ?" /></div>
+      <div class="form-group"><label for="faq0_r">Réponse</label><textarea id="faq0_r" name="faq0_r"></textarea></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Q&amp;R 2</div>
+      <div class="form-group"><label for="faq1_q">Question</label><input type="text" id="faq1_q" name="faq1_q" placeholder="Y a-t-il une liste de mariage ?" /></div>
+      <div class="form-group"><label for="faq1_r">Réponse</label><textarea id="faq1_r" name="faq1_r"></textarea></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Q&amp;R 3</div>
+      <div class="form-group"><label for="faq2_q">Question</label><input type="text" id="faq2_q" name="faq2_q" /></div>
+      <div class="form-group"><label for="faq2_r">Réponse</label><textarea id="faq2_r" name="faq2_r"></textarea></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Q&amp;R 4</div>
+      <div class="form-group"><label for="faq3_q">Question</label><input type="text" id="faq3_q" name="faq3_q" /></div>
+      <div class="form-group"><label for="faq3_r">Réponse</label><textarea id="faq3_r" name="faq3_r"></textarea></div>
+    </div>
+    <div class="block-section">
+      <div class="block-title">Q&amp;R 5</div>
+      <div class="form-group"><label for="faq4_q">Question</label><input type="text" id="faq4_q" name="faq4_q" /></div>
+      <div class="form-group"><label for="faq4_r">Réponse</label><textarea id="faq4_r" name="faq4_r"></textarea></div>
+    </div>
+  </div>
+
+  <!-- ── 14 · VIDÉO HERO ── -->
+  <div class="wizard-step" data-step="14">
+    <div class="step-header"><span class="step-number">14</span><h2>Vidéo Hero</h2></div>
+    <div class="form-group">
+      <label for="video_type">Type de vidéo</label>
+      <select id="video_type" name="video_type">
+        <option value="local">Fichier local (hero.mp4 dans le dossier)</option>
+        <option value="url">URL externe (lien direct vers la vidéo)</option>
+        <option value="none">Pas de vidéo (fond sombre)</option>
+      </select>
+    </div>
+    <div class="form-group" id="video_src_group">
+      <label for="video_src">URL de la vidéo <span class="opt">(si URL externe)</span></label>
+      <input type="url" id="video_src" name="video_src" placeholder="https://..." />
+    </div>
+    <div class="form-group">
+      <label for="rsvp_intro">Texte d'introduction RSVP</label>
+      <textarea id="rsvp_intro" name="rsvp_intro" placeholder="Merci de nous confirmer votre présence avant le 1er mai 2025…"></textarea>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="wizard-nav">
+    <button type="button" id="btn-prev" class="btn-prev">← Précédent</button>
+    <button type="button" id="btn-next" class="btn-next">Suivant →</button>
+    <button type="button" id="btn-submit" class="btn-submit" style="display:none">Envoyer ✓</button>
+  </div>
+</div>
+
+<!-- Confirmation -->
+<div id="confirmation" class="hidden">
+  <div class="confirmation-icon">◆</div>
+  <h2>Merci !</h2>
+  <p>Vos informations ont bien été transmises.<br>Nous vous contacterons rapidement pour la suite.</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
