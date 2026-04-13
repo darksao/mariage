@@ -67,6 +67,10 @@ const MARIAGE = ${JSON.stringify(m, null, 2)};
 </script>
 <script>
 ${templateJS}
+</script>
+<script>
+// DOMContentLoaded a déjà tiré dans le contexte Blob — forcer l'hydratation
+if (typeof hydrate === 'function') hydrate();
 </script>`;
 
   html = html.replace('</body>', injection + '\n</body>');
