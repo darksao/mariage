@@ -96,14 +96,16 @@ function showPreview(m) {
   const url  = URL.createObjectURL(blob);
   currentBlobUrl = url;
 
-  iframe.onload = () => {
+  const revealIframe = () => {
     previewLoading.style.display = 'none';
     iframe.style.display = 'block';
-    setTimeout(() => {
-      URL.revokeObjectURL(currentBlobUrl);
-      currentBlobUrl = null;
-    }, 1000);
+    setTimeout(() => { URL.revokeObjectURL(currentBlobUrl); currentBlobUrl = null; }, 1000);
   };
+
+  // Fallback : si onload ne se déclenche pas dans 6s, afficher quand même
+  const fallback = setTimeout(revealIframe, 6000);
+  iframe.onload = () => { clearTimeout(fallback); revealIframe(); };
+  iframe.onerror = () => { clearTimeout(fallback); revealIframe(); };
 
   iframe.src = url;
   currentMARIAGE = m;
