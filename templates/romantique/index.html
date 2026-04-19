@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Mariage Romantique</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="is-loading">
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="loader-inner">
+      <div class="loader-monogram">
+        <span id="loader-p1"></span>
+        <span class="lm-heart">♡</span>
+        <span id="loader-p2"></span>
+      </div>
+      <p class="loader-date" id="loader-date"></p>
+      <div class="loader-bar"><div class="loader-progress" id="loader-progress"></div></div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#accueil" class="nav-logo">
+        <span id="nav-p1"></span>
+        <span class="nav-amp">&amp;</span>
+        <span id="nav-p2"></span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#histoire">Histoire</a></li>
+        <li><a href="#programme">Le Grand Jour</a></li>
+        <li><a href="#galerie">Galerie</a></li>
+        <li><a href="#souhaits">Souhaits</a></li>
+        <li><a href="#rsvp">RSVP</a></li>
+        <li><a href="#mot">Mot des mariés</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO poétique -->
+  <section id="accueil" class="hero-section">
+    <canvas id="petales-canvas"></canvas>
+    <div class="hero-content">
+      <p id="hero-invite" class="hero-invite"></p>
+      <h1 id="hero-names-overlay" class="hero-names"></h1>
+      <p id="hero-citation" class="hero-citation"></p>
+      <p id="hero-date-overlay" class="hero-date"></p>
+      <a href="#rsvp" id="hero-cta-overlay" class="btn-hero"></a>
+    </div>
+  </section>
+
+  <!-- HISTOIRE alternée -->
+  <section id="histoire" class="section-histoire reveal-section">
+    <div class="section-header">
+      <p class="eyebrow" id="histoire-eyebrow"></p>
+      <h2 id="histoire-titre"></h2>
+    </div>
+    <div id="histoire-wrap" class="histoire-wrap"></div>
+  </section>
+
+  <!-- PROGRAMME timeline cœur -->
+  <section id="programme" class="section-programme reveal-section">
+    <div class="section-header">
+      <p class="eyebrow" id="programme-eyebrow"></p>
+      <h2 id="programme-titre"></h2>
+    </div>
+    <div class="timeline-coeur" id="prog-wrap"></div>
+  </section>
+
+  <!-- GALERIE carrousel plein écran -->
+  <section id="galerie" class="section-galerie reveal-section">
+    <div class="carousel-wrapper">
+      <div id="carousel-track" class="carousel-track"></div>
+      <button class="carousel-prev" aria-label="Précédent">&#8592;</button>
+      <button class="carousel-next" aria-label="Suivant">&#8594;</button>
+      <div id="carousel-dots" class="carousel-dots"></div>
+    </div>
+  </section>
+
+  <!-- SOUHAITS liste de mariage poétique -->
+  <section id="souhaits" class="section-souhaits reveal-section">
+    <div class="section-header">
+      <p class="eyebrow">Nos envies</p>
+      <h2>Ce qui nous ferait plaisir</h2>
+    </div>
+    <div class="souhaits-grid" id="souhaits-wrap"></div>
+  </section>
+
+  <!-- RSVP style lettre -->
+  <section id="rsvp" class="section-rsvp reveal-section">
+    <div class="rsvp-lettre">
+      <p class="eyebrow">Votre réponse</p>
+      <h2 id="rsvp-titre"></h2>
+      <p id="rsvp-intro" class="rsvp-intro"></p>
+      <form id="rsvp-form" class="rsvp-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="f-prenom">Prénom *</label>
+            <input type="text" id="f-prenom" name="prenom" required />
+          </div>
+          <div class="form-group">
+            <label for="f-nom">Nom *</label>
+            <input type="text" id="f-nom" name="nom" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Présence *</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="presence" value="oui" required /> 🌸 Oui, avec joie !</label>
+            <label class="radio-label"><input type="radio" name="presence" value="non" /> Hélas, je ne pourrai pas</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="f-regime">Régime alimentaire</label>
+          <select id="f-regime" name="regime">
+            <option value="">Aucune restriction</option>
+            <option value="vegetarien">Végétarien</option>
+            <option value="vegan">Vegan</option>
+            <option value="sans-gluten">Sans gluten</option>
+            <option value="halal">Halal</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="f-message">Un mot doux</label>
+          <textarea id="f-message" name="message" rows="3" placeholder="Un message pour les mariés…"></textarea>
+        </div>
+        <button type="submit" class="btn-submit" id="rsvp-btn">Confirmer ma présence</button>
+        <p id="rsvp-status" class="rsvp-status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- MOT DES MARIÉS -->
+  <section id="mot" class="section-mot reveal-section">
+    <div class="mot-inner">
+      <svg class="mot-coeur" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z" fill="currentColor"/>
+      </svg>
+      <blockquote id="mot-texte" class="mot-texte"></blockquote>
+      <p id="mot-signature" class="mot-signature"></p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p class="footer-names" id="footer-names"></p>
+    <p class="footer-citation" id="footer-citation"></p>
+    <p class="footer-credit">Site créé avec <a href="https://wedoria.studio" target="_blank">Wedoria Studio</a></p>
+  </footer>
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
