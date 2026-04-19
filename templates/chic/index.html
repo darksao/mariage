@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Mariage Chic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;1,6..96,400;1,6..96,600&family=Josefin+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="is-loading">
+
+  <!-- Loader -->
+  <div id="loader">
+    <div class="loader-inner">
+      <div class="loader-monogram">
+        <span id="loader-p1"></span>
+        <span class="lm-sep">—</span>
+        <span id="loader-p2"></span>
+      </div>
+      <p class="loader-date" id="loader-date"></p>
+      <div class="loader-bar"><div class="loader-progress" id="loader-progress"></div></div>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#accueil" class="nav-logo">
+        <span id="nav-p1"></span><span class="nav-amp">&amp;</span><span id="nav-p2"></span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#countdown">Date</a></li>
+        <li><a href="#programme">Programme</a></li>
+        <li><a href="#galerie">Galerie</a></li>
+        <li><a href="#dresscode">Dress Code</a></li>
+        <li><a href="#rsvp">RSVP</a></li>
+        <li><a href="#infos">Infos</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero #accueil -->
+  <section id="accueil" class="hero-section">
+    <div class="hero-content">
+      <p id="hero-invite" class="hero-invite" style="display:none"></p>
+      <h1 id="hero-names-overlay" class="hero-names"></h1>
+      <div class="hero-rule"></div>
+      <p id="hero-date-overlay" class="hero-date"></p>
+      <a href="#rsvp" id="hero-cta-overlay" class="btn-hero"></a>
+    </div>
+    <div class="hero-scroll"><span class="scroll-chevron">&#8964;</span></div>
+  </section>
+
+  <!-- Countdown #countdown -->
+  <section id="countdown" class="section-countdown reveal-section">
+    <p class="eyebrow">Save the date</p>
+    <h2 class="countdown-title">Le Grand Jour approche</h2>
+    <div class="countdown-blocks">
+      <div class="countdown-block"><span id="cd-jours" class="cd-num">00</span><span class="cd-label">Jours</span></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-block"><span id="cd-heures" class="cd-num">00</span><span class="cd-label">Heures</span></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-block"><span id="cd-minutes" class="cd-num">00</span><span class="cd-label">Minutes</span></div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-block"><span id="cd-secondes" class="cd-num">00</span><span class="cd-label">Secondes</span></div>
+    </div>
+  </section>
+
+  <!-- Programme #programme -->
+  <section id="programme" class="section-programme reveal-section">
+    <div class="section-header">
+      <p class="eyebrow eyebrow--gold" id="programme-eyebrow"></p>
+      <h2 class="h2--light" id="programme-titre"></h2>
+    </div>
+    <div class="timeline" id="prog-wrap"></div>
+  </section>
+
+  <!-- Galerie #galerie -->
+  <section id="galerie" class="section-galerie reveal-section">
+    <div class="section-header">
+      <p class="eyebrow eyebrow--gold">Notre univers</p>
+      <h2 class="h2--light">Le Lieu</h2>
+    </div>
+    <div class="masonry-grid" id="galerie-wrap"></div>
+  </section>
+
+  <!-- Dress Code #dresscode -->
+  <section id="dresscode" class="section-dresscode reveal-section">
+    <div class="dresscode-inner">
+      <p class="eyebrow eyebrow--gold">Pour la soirée</p>
+      <h2 class="h2--light" id="dresscode-titre">Dress Code</h2>
+      <p id="dresscode-texte" class="dresscode-texte"></p>
+      <div class="dresscode-swatches" id="dresscode-swatches"></div>
+    </div>
+  </section>
+
+  <!-- RSVP #rsvp -->
+  <section id="rsvp" class="section-rsvp reveal-section">
+    <div class="rsvp-inner">
+      <p class="eyebrow eyebrow--gold">Votre réponse</p>
+      <h2 class="h2--light" id="rsvp-titre"></h2>
+      <p id="rsvp-intro" class="rsvp-intro"></p>
+      <form id="rsvp-form" class="rsvp-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="f-prenom">Prénom</label>
+            <input type="text" id="f-prenom" name="prenom" required />
+          </div>
+          <div class="form-group">
+            <label for="f-nom">Nom</label>
+            <input type="text" id="f-nom" name="nom" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Présence</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="presence" value="oui" required /> Avec plaisir</label>
+            <label class="radio-label"><input type="radio" name="presence" value="non" /> Dans l'impossibilité</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="f-regime">Régime alimentaire</label>
+          <select id="f-regime" name="regime">
+            <option value="">Aucune restriction</option>
+            <option value="vegetarien">Végétarien</option>
+            <option value="vegan">Vegan</option>
+            <option value="sans-gluten">Sans gluten</option>
+            <option value="halal">Halal</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="f-message">Message</label>
+          <textarea id="f-message" name="message" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn-submit" id="rsvp-btn">Confirmer</button>
+        <p id="rsvp-status" class="rsvp-status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Infos #infos -->
+  <section id="infos" class="section-infos reveal-section">
+    <div class="section-header">
+      <p class="eyebrow" id="infos-eyebrow"></p>
+      <h2 id="infos-titre"></h2>
+    </div>
+    <div class="infos-list" id="infos-wrap"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer-names" id="footer-names"></p>
+    <div class="footer-rule"></div>
+    <p class="footer-citation" id="footer-citation"></p>
+    <p class="footer-credit">Wedoria Studio</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
