@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mariage Champêtre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 1. LOADER -->
+  <div id="loader">
+    <div class="loader-monogram">
+      <span id="loader-p1"></span>
+      <span class="lm-amp">✿</span>
+      <span id="loader-p2"></span>
+    </div>
+    <p class="loader-date" id="loader-date"></p>
+    <div class="loader-bar">
+      <div class="loader-progress" id="loader-progress"></div>
+    </div>
+  </div>
+
+  <!-- 2. NAV -->
+  <nav id="navbar">
+    <div class="nav-logo">
+      <span id="nav-p1"></span>
+      <span class="nav-amp">&amp;</span>
+      <span id="nav-p2"></span>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#histoire">Notre histoire</a></li>
+      <li><a href="#programme">Programme</a></li>
+      <li><a href="#domaine">Le Domaine</a></li>
+      <li><a href="#activites">Activités</a></li>
+      <li><a href="#rsvp">RSVP</a></li>
+      <li><a href="#infos">Infos pratiques</a></li>
+    </ul>
+  </nav>
+
+  <!-- 3. HERO -->
+  <section id="accueil" class="hero-section">
+    <canvas id="leaves-canvas"></canvas>
+    <div class="hero-overlay"></div>
+    <img id="hero-img" class="hero-bg" src="" alt="">
+    <div class="hero-content">
+      <div class="hero-crown">
+        <svg viewBox="0 0 200 60" class="crown-svg" aria-hidden="true">
+          <path d="M10,55 Q30,10 50,30 Q70,50 100,5 Q130,50 150,30 Q170,10 190,55" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="100" cy="5" r="3" fill="currentColor"/>
+          <circle cx="50" cy="30" r="2" fill="currentColor"/>
+          <circle cx="150" cy="30" r="2" fill="currentColor"/>
+        </svg>
+      </div>
+      <p id="hero-invite"></p>
+      <h1 id="hero-names-overlay"></h1>
+      <p id="hero-date-overlay"></p>
+      <a href="#rsvp" id="hero-cta-overlay"></a>
+    </div>
+  </section>
+
+  <!-- 4. HISTOIRE -->
+  <section id="histoire">
+    <div class="section-histoire reveal-section">
+      <div class="section-header">
+        <p class="eyebrow" id="histoire-eyebrow"></p>
+        <h2 id="histoire-titre"></h2>
+        <div class="leaf-divider">
+          <svg viewBox="0 0 80 20"><path d="M0,10 Q20,0 40,10 Q60,20 80,10" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+        </div>
+      </div>
+      <div class="histoire-timeline" id="histoire-wrap"></div>
+    </div>
+  </section>
+
+  <!-- 5. PROGRAMME -->
+  <section id="programme">
+    <div class="section-programme reveal-section">
+      <div class="section-header">
+        <p class="eyebrow" id="programme-eyebrow"></p>
+        <h2 id="programme-titre"></h2>
+      </div>
+      <div class="programme-cards" id="prog-wrap"></div>
+    </div>
+  </section>
+
+  <!-- 6. DOMAINE -->
+  <section id="domaine">
+    <div class="section-domaine reveal-section">
+      <div class="domaine-photo-wrap">
+        <img id="domaine-photo" src="" alt="">
+      </div>
+      <div class="domaine-text">
+        <p class="eyebrow" id="domaine-eyebrow"></p>
+        <h2 id="domaine-titre"></h2>
+        <p id="domaine-desc" class="domaine-desc"></p>
+      </div>
+      <div id="map" class="leaflet-map"></div>
+    </div>
+  </section>
+
+  <!-- 7. ACTIVITES -->
+  <section id="activites">
+    <div class="section-activites reveal-section">
+      <div class="section-header">
+        <p class="eyebrow">Pour profiter du domaine</p>
+        <h2>Les Activités</h2>
+      </div>
+      <div class="activites-grid" id="activites-wrap"></div>
+    </div>
+  </section>
+
+  <!-- 8. RSVP -->
+  <section id="rsvp">
+    <div class="section-rsvp reveal-section">
+      <div class="rsvp-floral-bg"></div>
+      <div class="rsvp-inner">
+        <p class="eyebrow">Votre réponse</p>
+        <h2 id="rsvp-titre"></h2>
+        <p id="rsvp-intro" class="rsvp-intro"></p>
+        <form id="rsvp-form" class="rsvp-form" novalidate>
+          <div class="form-row">
+            <input type="text" id="f-prenom" name="prenom" placeholder="Prénom" autocomplete="given-name">
+            <input type="text" id="f-nom" name="nom" placeholder="Nom" autocomplete="family-name">
+          </div>
+          <fieldset class="form-presence">
+            <legend>Serez-vous présent(e) ?</legend>
+            <label class="radio-label">
+              <input type="radio" name="presence" value="oui">
+              <span>Oui, avec plaisir !</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="presence" value="non">
+              <span>Non, malheureusement</span>
+            </label>
+          </fieldset>
+          <select id="f-regime" name="regime">
+            <option value="">Régime alimentaire (optionnel)</option>
+            <option value="végétarien">Végétarien</option>
+            <option value="vegan">Vegan</option>
+            <option value="sans-gluten">Sans gluten</option>
+            <option value="halal">Halal</option>
+            <option value="autre">Autre</option>
+          </select>
+          <textarea id="f-message" name="message" placeholder="Un message pour les mariés... (optionnel)" rows="4"></textarea>
+          <button type="submit" id="rsvp-btn" class="btn-submit">Envoyer ma réponse</button>
+          <p id="rsvp-status" class="rsvp-status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. INFOS -->
+  <section id="infos">
+    <div class="section-infos reveal-section">
+      <div class="section-header">
+        <p class="eyebrow" id="infos-eyebrow"></p>
+        <h2 id="infos-titre"></h2>
+      </div>
+      <div class="infos-grid" id="infos-wrap"></div>
+    </div>
+  </section>
+
+  <!-- 10. FOOTER -->
+  <footer class="footer">
+    <p class="footer-citation" id="footer-citation"></p>
+    <p class="footer-names" id="footer-names"></p>
+    <p class="footer-credit">Fait avec <a href="https://wedoria.studio" target="_blank" rel="noopener">Wedoria Studio</a></p>
+  </footer>
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
