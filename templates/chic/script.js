@@ -124,16 +124,30 @@ function runLoader() {
 }
 
 /* ── GSAP HERO ── */
+function heroFallback() {
+  // Appelé si GSAP est absent ou bloqué : force la visibilité des éléments hero.
+  document.querySelectorAll('.hero-char, .hero-amp, .hero-rule, .hero-date, .btn-hero')
+    .forEach(el => { el.style.opacity = '1'; el.style.transform = 'none'; });
+}
+
 function initGsapHero() {
-  if (!window.gsap) return;
+  if (!window.gsap) {
+    // GSAP absent : les éléments n'ont pas été cachés, rien à faire.
+    return;
+  }
+
+  // Fallback de sécurité : si GSAP est présent mais la timeline ne finit pas
+  // (script bloqué, erreur interne), on force la visibilité après 3s.
+  const fallbackTimer = setTimeout(heroFallback, 3000);
+
   // Set initial state
   gsap.set('.hero-char', { opacity: 0, y: 30 });
   gsap.set('.hero-amp', { opacity: 0 });
   gsap.set('.hero-rule', { scaleX: 0, opacity: 0 });
   gsap.set('.hero-date', { opacity: 0, y: 10 });
   gsap.set('.btn-hero', { opacity: 0, y: 10 });
-  // Animate
-  gsap.timeline({ defaults: { ease: 'power3.out' } })
+  // Animate — on annule le fallback dès que la timeline est terminée
+  gsap.timeline({ defaults: { ease: 'power3.out' }, onComplete: () => clearTimeout(fallbackTimer) })
     .to('.hero-char', { opacity: 1, y: 0, stagger: 0.04, duration: 0.8 })
     .to('.hero-amp', { opacity: 1, duration: 0.4 }, '-=0.3')
     .to('.hero-rule', { scaleX: 1, opacity: 1, duration: 0.5, transformOrigin: 'left' }, '-=0.2')
@@ -143,7 +157,13 @@ function initGsapHero() {
 
 /* ── COUNTDOWN ── */
 function initCountdown() {
-  const target = new Date(MARIAGE.date_iso);
+  // On force l'offset Paris (+02:00 été / +01:00 hiver) pour éviter que
+  // les navigateurs interprètent une date sans timezone en UTC (décalage ±1-2h).
+  // Les mariés et invités sont en France → on cible toujours l'heure locale Paris.
+  const isoWithTz = /[+-]\d{2}:\d{2}$|Z$/.test(MARIAGE.date_iso)
+    ? MARIAGE.date_iso
+    : MARIAGE.date_iso + '+02:00';
+  const target = new Date(isoWithTz);
   const pad = n => String(Math.floor(n)).padStart(2, '0');
   function update() {
     const diff = target - new Date();
