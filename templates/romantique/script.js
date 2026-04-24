@@ -320,11 +320,16 @@ function initCarousel() {
     });
   }
 
-  setInterval(function() { goTo(current + 1); }, 5000);
+  var autoTimer = setInterval(function() { goTo(current + 1); }, 5000);
 
   var touchStartX = 0;
   var wrapper = document.querySelector('.carousel-wrapper');
   if (wrapper) {
+    wrapper.addEventListener('mouseenter', function() { clearInterval(autoTimer); });
+    wrapper.addEventListener('mouseleave', function() {
+      autoTimer = setInterval(function() { goTo(current + 1); }, 5000);
+    });
+
     wrapper.addEventListener('touchstart', function(e) {
       touchStartX = e.touches[0].clientX;
     }, { passive: true });
