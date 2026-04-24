@@ -242,10 +242,48 @@ function initRsvp() {
   });
 }
 
+/* ── LIGHTBOX ── */
+function initLightbox() {
+  // Crée le DOM lightbox
+  const lb = document.createElement('div');
+  lb.id = 'lightbox';
+  lb.innerHTML = '<button id="lightbox-close" aria-label="Fermer">&#x2715;</button><img id="lightbox-img" src="" alt="" />';
+  document.body.appendChild(lb);
+
+  const img = document.getElementById('lightbox-img');
+
+  function open(src, alt) {
+    img.src = src;
+    img.alt = alt || '';
+    lb.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    lb.classList.remove('active');
+    document.body.style.overflow = '';
+    img.src = '';
+  }
+
+  // Délégation sur le conteneur galerie pour couvrir les items injectés dynamiquement
+  document.addEventListener('click', (e) => {
+    const item = e.target.closest('.masonry-item');
+    if (item) {
+      const photoImg = item.querySelector('img');
+      if (photoImg) open(photoImg.src, photoImg.alt);
+    }
+  });
+
+  document.getElementById('lightbox-close').addEventListener('click', close);
+  lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+}
+
 /* ── INIT ── */
 hydrate();
 runLoader();
 initNav();
 initCountdown();
 initReveal();
+initLightbox();
 document.addEventListener('DOMContentLoaded', initRsvp);
