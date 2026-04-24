@@ -52,6 +52,7 @@ async function saveMariage(mariage) {
   };
   if (!isNew) row.id = mariage.id;
 
+  // Requires mariages.id to have a server-side default (gen_random_uuid())
   const { data, error } = await sb
     .from('mariages')
     .upsert(row, { onConflict: 'id' })
