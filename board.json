@@ -1,0 +1,51 @@
+{
+  "date": "2026-04-24",
+  "sprint": {
+    "numero": 1,
+    "nom": "Robustesse produit",
+    "progression": 0
+  },
+  "agents": {
+    "ceo":         { "statut": "actif" },
+    "tech-lead":   { "statut": "actif" },
+    "dev":         { "statut": "actif" },
+    "designer":    { "statut": "attente" },
+    "chef-projet": { "statut": "attente" },
+    "marketing":   { "statut": "attente" },
+    "commercial":  { "statut": "attente" },
+    "support":     { "statut": "actif" }
+  },
+  "enCours": [
+    {
+      "id": "t1",
+      "agent": "tech-lead",
+      "tache": "Audit complet template romantique (HTML, CSS, JS, mobile, cross-browser)"
+    }
+  ],
+  "aFaire": [
+    {
+      "id": "t2",
+      "agent": "tech-lead",
+      "tache": "Audit complet template chic"
+    },
+    {
+      "id": "t3",
+      "agent": "tech-lead",
+      "tache": "Audit complet template de base (template/)"
+    },
+    {
+      "id": "t4",
+      "agent": "support",
+      "tache": "Rédiger FAQ initiale (5 questions fréquentes anticipées)"
+    }
+  ],
+  "escalades": [],
+  "decisions": [
+    {
+      "date": "2026-04-24",
+      "agent": "ceo",
+      "decision": "Sprint 1 lancé. Tech Lead audite les 3 templates. Designer activé après audit. Sprint 2 démarre quand sprint1_valide = true."
+    }
+  ],
+  "termine": []
+}
