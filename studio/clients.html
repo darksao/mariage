@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>◆ Wedoria Studio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="page-topbar">
+  <span class="topbar-logo">◆ WEDORIA STUDIO</span>
+  <span style="flex:1"></span>
+  <button class="btn-save" id="btn-new">+ Nouveau mariage</button>
+</header>
+
+<main class="page-main">
+  <div class="page-body">
+
+    <div class="state-loading" id="state-loading">
+      <div class="spinner"></div>
+      <span>Chargement…</span>
+    </div>
+
+    <div class="state-empty hidden" id="state-empty">
+      <p>Aucun mariage · Créez votre premier projet →</p>
+      <button class="btn-save" id="btn-new-empty">+ Nouveau mariage</button>
+    </div>
+
+    <div class="state-error hidden" id="state-error">
+      <p id="error-msg">Erreur de chargement</p>
+    </div>
+
+    <table class="clients-table hidden" id="clients-table">
+      <thead>
+        <tr>
+          <th>Couple</th>
+          <th>Date</th>
+          <th>Template</th>
+          <th>Dernière modif</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="clients-tbody"></tbody>
+    </table>
+
+  </div>
+</main>
+
+<!-- Confirm delete modal -->
+<div class="modal-backdrop hidden" id="modal-confirm">
+  <div class="modal-box">
+    <p id="modal-text">Supprimer ce mariage définitivement ?</p>
+    <div class="modal-actions">
+      <button class="btn-load" id="modal-cancel">Annuler</button>
+      <button class="btn-load" id="modal-confirm-btn" style="color:var(--red);border-color:var(--red)">Supprimer</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="studio-config.js"></script>
+<script src="studio-supabase.js"></script>
+<script src="clients.js"></script>
+</body>
+</html>
