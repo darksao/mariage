@@ -1,0 +1,93 @@
+{
+  "planPath": "docs/superpowers/plans/2026-04-15-wedoria-site-vitrine.md",
+  "tasks": [
+    {
+      "id": 0,
+      "subject": "Task 0: Scaffold — fichiers, tokens, fonts",
+      "status": "pending",
+      "description": "**Goal:** Créer les 3 fichiers avec le squelette HTML, les variables CSS et l'import des fonts.\n\n**Files:**\n- Create: `wedoria-site-vitrine/index.html`\n- Create: `wedoria-site-vitrine/style.css`\n- Create: `wedoria-site-vitrine/script.js`\n\n**Acceptance Criteria:**\n- [ ] index.html valide avec doctype, meta viewport, liens CDN GSAP\n- [ ] style.css contient tous les custom properties\n- [ ] Google Fonts chargées\n- [ ] Ouvrir dans navigateur → fond ivoire, pas d'erreur console\n\n**Verify:** Ouvrir `wedoria-site-vitrine/index.html` → fond `#FAFAF7`\n\n```json:metadata\n{\"files\": [\"wedoria-site-vitrine/index.html\", \"wedoria-site-vitrine/style.css\", \"wedoria-site-vitrine/script.js\"], \"verifyCommand\": \"open wedoria-site-vitrine/index.html\", \"acceptanceCriteria\": [\"3 fichiers créés\", \"fond ivoire visible\", \"GSAP chargé sans erreur console\"], \"requiresUserVerification\": false}\n```",
+      "activeForm": "Setting up project scaffold"
+    },
+    {
+      "id": 1,
+      "subject": "Task 1: Loader",
+      "status": "pending",
+      "blockedBy": [0],
+      "description": "**Goal:** Animation d'entrée avec monogramme W, barre de progression dorée, fade-out.\n\n**Files:**\n- Modify: `wedoria-site-vitrine/index.html`\n- Modify: `wedoria-site-vitrine/style.css`\n- Modify: `wedoria-site-vitrine/script.js`\n\n**Acceptance Criteria:**\n- [ ] Loader 100vh fond ivoire\n- [ ] W en Cormorant italic fade+scale\n- [ ] Barre or se remplit\n- [ ] Loader disparaît après ~1.8s\n\n**Verify:** Rafraîchir → loader visible ~1.8s puis disparaît\n\n```json:metadata\n{\"files\": [\"wedoria-site-vitrine/index.html\", \"wedoria-site-vitrine/style.css\", \"wedoria-site-vitrine/script.js\"], \"verifyCommand\": \"open wedoria-site-vitrine/index.html\", \"acceptanceCriteria\": [\"Loader visible au chargement\", \"W apparaît en fade+scale\", \"barre se remplit en or\", \"loader disparaît après 1.8s\"], \"requiresUserVerification\": false}\n```",
+      "activeForm": "Implementing loader animation"
+    },
+    {
+      "id": 2,
+      "subject": "Task 2: Navbar",
+      "status": "pending",
+      "blockedBy": [1],
+      "description": "**Goal:** Navigation sticky avec logo Wedoria, liens desktop, menu hamburger mobile.\n\n**Files:**\n- Modify: `wedoria-site-vitrine/index.html`\n- Modify: `wedoria-site-vitrine/style.css`\n- Modify: `wedoria-site-vitrine/script.js`\n\n**Acceptance Criteria:**\n- [ ] Navbar fixed, transparent → opaque au scroll\n- [ ] Desktop : logo gauche, liens droite\n- [ ] Mobile : hamburger + menu plein écran overlay\n- [ ] Smooth scroll vers les ancres\n\n**Verify:** Scroller → navbar devient opaque. Mobile : hamburger ouvre menu.\n\n```json:metadata\n{\"files\": [\"wedoria-site-vitrine/index.html\", \"wedoria-site-vitrine/style.css\", \"wedoria-site-vitrine/script.js\"], \"verifyCommand\": \"open wedoria-site-vitrine/index.html\", \"acceptanceCriteria\": [\"navbar visible\", \"fond change au scroll\", \"hamburger ouvre menu mobile\", \"liens smooth-scrollent\"], \"requiresUserVerification\": false}\n```",
+      "activeForm": "Implementing navbar"
+    },
+    {
+      "id": 3,
+      "subject": "Task 3: Hero — Pétales Canvas",
+      "status": "pending",
+      "blockedBy": [2],
+      "description": "**Goal:** Section plein écran avec canvas pétales animés, grand titre, sous-titre et CTA.\n\n**Files:**\n- Modify: `wedoria-site-vitrine/index.html`\n- Modify: `wedoria-site-vitrine/style.css`\n- Modify: `wedoria-site-vitrine/script.js`\n\n**Acceptance Criteria:**\n- [ ] Hero 100svh fond ivoire\n- [ ] Canvas pétales dorés animés (20 mobile, 50 desktop)\n- [ ] Titre Cormorant italic très grand\n- [ ] Hover magnétique sur CTA (desktop)\n- [ ] Scroll hint animé en bas\n\n**Verify:** Hero visible, pétales animés, CTA cliquable.\n\n```json:metadata\n{\"files\": [\"wedoria-site-vitrine/index.html\", \"wedoria-site-vitrine/style.css\", \"wedoria-site-vitrine/script.js\"], \"verifyCommand\": \"open wedoria-site-vitrine/index.html\", \"acceptanceCriteria\": [\"hero plein écran\", \"pétales animés visibles\", \"titre/sous-titre/CTA centrés\", \"scroll hint visible après 2s\"], \"requiresUserVerification\": false}\n```",
+      "activeForm": "Implementing hero with canvas petals"
+    },
+    {
+      "id": 4,
+      "subject": "Task 4: Manifeste (section accroche)",
+      "status": "pending",
+      "blockedBy": [3],
+      "description": "**Goal:** Texte révélé mot par mot — épinglé sur desktop, reveal simple sur mobile.\n\n**Files:**\n- Modify: `wedoria-site-vitrine/index.html`\n- Modify: `wedoria-site-vitrine/style.css`\n- Modify: `wedoria-site-vitrine/script.js`\n\n**Acceptance Criteria:**\n- [ ] Section fond #1C1C1C\n- [ ] Desktop : épinglée ~300vh, mots révélés au scrub\n- [ ] Mobile : IntersectionObserver reveal\n- [ ] prefers-reduced-motion : tout visible statiquement\n\n**Verify:** Desktop → scroller dans section épinglée fait apparaître les mots.\n\n```json:metadata\n{\"files\": [\"wedoria-site-vitrine/index.html\", \"wedoria-site-vitrine/style.css\", \"wedoria-site-vitrine/script.js\"], \"verifyCommand\": \"open wedoria-site-vitrine/index.html\", \"acceptanceCriteria\": [\"section sombre visible\", \"mots révélés au scroll desktop\", \"reveal mobile fonctionnel\", \"prefers-reduced-motion respecté\"], \"requiresUserVerification\": false}\n```",
+      "activeForm": "Implementing manifeste with GSAP pin"
+    },
+    {
+      "id": 5,
+      "subject": "Task 5: Comment ça marche",
+      "status": "pending",
+      "blockedBy": [4],
+      "description": "**Goal:** 3 étapes animées avec grande numérotation Cormorant et ligne dorée verticale.\n\n**Files:**\n- Modify: `wedoria-site-vitrine/index.html`\n- Modify: `wedoria-site-vitrine/style.css`\n- Modify: `wedoria-site-vitrine/script.js`\n\n**Acceptance Criteria:**\n- [ ] Numéros 01/02/03 en Cormorant ~7rem or\n- [ ] Mobile : étapes empilées. Desktop : 3 colonnes + ligne dorée\n- [ ] Stagger d'entrée au scroll\n\n**Verify:** Scroll → 3 étapes apparaissent en cascade.\n\n```json:metadata\n{\"files\": [\"wedoria-site-vitrine/index.html\", \"wedoria-site-vitrine/style.css\", \"wedoria-site-vitrine/script.js\"], \"verifyCommand\": \"open wedoria-site-vitrine/index.html\", \"acceptanceCriteria\": [\"3 étapes visibles\", \"numéros en or\", \"ligne dorée desktop\", \"stagger animation au scroll\"], \"requiresUserVerification\": false}\n```",
+      "activeForm": "Implementing how it works section"
+    },
+    {
+      "id": 6,
+      "subject": "Task 6: Portfolio",
+      "status": "pending",
+      "blockedBy": [5],
+      "description": "**Goal:** 6 cartes avec scroll horizontal GSAP épinglé desktop et grille verticale mobile.\n\n**Files:**\n- Modify: `wedoria-site-vitrine/index.html`\n- Modify: `wedoria-site-vitrine/style.css`\n- Modify: `wedoria-site-vitrine/script.js`\n\n**Acceptance Criteria:**\n- [ ] 6 cartes avec gradients placeholder thématiques\n- [ ] Desktop : container épinglé, translateX scrubé via GSAP\n- [ ] Mobile : grid 1 colonne\n- [ ] Hover : élévation + overlay bordeaux\n\n**Verify:** Desktop → scroller fait glisser les cartes horizontalement.\n\n```json:metadata\n{\"files\": [\"wedoria-site-vitrine/index.html\", \"wedoria-site-vitrine/style.css\", \"wedoria-site-vitrine/script.js\"], \"verifyCommand\": \"open wedoria-site-vitrine/index.html\", \"acceptanceCriteria\": [\"6 cartes visibles\", \"scroll horizontal desktop fonctionnel\", \"hover overlay visible\", \"mobile grid vertical\"], \"requiresUserVerification\": false}\n```",
+      "activeForm": "Implementing portfolio with horizontal scroll"
+    },
+    {
+      "id": 7,
+      "subject": "Task 7: Formules tarifaires",
+      "status": "pending",
+      "blockedBy": [6],
+      "description": "**Goal:** 3 cartes tarifaires avec mise en avant Premium, shimmer, stagger d'entrée.\n\n**Files:**\n- Modify: `wedoria-site-vitrine/index.html`\n- Modify: `wedoria-site-vitrine/style.css`\n- Modify: `wedoria-site-vitrine/script.js`\n\n**Acceptance Criteria:**\n- [ ] Essentielle 290€ / Premium 490€ / Sur-mesure sur devis\n- [ ] Premium : border or, scale, badge, shimmer\n- [ ] Stagger d'entrée\n- [ ] Mobile : 1 colonne, Premium en premier\n\n**Verify:** Scroll → 3 cartes apparaissent en stagger, shimmer sur Premium.\n\n```json:metadata\n{\"files\": [\"wedoria-site-vitrine/index.html\", \"wedoria-site-vitrine/style.css\", \"wedoria-site-vitrine/script.js\"], \"verifyCommand\": \"open wedoria-site-vitrine/index.html\", \"acceptanceCriteria\": [\"3 cartes visibles\", \"Premium mis en avant\", \"shimmer déclenché une fois\", \"stagger fonctionnel\"], \"requiresUserVerification\": false}\n```",
+      "activeForm": "Implementing pricing section"
+    },
+    {
+      "id": 8,
+      "subject": "Task 8: Témoignages",
+      "status": "pending",
+      "blockedBy": [7],
+      "description": "**Goal:** 3 citations éditorialisées avec guillemet décoratif, stagger d'entrée.\n\n**Files:**\n- Modify: `wedoria-site-vitrine/index.html`\n- Modify: `wedoria-site-vitrine/style.css`\n- Modify: `wedoria-site-vitrine/script.js`\n\n**Acceptance Criteria:**\n- [ ] 3 citations Cormorant italic\n- [ ] Guillemets décoratifs or pâle\n- [ ] Desktop 3 colonnes, mobile empilé\n- [ ] Stagger au scroll\n\n**Verify:** Scroll → 3 témoignages en cascade.\n\n```json:metadata\n{\"files\": [\"wedoria-site-vitrine/index.html\", \"wedoria-site-vitrine/style.css\", \"wedoria-site-vitrine/script.js\"], \"verifyCommand\": \"open wedoria-site-vitrine/index.html\", \"acceptanceCriteria\": [\"3 citations visibles\", \"guillemets décoratifs\", \"stagger fonctionnel\"], \"requiresUserVerification\": false}\n```",
+      "activeForm": "Implementing testimonials section"
+    },
+    {
+      "id": 9,
+      "subject": "Task 9: Formulaire de contact + Footer",
+      "status": "pending",
+      "blockedBy": [8],
+      "description": "**Goal:** Formulaire sobre sur fond sombre avec feedback JS, puis footer minimal.\n\n**Files:**\n- Modify: `wedoria-site-vitrine/index.html`\n- Modify: `wedoria-site-vitrine/style.css`\n- Modify: `wedoria-site-vitrine/script.js`\n\n**Acceptance Criteria:**\n- [ ] Fond #1C1C1C, titre Cormorant blanc\n- [ ] Labels flottants CSS\n- [ ] Submit → confirmation inline sans rechargement\n- [ ] Footer complet avec copyright\n\n**Verify:** Remplir + soumettre → confirmation visible, pas de rechargement.\n\n```json:metadata\n{\"files\": [\"wedoria-site-vitrine/index.html\", \"wedoria-site-vitrine/style.css\", \"wedoria-site-vitrine/script.js\"], \"verifyCommand\": \"open wedoria-site-vitrine/index.html\", \"acceptanceCriteria\": [\"formulaire visible\", \"labels flottants fonctionnels\", \"submit affiche confirmation\", \"footer complet\"], \"requiresUserVerification\": false}\n```",
+      "activeForm": "Implementing contact form and footer"
+    },
+    {
+      "id": 10,
+      "subject": "Task 10: Accessibilité, responsive final, polish",
+      "status": "pending",
+      "blockedBy": [9],
+      "description": "**Goal:** Vérifications finales — reduced motion, focus, mobile, meta SEO.\n\n**Files:**\n- Modify: `wedoria-site-vitrine/index.html`\n- Modify: `wedoria-site-vitrine/style.css`\n- Modify: `wedoria-site-vitrine/script.js`\n\n**Acceptance Criteria:**\n- [ ] prefers-reduced-motion : page lisible statiquement\n- [ ] Focus visible sur tous les éléments interactifs\n- [ ] Meta OG dans le head\n- [ ] Pas d'overflow horizontal mobile\n- [ ] ScrollTrigger.refresh() au resize\n\n**Verify:** Tab navigation OK. Mobile 320px sans overflow. Reduced motion OK.\n\n```json:metadata\n{\"files\": [\"wedoria-site-vitrine/index.html\", \"wedoria-site-vitrine/style.css\", \"wedoria-site-vitrine/script.js\"], \"verifyCommand\": \"open wedoria-site-vitrine/index.html\", \"acceptanceCriteria\": [\"reduced-motion lisible\", \"focus visible partout\", \"pas d'overflow mobile\", \"meta OG présentes\"], \"requiresUserVerification\": false}\n```",
+      "activeForm": "Polishing accessibility and responsiveness"
+    }
+  ],
+  "lastUpdated": "2026-04-15T00:00:00Z"
+}

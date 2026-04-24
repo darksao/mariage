@@ -1,0 +1,33 @@
+{
+  "planPath": "docs/superpowers/plans/2026-04-09-hero-video-scroll.md",
+  "tasks": [
+    {
+      "id": 0,
+      "subject": "Tâche 1: Remplacer le hero dans index.html",
+      "status": "pending",
+      "description": "**Goal:** Remplacer le contenu de la section #accueil par la structure HTML du hero vidéo.\n\n**Files:**\n- Modify: `site-invites/index.html`\n\n**Acceptance Criteria:**\n- [ ] section #accueil contient video#hero-video avec sources mp4 et webm\n- [ ] hero-frame existe\n- [ ] hero-overlay avec monogramme/noms/date/CTA existe\n- [ ] ancienne structure (canvas, rings, hero-content, countdown) supprimée\n\n```json:metadata\n{\"files\": [\"site-invites/index.html\"], \"verifyCommand\": \"\", \"acceptanceCriteria\": [\"video#hero-video présent\", \"hero-frame présent\", \"hero-overlay présent\", \"ancienne structure supprimée\"], \"requiresUserVerification\": false}\n```"
+    },
+    {
+      "id": 1,
+      "subject": "Tâche 2: Ajouter les styles CSS du hero vidéo",
+      "status": "pending",
+      "blockedBy": [0],
+      "description": "**Goal:** Ajouter les styles pour .hero-video-section et tous ses éléments enfants.\n\n**Files:**\n- Modify: `site-invites/style.css`\n\n**Acceptance Criteria:**\n- [ ] .hero-video-section 100dvh position:relative overflow:hidden\n- [ ] #hero-video absolute object-fit:cover\n- [ ] #hero-frame bordure dorée opacity:0\n- [ ] #hero-overlay centré en bas\n- [ ] éléments overlay opacity:0 par défaut\n\n```json:metadata\n{\"files\": [\"site-invites/style.css\"], \"verifyCommand\": \"\", \"acceptanceCriteria\": [\".hero-video-section styles\", \"#hero-video styles\", \"#hero-frame styles\", \"#hero-overlay styles\", \"éléments opacity:0\"], \"requiresUserVerification\": false}\n```"
+    },
+    {
+      "id": 2,
+      "subject": "Tâche 3: Remplacer initHeroGsap() par initVideoHero()",
+      "status": "pending",
+      "blockedBy": [1],
+      "description": "**Goal:** Implémenter initVideoHero() avec GSAP ScrollTrigger scrub vidéo et animations scroll-driven.\n\n**Files:**\n- Modify: `site-invites/script.js`\n\n**Acceptance Criteria:**\n- [ ] initVideoHero() appelée depuis dismissLoader()\n- [ ] pin 250vh\n- [ ] video.currentTime scrubé\n- [ ] scale 1.4→1.0 sur 50%\n- [ ] cadre opacity 30%-60%\n- [ ] monogramme 50%-75%\n- [ ] noms 60%-80%\n- [ ] date 70%-85%\n- [ ] CTA 80%-100%\n- [ ] initScrollAnimations et initStickyReveal appelées\n\n```json:metadata\n{\"files\": [\"site-invites/script.js\"], \"verifyCommand\": \"\", \"acceptanceCriteria\": [\"initVideoHero appelée\", \"pin 250vh\", \"scrub vidéo\", \"animations séquencées\"], \"requiresUserVerification\": false}\n```"
+    },
+    {
+      "id": 3,
+      "subject": "Tâche 4: Vérification visuelle par l'utilisateur",
+      "status": "pending",
+      "blockedBy": [2],
+      "description": "**Goal:** Confirmer que l'animation scroll-driven fonctionne correctement dans le navigateur.\n\n**User Verification Required:**\nAvant de marquer cette tâche comme terminée, appeler AskUserQuestion :\n```yaml\nAskUserQuestion:\n  question: \"L'animation hero vidéo scroll-driven fonctionne-t-elle comme attendu ?\"\n  header: \"Vérification visuelle\"\n  options:\n    - label: \"Oui, c'est bon\"\n      description: \"L'animation est fluide et les éléments apparaissent dans le bon ordre\"\n    - label: \"Non, il y a un problème\"\n      description: \"Décrire le problème — on ajuste\"\n```\n\n```json:metadata\n{\"files\": [], \"verifyCommand\": \"\", \"acceptanceCriteria\": [\"animation fluide\", \"zoom visible\", \"cadre et textes révélés\"], \"requiresUserVerification\": true, \"userVerificationPrompt\": \"L'animation hero vidéo scroll-driven fonctionne-t-elle comme attendu ?\"}\n```"
+    }
+  ],
+  "lastUpdated": "2026-04-09T00:00:00Z"
+}

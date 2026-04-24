@@ -13,8 +13,9 @@
   <span class="topbar-logo">◆ STUDIO</span>
   <span class="topbar-client" id="topbar-client">Aucun config chargé</span>
   <input type="file" id="file-input" accept=".js" style="display:none" />
-  <button class="btn-load" id="btn-load">📂 Charger config.js</button>
-  <button class="btn-export" id="btn-export" disabled>⬇ Télécharger config.js</button>
+  <button class="btn-load" id="btn-load">📂 Charger</button>
+  <button class="btn-save" id="btn-save" disabled>↺ Mettre à jour</button>
+  <button class="btn-export" id="btn-export" disabled>⬇ Exporter</button>
 </header>
 
 <!-- LAYOUT -->
@@ -23,65 +24,261 @@
   <!-- LEFT: formulaire éditable -->
   <aside class="left-panel" id="left-panel">
 
-    <div class="panel-section">
-      <div class="panel-section-title">Mariés</div>
-      <div class="field-row">
-        <div class="field"><label>Prénom 1</label><input type="text" id="s_prenom1" /></div>
-        <div class="field"><label>Nom 1</label><input type="text" id="s_nom1" /></div>
+    <!-- ══ MARIÉS ══ -->
+    <details class="panel-section" open>
+      <summary class="panel-section-title">Mariés</summary>
+      <div class="section-body">
+        <div class="field-row">
+          <div class="field"><label>Prénom 1</label><input type="text" id="s_prenom1" /></div>
+          <div class="field"><label>Nom 1</label><input type="text" id="s_nom1" /></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Prénom 2</label><input type="text" id="s_prenom2" /></div>
+          <div class="field"><label>Nom 2</label><input type="text" id="s_nom2" /></div>
+        </div>
       </div>
-      <div class="field-row">
-        <div class="field"><label>Prénom 2</label><input type="text" id="s_prenom2" /></div>
-        <div class="field"><label>Nom 2</label><input type="text" id="s_nom2" /></div>
+    </details>
+
+    <!-- ══ DATE & LIEU ══ -->
+    <details class="panel-section" open>
+      <summary class="panel-section-title">Date &amp; Lieu</summary>
+      <div class="section-body">
+        <div class="field"><label>Date affichée</label><input type="text" id="s_date_affichage" /></div>
+        <div class="field"><label>Date ISO</label><input type="text" id="s_date_iso" placeholder="2025-07-12T14:00:00" /></div>
+        <div class="field"><label>Deadline RSVP</label><input type="text" id="s_rsvp_deadline" /></div>
+        <div class="field-row">
+          <div class="field"><label>Domaine</label><input type="text" id="s_domaine" /></div>
+          <div class="field"><label>Ville</label><input type="text" id="s_ville" /></div>
+        </div>
       </div>
-    </div>
+    </details>
 
-    <div class="panel-section">
-      <div class="panel-section-title">Date &amp; Lieu</div>
-      <div class="field"><label>Date affichée</label><input type="text" id="s_date_affichage" /></div>
-      <div class="field"><label>Date ISO</label><input type="text" id="s_date_iso" /></div>
-      <div class="field"><label>Deadline RSVP</label><input type="text" id="s_rsvp_deadline" /></div>
-      <div class="field-row">
-        <div class="field"><label>Domaine</label><input type="text" id="s_domaine" /></div>
-        <div class="field"><label>Ville</label><input type="text" id="s_ville" /></div>
+    <!-- ══ PHOTOS ══ -->
+    <details class="panel-section" open>
+      <summary class="panel-section-title">📷 Photos</summary>
+      <div class="section-body">
+
+        <div class="photo-slot-label">Section couple</div>
+        <div class="field">
+          <label>Photo couple</label>
+          <div class="photo-row">
+            <select id="s_photo_couple">
+              <option value="">— aucune —</option>
+              <option value="photo-couple.png">photo-couple.png</option>
+              <option value="photo-ambiance-1.png">photo-ambiance-1.png</option>
+              <option value="photo-ambiance-2.png">photo-ambiance-2.png</option>
+              <option value="photo-ambiance-3.png">photo-ambiance-3.png</option>
+            </select>
+            <div class="photo-thumb" id="thumb_couple"></div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Légende</label>
+          <input type="text" id="s_photo_couple_caption" />
+        </div>
+
+        <div class="photo-slot-label" style="margin-top:0.75rem">Fond section "Avant ce jour…"</div>
+        <div class="field">
+          <label>Ambiance 0 · fond sticky-reveal</label>
+          <div class="photo-row">
+            <select id="s_photo_ambiance_0">
+              <option value="">— aucune —</option>
+              <option value="photo-couple.png">photo-couple.png</option>
+              <option value="photo-ambiance-1.png">photo-ambiance-1.png</option>
+              <option value="photo-ambiance-2.png">photo-ambiance-2.png</option>
+              <option value="photo-ambiance-3.png">photo-ambiance-3.png</option>
+            </select>
+            <div class="photo-thumb" id="thumb_ambiance_0"></div>
+          </div>
+        </div>
+
+        <div class="photo-slot-label" style="margin-top:0.75rem">Bandes photo pleine largeur</div>
+        <div class="field">
+          <label>Ambiance 1 · entre Histoire et Bandeau</label>
+          <div class="photo-row">
+            <select id="s_photo_ambiance_1">
+              <option value="">— aucune —</option>
+              <option value="photo-couple.png">photo-couple.png</option>
+              <option value="photo-ambiance-1.png">photo-ambiance-1.png</option>
+              <option value="photo-ambiance-2.png">photo-ambiance-2.png</option>
+              <option value="photo-ambiance-3.png">photo-ambiance-3.png</option>
+            </select>
+            <div class="photo-thumb" id="thumb_ambiance_1"></div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Ambiance 2 · avant RSVP</label>
+          <div class="photo-row">
+            <select id="s_photo_ambiance_2">
+              <option value="">— aucune —</option>
+              <option value="photo-couple.png">photo-couple.png</option>
+              <option value="photo-ambiance-1.png">photo-ambiance-1.png</option>
+              <option value="photo-ambiance-2.png">photo-ambiance-2.png</option>
+              <option value="photo-ambiance-3.png">photo-ambiance-3.png</option>
+            </select>
+            <div class="photo-thumb" id="thumb_ambiance_2"></div>
+          </div>
+        </div>
+
       </div>
-    </div>
+    </details>
 
-    <div class="panel-section">
-      <div class="panel-section-title">Contact</div>
-      <div class="field"><label>Email</label><input type="text" id="s_email" /></div>
-      <div class="field"><label>WhatsApp</label><input type="text" id="s_whatsapp" /></div>
-    </div>
-
-    <div class="panel-section">
-      <div class="panel-section-title">Intro &amp; Textes</div>
-      <div class="field"><label>Texte hero</label><input type="text" id="s_hero_intro" /></div>
-      <div class="field"><label>Bouton CTA</label><input type="text" id="s_hero_cta" /></div>
-      <div class="field"><label>Citation</label><input type="text" id="s_citation" /></div>
-      <div class="field"><label>Bandeau (virgules)</label><input type="text" id="s_bandeau" /></div>
-    </div>
-
-    <div class="panel-section">
-      <div class="panel-section-title">Dress code</div>
-      <div class="field"><label>Description</label><textarea id="s_dress_intro"></textarea></div>
-    </div>
-
-    <div class="panel-section">
-      <div class="panel-section-title">Vidéo Hero</div>
-      <div class="field">
-        <label>Type</label>
-        <select id="s_video_type">
-          <option value="local">local</option>
-          <option value="url">url</option>
-          <option value="none">none</option>
-        </select>
+    <!-- ══ CONTACT ══ -->
+    <details class="panel-section">
+      <summary class="panel-section-title">Contact</summary>
+      <div class="section-body">
+        <div class="field"><label>Email</label><input type="text" id="s_email" /></div>
+        <div class="field"><label>WhatsApp</label><input type="text" id="s_whatsapp" /></div>
       </div>
-      <div class="field"><label>Src (si url)</label><input type="text" id="s_video_src" /></div>
-    </div>
+    </details>
 
-    <div class="panel-section">
-      <div class="panel-section-title">RSVP</div>
-      <div class="field"><label>Texte intro</label><textarea id="s_rsvp_intro"></textarea></div>
-    </div>
+    <!-- ══ TEXTES ══ -->
+    <details class="panel-section">
+      <summary class="panel-section-title">Intro &amp; Textes</summary>
+      <div class="section-body">
+        <div class="field"><label>Texte hero</label><input type="text" id="s_hero_intro" /></div>
+        <div class="field"><label>Bouton CTA</label><input type="text" id="s_hero_cta" /></div>
+        <div class="field"><label>Citation</label><input type="text" id="s_citation" /></div>
+        <div class="field"><label>Bandeau (séparés par virgules)</label><input type="text" id="s_bandeau" /></div>
+      </div>
+    </details>
+
+    <!-- ══ THÈME VISUEL ══ -->
+    <details class="panel-section" open>
+      <summary class="panel-section-title">🎨 Thème visuel</summary>
+      <div class="section-body">
+
+        <div class="theme-generate-row">
+          <div class="field" style="margin:0;flex:1">
+            <label>Couleur principale</label>
+            <input type="color" id="t_wine" value="#6B2737" />
+          </div>
+          <button class="btn-generate" id="btn-gen-theme">✦ Générer palette</button>
+        </div>
+
+        <div class="color-grid">
+          <div class="color-cell">
+            <input type="color" id="t_wine_dk" value="#4A1A25" />
+            <span>Principale foncée</span>
+          </div>
+          <div class="color-cell">
+            <input type="color" id="t_wine_lt" value="#8B3547" />
+            <span>Principale claire</span>
+          </div>
+          <div class="color-cell">
+            <input type="color" id="t_gold" value="#C9A96E" />
+            <span>Accent doré</span>
+          </div>
+          <div class="color-cell">
+            <input type="color" id="t_gold_lt" value="#D9BC8A" />
+            <span>Doré clair</span>
+          </div>
+          <div class="color-cell">
+            <input type="color" id="t_olive" value="#7D8C4F" />
+            <span>Accent végétal</span>
+          </div>
+          <div class="color-cell">
+            <input type="color" id="t_cream" value="#F5F0E8" />
+            <span>Fond clair</span>
+          </div>
+          <div class="color-cell">
+            <input type="color" id="t_cream_dk" value="#EDE6D5" />
+            <span>Fond clair 2</span>
+          </div>
+          <div class="color-cell">
+            <input type="color" id="t_dark" value="#1C0A06" />
+            <span>Fond sombre</span>
+          </div>
+          <div class="color-cell">
+            <input type="color" id="t_dark_md" value="#2C1510" />
+            <span>Fond sombre 2</span>
+          </div>
+          <div class="color-cell">
+            <input type="color" id="t_text" value="#3D1F0F" />
+            <span>Texte courant</span>
+          </div>
+          <div class="color-cell">
+            <input type="color" id="t_text_lt" value="#7A4F3A" />
+            <span>Texte clair</span>
+          </div>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- ══ TYPOGRAPHIE ══ -->
+    <details class="panel-section" open>
+      <summary class="panel-section-title">✦ Typographie</summary>
+      <div class="section-body">
+
+        <div class="field">
+          <label>Police Serif (titres)</label>
+          <select id="t_font_serif">
+            <option value="Cormorant Garamond">Cormorant Garamond</option>
+            <option value="Playfair Display">Playfair Display</option>
+            <option value="EB Garamond">EB Garamond</option>
+            <option value="Libre Baskerville">Libre Baskerville</option>
+            <option value="Lora">Lora</option>
+            <option value="Bodoni Moda">Bodoni Moda</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Police Sans-serif (corps)</label>
+          <select id="t_font_sans">
+            <option value="Montserrat">Montserrat</option>
+            <option value="Raleway">Raleway</option>
+            <option value="Josefin Sans">Josefin Sans</option>
+            <option value="DM Sans">DM Sans</option>
+            <option value="Nunito">Nunito</option>
+          </select>
+        </div>
+
+        <div class="font-preview" id="font-preview">
+          <div class="font-preview-serif" id="fp_serif">Sophie &amp; Thomas</div>
+          <div class="font-preview-sans" id="fp_sans">Samedi 12 Juillet 2025 · Beaune, Bourgogne</div>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- ══ DRESS CODE ══ -->
+    <details class="panel-section">
+      <summary class="panel-section-title">Dress Code</summary>
+      <div class="section-body">
+        <div class="field"><label>Description</label><textarea id="s_dress_intro"></textarea></div>
+        <div class="field-row" style="align-items:center;margin-bottom:0.4rem">
+          <label style="font-size:0.7rem;color:var(--text-dim)">Couleurs</label>
+          <button class="btn-generate" id="btn-gen-dress">✦ Générer palette</button>
+        </div>
+        <div id="dress-colors-list"></div>
+        <button class="btn-add-row" id="btn-add-dress-color">+ Ajouter couleur</button>
+      </div>
+    </details>
+
+    <!-- ══ VIDÉO HERO ══ -->
+    <details class="panel-section">
+      <summary class="panel-section-title">Vidéo Hero</summary>
+      <div class="section-body">
+        <div class="field">
+          <label>Type</label>
+          <select id="s_video_type">
+            <option value="local">local (hero.mp4)</option>
+            <option value="url">url externe</option>
+            <option value="none">aucune</option>
+          </select>
+        </div>
+        <div class="field"><label>Src (si url)</label><input type="text" id="s_video_src" /></div>
+      </div>
+    </details>
+
+    <!-- ══ RSVP ══ -->
+    <details class="panel-section">
+      <summary class="panel-section-title">RSVP</summary>
+      <div class="section-body">
+        <div class="field"><label>Texte intro</label><textarea id="s_rsvp_intro"></textarea></div>
+      </div>
+    </details>
 
   </aside>
 
@@ -92,7 +289,7 @@
       <div class="drop-title">Glisser un config.js ici</div>
       <div class="drop-sub">ou</div>
       <button class="btn-form-preview" id="btn-form-preview">Prévisualiser depuis le formulaire</button>
-      <div class="drop-or">Le Studio nécessite VS Code Live Server</div>
+      <div class="drop-or" id="drop-status">Prêt · serveur actif</div>
     </div>
     <div class="preview-loading" id="preview-loading">Chargement du template…</div>
     <iframe id="preview-iframe" title="Preview site mariage"></iframe>

@@ -56,6 +56,39 @@ function hydrate() {
   setText('cp-names',   `${M.prenom1} <span class="cp-amp">&amp;</span> ${M.prenom2}`);
   setText('cp-caption', M.photo_couple_caption);
 
+  // Photos d'ambiance
+  const ambiance = M.photos_ambiance || [];
+
+  // Ambiance 0 → fond du sticky-reveal
+  const stickyReveal = document.getElementById('sticky-reveal');
+  if (stickyReveal && ambiance[0]?.src) {
+    const bgImg = document.createElement('img');
+    bgImg.className = 'sr-bg-photo';
+    bgImg.src = ambiance[0].src;
+    bgImg.alt = 'Photo d\'ambiance du mariage';
+    stickyReveal.insertBefore(bgImg, stickyReveal.firstChild);
+  }
+
+  // Ambiance 1 → bande photo entre Histoire et Bandeau
+  const band1 = document.getElementById('photo-band-1');
+  const img1  = document.getElementById('photo-band-img-1');
+  if (band1 && img1 && ambiance[1]?.src) {
+    img1.src = ambiance[1].src;
+    img1.alt = 'Photo d\'ambiance du mariage';
+    img1.style.objectPosition = ambiance[1].position || 'center center';
+    band1.style.display = 'block';
+  }
+
+  // Ambiance 2 → bande photo avant RSVP
+  const band2 = document.getElementById('photo-band-2');
+  const img2  = document.getElementById('photo-band-img-2');
+  if (band2 && img2 && ambiance[2]?.src) {
+    img2.src = ambiance[2].src;
+    img2.alt = 'Photo d\'ambiance du mariage';
+    img2.style.objectPosition = ambiance[2].position || 'center center';
+    band2.style.display = 'block';
+  }
+
   // Sticky reveal
   setText('sr-line-1', M.sr_line1 || 'Avant ce jour,');
   setText('sr-line-2', M.sr_line2 || 'notre histoire s\'écrivait');

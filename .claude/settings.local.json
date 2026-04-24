@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:www.mariages.net)",
+      "WebFetch(domain:www.domainedugrandmorin.com)",
+      "WebFetch(domain:www.chateaudesbondons.com)",
+      "WebFetch(domain:www.lafermeduboisauxdames.fr)",
+      "WebFetch(domain:nomade-lodge.com)",
+      "WebFetch(domain:www.ferme-auxonnettes.fr)",
+      "WebFetch(domain:www.fermedeforest.fr)",
+      "WebFetch(domain:chateau-bois-eluis.fr)",
+      "WebFetch(domain:www.chateauduvivier.com)",
+      "WebFetch(domain:www.ledomainedechampigny.com)",
+      "WebFetch(domain:www.domainedelachoquette.fr)",
+      "Bash(dir /b \"C:\\\\Users\\\\nhu-s\\\\mariage\")",
+      "Bash(dir \"C:\\\\Users\\\\nhu-s\\\\mariage\")",
+      "Bash(command -v python3)",
+      "Bash(command -v node)",
+      "Bash(command -v npx)",
+      "Bash(npx --version)",
+      "mcp__Claude_Preview__preview_start",
+      "mcp__nano-banana-2__generate_image",
+      "mcp__stitch__create_project",
+      "mcp__magic__21st_magic_component_inspiration",
+      "mcp__stitch__create_design_system",
+      "mcp__stitch__update_design_system",
+      "mcp__stitch__generate_screen_from_text",
+      "mcp__stitch__list_screens",
+      "mcp__magic__21st_magic_component_builder",
+      "Bash(powershell -Command \"Rename-Item ''C:\\\\Users\\\\nhu-s\\\\mariage\\\\site-invites\\\\photo-couple.jpg.jpg'' ''photo-couple.jpg''\")"
+    ]
+  }
+}

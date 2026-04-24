@@ -80,10 +80,23 @@
     </div>
   </section>
 
+  <!-- ══ COUNTDOWN ══════════════════════════════════════════ -->
+  <section class="section sect-dark countdown-section">
+    <div class="sect-header">
+      <div class="ornament-line dark"><span class="orn-rule"></span><span class="orn-diamond">◆</span><span class="orn-rule"></span></div>
+    </div>
+    <div id="countdown" class="countdown">
+      <div class="cd-item"><span id="cd-days" class="cd-num">000</span><small class="cd-lbl">jours</small></div>
+      <div class="cd-item"><span id="cd-hours" class="cd-num">00</span><small class="cd-lbl">heures</small></div>
+      <div class="cd-item"><span id="cd-min" class="cd-num">00</span><small class="cd-lbl">minutes</small></div>
+      <div class="cd-item"><span id="cd-sec" class="cd-num">00</span><small class="cd-lbl">secondes</small></div>
+    </div>
+  </section>
+
   <!-- ══ PHOTO COUPLE ═════════════════════════════════════ -->
   <section class="couple-photo-section" id="couple-photo">
     <div class="cp-image-wrap">
-      <img id="cp-img" alt="" />
+      <img id="cp-img" alt="Photo du couple" />
       <div class="cp-overlay"></div>
     </div>
     <div class="cp-text">
@@ -100,7 +113,7 @@
 
 
   <!-- ══ STICKY REVEAL ════════════════════════════════════ -->
-  <section class="sticky-reveal" id="sticky-reveal">
+  <section class="sticky-reveal" id="sticky-reveal" data-ambiance="0">
     <div class="sr-sticky">
       <div class="sr-line" id="sr-line-1">Avant ce jour,</div>
       <div class="sr-line" id="sr-line-2">notre histoire s'écrivait</div>
@@ -124,6 +137,12 @@
       <!-- filled by JS -->
     </div>
   </section>
+
+  <!-- ══ PHOTO AMBIANCE 1 ══════════════════════════════════ -->
+  <div class="photo-band" id="photo-band-1" style="display:none">
+    <img class="photo-band-img" id="photo-band-img-1" alt="Photo d'ambiance du mariage" />
+    <div class="photo-band-overlay"></div>
+  </div>
 
   <!-- ══ BANDEAU DÉFILANT ════════════════════════════════ -->
   <div id="bandeau-section" class="bandeau-section" style="display:none">
@@ -186,6 +205,12 @@
       <!-- filled by JS -->
     </div>
   </section>
+
+  <!-- ══ PHOTO AMBIANCE 2 ══════════════════════════════════ -->
+  <div class="photo-band" id="photo-band-2" style="display:none">
+    <img class="photo-band-img" id="photo-band-img-2" alt="Photo d'ambiance du mariage" />
+    <div class="photo-band-overlay"></div>
+  </div>
 
   <!-- ══ RSVP ══════════════════════════════════════════════ -->
   <section id="rsvp" class="section sect-cream">

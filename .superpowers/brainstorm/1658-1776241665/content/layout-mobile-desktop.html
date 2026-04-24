@@ -1,0 +1,301 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400&family=Jost:wght@300;400;500&display=swap');
+
+  .frames-wrap {
+    display: flex;
+    gap: 32px;
+    margin: 20px 0;
+    align-items: flex-start;
+  }
+
+  .frame-col {
+    flex: 1;
+  }
+
+  .frame-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #C9A96E;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  .device {
+    border: 2px solid #EDE5D8;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #FAFAF7;
+  }
+
+  .device-bar {
+    background: #EDE5D8;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 5px;
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: #C9A96E; opacity: 0.5; }
+
+  .section-block {
+    border-bottom: 1px solid #EDE5D8;
+    padding: 10px 12px;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    color: #555;
+    position: relative;
+  }
+
+  .section-block .sec-name {
+    font-weight: 500;
+    color: #1C1C1C;
+    font-size: 11px;
+    margin-bottom: 3px;
+  }
+
+  .section-block .sec-note {
+    color: #888;
+    font-size: 10px;
+    line-height: 1.5;
+  }
+
+  .sec-tag {
+    display: inline-block;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+
+  .tag-both { background: #EDE5D8; color: #6B2737; }
+  .tag-mobile { background: #F0EBE3; color: #888; }
+  .tag-desktop { background: #1C1C1C; color: #C9A96E; }
+
+  .height-indicator {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 9px;
+    color: #C9A96E;
+    font-family: 'Jost', sans-serif;
+  }
+
+  .sec-hero { background: linear-gradient(135deg, #F8F4EE, #EDE5D8); }
+  .sec-hero .sec-name { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 13px; }
+
+  .note-box {
+    background: #F8F4EE;
+    border-left: 3px solid #C9A96E;
+    padding: 10px 14px;
+    margin-top: 16px;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  .diff-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+  }
+  .diff-table th {
+    text-align: left;
+    padding: 6px 10px;
+    background: #EDE5D8;
+    color: #1C1C1C;
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .diff-table td {
+    padding: 7px 10px;
+    border-bottom: 1px solid #EDE5D8;
+    color: #555;
+    vertical-align: top;
+  }
+  .diff-table td:first-child { color: #1C1C1C; font-weight: 500; }
+</style>
+
+<h2>Architecture responsive — Mobile First</h2>
+<p class="subtitle">Même contenu, comportements différents selon l'écran. Les animations lourdes (pin, scroll horizontal) sont désactivées sur mobile.</p>
+
+<div class="frames-wrap">
+
+  <!-- MOBILE -->
+  <div class="frame-col">
+    <div class="frame-label">📱 Mobile (< 768px)</div>
+    <div class="device">
+      <div class="device-bar"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+
+      <div class="section-block sec-hero">
+        <div class="sec-tag tag-both">Both</div>
+        <div class="sec-name">① Loader — W monogramme</div>
+        <div class="sec-note">Barre fine + fade out → site</div>
+        <div class="height-indicator">100vh</div>
+      </div>
+
+      <div class="section-block">
+        <div class="sec-tag tag-both">Both</div>
+        <div class="sec-name">② Navbar sticky</div>
+        <div class="sec-note">Logo centré · hamburger menu</div>
+      </div>
+
+      <div class="section-block" style="background:linear-gradient(135deg,#FAFAF7,#F0EBE3)">
+        <div class="sec-tag tag-both">Both</div>
+        <div class="sec-name">③ Hero — pétales canvas</div>
+        <div class="sec-note">Titre pleine largeur · CTA centré · pétales légers (moins nombreux)</div>
+        <div class="height-indicator">100svh</div>
+      </div>
+
+      <div class="section-block">
+        <div class="sec-tag tag-mobile">Mobile</div>
+        <div class="sec-name">④ Manifeste</div>
+        <div class="sec-note">Reveal au scroll simple (IntersectionObserver) — pas de pin</div>
+      </div>
+
+      <div class="section-block">
+        <div class="sec-tag tag-both">Both</div>
+        <div class="sec-name">⑤ Comment ça marche</div>
+        <div class="sec-note">3 étapes empilées verticalement · numéros Cormorant dorés</div>
+      </div>
+
+      <div class="section-block">
+        <div class="sec-tag tag-mobile">Mobile</div>
+        <div class="sec-name">⑥ Portfolio</div>
+        <div class="sec-note">Cards empilées en scroll vertical · pas de scroll horizontal</div>
+      </div>
+
+      <div class="section-block">
+        <div class="sec-tag tag-both">Both</div>
+        <div class="sec-name">⑦ Formules</div>
+        <div class="sec-note">1 carte par ligne · Premium en premier · toggle annuel/mensuel absent</div>
+      </div>
+
+      <div class="section-block">
+        <div class="sec-tag tag-both">Both</div>
+        <div class="sec-name">⑧ Témoignages</div>
+        <div class="sec-note">Empilés verticalement · grande italique Cormorant</div>
+      </div>
+
+      <div class="section-block">
+        <div class="sec-tag tag-both">Both</div>
+        <div class="sec-name">⑨ Contact</div>
+        <div class="sec-note">Formulaire pleine largeur</div>
+      </div>
+
+      <div class="section-block" style="border-bottom:none">
+        <div class="sec-tag tag-both">Both</div>
+        <div class="sec-name">⑩ Footer</div>
+        <div class="sec-note">Colonne unique · logo centré</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESKTOP -->
+  <div class="frame-col">
+    <div class="frame-label">🖥 Desktop (≥ 768px)</div>
+    <div class="device">
+      <div class="device-bar"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+
+      <div class="section-block sec-hero">
+        <div class="sec-tag tag-both">Both</div>
+        <div class="sec-name">① Loader</div>
+        <div class="sec-note">Identique</div>
+        <div class="height-indicator">100vh</div>
+      </div>
+
+      <div class="section-block">
+        <div class="sec-tag tag-both">Both</div>
+        <div class="sec-name">② Navbar sticky</div>
+        <div class="sec-note">Logo gauche · liens horizontaux droite</div>
+      </div>
+
+      <div class="section-block" style="background:linear-gradient(135deg,#FAFAF7,#F0EBE3)">
+        <div class="sec-tag tag-both">Both</div>
+        <div class="sec-name">③ Hero — pétales canvas</div>
+        <div class="sec-note">Titre très grand (clamp 4–7vw) · pétales plus nombreux · scroll hint</div>
+        <div class="height-indicator">100vh</div>
+      </div>
+
+      <div class="section-block" style="background:#1C1C1C">
+        <div class="sec-tag tag-desktop">Desktop</div>
+        <div class="sec-name" style="color:#F8F4EE">④ Manifeste — PIN + SCRUB</div>
+        <div class="sec-note" style="color:#888">Section épinglée · texte révélé mot par mot via ScrollTrigger</div>
+        <div class="height-indicator" style="color:#C9A96E">~300vh</div>
+      </div>
+
+      <div class="section-block">
+        <div class="sec-tag tag-both">Both</div>
+        <div class="sec-name">⑤ Comment ça marche</div>
+        <div class="sec-note">3 étapes sur une ligne · ligne dorée verticale entre elles</div>
+      </div>
+
+      <div class="section-block" style="background:#1C1C1C">
+        <div class="sec-tag tag-desktop">Desktop</div>
+        <div class="sec-name" style="color:#F8F4EE">⑥ Portfolio — SCROLL HORIZONTAL</div>
+        <div class="sec-note" style="color:#888">Container épinglé · cards glissent horizontalement via GSAP</div>
+        <div class="height-indicator" style="color:#C9A96E">~200vh</div>
+      </div>
+
+      <div class="section-block">
+        <div class="sec-tag tag-both">Both</div>
+        <div class="sec-name">⑦ Formules</div>
+        <div class="sec-note">3 colonnes · Premium légèrement surélevée · shimmer subtil</div>
+      </div>
+
+      <div class="section-block">
+        <div class="sec-tag tag-both">Both</div>
+        <div class="sec-name">⑧ Témoignages + ⑨ Contact + ⑩ Footer</div>
+        <div class="sec-note">Layouts horizontaux, espacements plus généreux</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<table class="diff-table">
+  <tr>
+    <th>Section</th>
+    <th>Mobile</th>
+    <th>Desktop</th>
+  </tr>
+  <tr>
+    <td>④ Manifeste</td>
+    <td>IntersectionObserver reveal simple</td>
+    <td>GSAP pin + scrub mot par mot</td>
+  </tr>
+  <tr>
+    <td>⑥ Portfolio</td>
+    <td>Grid vertical, scroll natif</td>
+    <td>GSAP scroll horizontal épinglé</td>
+  </tr>
+  <tr>
+    <td>Pétales hero</td>
+    <td>20 pétales max, canvas léger</td>
+    <td>50 pétales, physique plus riche</td>
+  </tr>
+  <tr>
+    <td>Titres</td>
+    <td>clamp(2.5rem, 8vw, 5rem)</td>
+    <td>clamp(4rem, 6vw, 7rem)</td>
+  </tr>
+  <tr>
+    <td>Hover magnétique</td>
+    <td>Absent (pas de hover tactile)</td>
+    <td>Actif sur les CTA</td>
+  </tr>
+</table>
+
+<div class="note-box">
+  <strong>Règle principale :</strong> tout est codé mobile en premier. Les media queries <code>@media (min-width: 768px)</code> activent les fonctionnalités avancées (pin, scroll horizontal, hover magnétique). <code>prefers-reduced-motion</code> coupe toutes les animations GSAP et laisse le contenu visible statiquement.
+</div>

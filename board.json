@@ -3,39 +3,73 @@
   "sprint": {
     "numero": 1,
     "nom": "Robustesse produit",
-    "progression": 0
+    "progression": 10
   },
   "agents": {
     "ceo":         { "statut": "actif" },
     "tech-lead":   { "statut": "actif" },
     "dev":         { "statut": "actif" },
-    "designer":    { "statut": "attente" },
+    "designer":    { "statut": "actif" },
     "chef-projet": { "statut": "attente" },
     "marketing":   { "statut": "attente" },
     "commercial":  { "statut": "attente" },
     "support":     { "statut": "actif" }
   },
-  "enCours": [
-    {
-      "id": "t1",
-      "agent": "tech-lead",
-      "tache": "Audit complet template romantique (HTML, CSS, JS, mobile, cross-browser)"
-    }
-  ],
+  "enCours": [],
   "aFaire": [
     {
-      "id": "t2",
-      "agent": "tech-lead",
-      "tache": "Audit complet template chic"
+      "id": "d5",
+      "agent": "dev",
+      "priorite": "⚠️ important",
+      "template": "template/ + templates/romantique/",
+      "tache": "Remplacer alt vides par textes descriptifs sur toutes les images (alt='Photo du couple', 'Photo d\\'ambiance', etc.)"
     },
     {
-      "id": "t3",
-      "agent": "tech-lead",
-      "tache": "Audit complet template de base (template/)"
+      "id": "d6",
+      "agent": "dev",
+      "priorite": "⚠️ important",
+      "template": "templates/romantique/",
+      "tache": "Ajouter pause-on-hover sur carrousel : clearInterval au mouseenter, relancer au mouseleave"
+    },
+    {
+      "id": "d7",
+      "agent": "dev",
+      "priorite": "⚠️ important",
+      "template": "templates/romantique/",
+      "tache": "Remplacer innerHTML par textContent dans la fonction set() pour mot_des_maries (sécurité XSS)"
+    },
+    {
+      "id": "d8",
+      "agent": "dev",
+      "priorite": "⚠️ important",
+      "template": "templates/chic/",
+      "tache": "Cacher/remplacer countdown après date du mariage : afficher 'Merci d\\'être venus !' au lieu de 00:00:00"
+    },
+    {
+      "id": "d9",
+      "agent": "dev",
+      "priorite": "⚠️ important",
+      "template": "templates/chic/",
+      "tache": "Ajouter lightbox sur galerie masonry : clic sur photo ouvre modal avec image plein écran + fermeture ESC/clic"
+    },
+    {
+      "id": "d10",
+      "agent": "dev",
+      "priorite": "nice-to-have",
+      "template": "templates/romantique/",
+      "tache": "Réduire COUNT pétales canvas sur mobile : window.innerWidth < 768 ? 30 : 60"
+    },
+    {
+      "id": "d11",
+      "agent": "dev",
+      "priorite": "nice-to-have",
+      "template": "template/",
+      "tache": "Ajouter prefers-reduced-motion : stopper animation JS feuilles (pas seulement cacher canvas)"
     },
     {
       "id": "t4",
       "agent": "support",
+      "priorite": "normal",
       "tache": "Rédiger FAQ initiale (5 questions fréquentes anticipées)"
     }
   ],
@@ -45,7 +79,48 @@
       "date": "2026-04-24",
       "agent": "ceo",
       "decision": "Sprint 1 lancé. Tech Lead audite les 3 templates. Designer activé après audit. Sprint 2 démarre quand sprint1_valide = true."
+    },
+    {
+      "date": "2026-04-24",
+      "agent": "tech-lead",
+      "decision": "Audit des 3 templates terminé. 4 bloquants identifiés (countdown HTML manquant, histoire CSS, timezone chic, GSAP fallback). 5 points importants. Dev peut commencer par d1→d4 en priorité."
     }
   ],
-  "termine": []
+  "termine": [
+    {
+      "id": "t1",
+      "agent": "tech-lead",
+      "tache": "Audit template base (template/)"
+    },
+    {
+      "id": "t2",
+      "agent": "tech-lead",
+      "tache": "Audit template romantique (templates/romantique/)"
+    },
+    {
+      "id": "t3",
+      "agent": "tech-lead",
+      "tache": "Audit template chic (templates/chic/)"
+    },
+    {
+      "id": "d1",
+      "agent": "dev",
+      "tache": "Fix template/ — structure HTML countdown ajoutée (#cd-days, #cd-hours, #cd-min, #cd-sec)"
+    },
+    {
+      "id": "d2",
+      "agent": "dev",
+      "tache": "Fix romantique — CSS alternance histoire gauche/droite (data-align + mobile OK)"
+    },
+    {
+      "id": "d3",
+      "agent": "dev",
+      "tache": "Fix chic — timezone countdown (offset +02:00 avec détection intelligente)"
+    },
+    {
+      "id": "d4",
+      "agent": "dev",
+      "tache": "Fix chic — fallback hero GSAP (heroFallback() après 3s si GSAP bloque)"
+    }
+  ]
 }

@@ -168,7 +168,10 @@ function initCountdown() {
   function update() {
     const diff = target - new Date();
     if (diff <= 0) {
-      ['cd-jours','cd-heures','cd-minutes','cd-secondes'].forEach(id => setText(id, '00'));
+      const cdSection = document.getElementById('countdown');
+      if (cdSection) {
+        cdSection.innerHTML = '<p class="countdown-done">Merci d\'être venus célébrer avec nous ✨</p>';
+      }
       return;
     }
     setText('cd-jours',    pad(diff / 86400000));

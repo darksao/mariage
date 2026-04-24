@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Wedoria — Sites de mariage clé-en-main, livrés en 5 jours. Design premium, animations soignées, sur-mesure pour chaque couple." />
+  <title>Wedoria — Sites de mariage sur-mesure</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- GSAP CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       LOADER
+  ═══════════════════════════════════════════ -->
+  <div id="loader" aria-hidden="true">
+    <div class="loader__inner">
+      <svg class="loader__monogram" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path class="loader__path" d="M10 20 L30 90 L50 40 L70 90 L90 20" stroke="#C9A96E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <div class="loader__wordmark">Wedoria</div>
+      <div class="loader__bar-wrap">
+        <div class="loader__bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════════════ -->
+  <header class="navbar" id="navbar" role="banner">
+    <div class="navbar__inner">
+      <a href="#" class="navbar__logo" aria-label="Wedoria — accueil">Wedoria</a>
+
+      <nav class="navbar__links" id="navLinks" role="navigation" aria-label="Navigation principale">
+        <a href="#portfolio" class="navbar__link">Portfolio</a>
+        <a href="#formules" class="navbar__link">Formules</a>
+        <a href="#process" class="navbar__link">Comment ça marche</a>
+        <a href="#contact" class="navbar__link">Contact</a>
+      </nav>
+
+      <a href="#contact" class="btn btn--outline navbar__cta">Démarrer mon projet</a>
+
+      <button class="navbar__hamburger" id="hamburger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════════
+         HERO
+    ═══════════════════════════════════════════ -->
+    <section class="hero" id="hero" aria-label="Accueil">
+      <canvas class="hero__canvas" id="heroCanvas" aria-hidden="true"></canvas>
+
+      <div class="hero__content">
+        <!-- Text Rotate Component — rendu dynamique par JS (character-level stagger) -->
+        <div class="hero__rotate-wrap" aria-live="polite">
+          <p class="hero__pre">Ton site de mariage mérite d'être</p>
+          <div class="hero__rotate" id="textRotate" aria-label="inoubliable, unique, élégant, sur-mesure, votre histoire"></div>
+        </div>
+
+        <h1 class="hero__title">Des sites de mariage<br/><em>qui racontent votre histoire.</em></h1>
+        <p class="hero__sub">Clé-en-main &nbsp;·&nbsp; Livré en 5 jours &nbsp;·&nbsp; À partir de 290€</p>
+        <a href="#contact" class="btn btn--primary btn--magnetic hero__cta">
+          <span>Démarrer mon projet</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8H13M13 8L8.5 3.5M13 8L8.5 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <!-- Scroll hint -->
+      <div class="hero__scroll-hint" aria-hidden="true">
+        <div class="hero__scroll-line"></div>
+        <span>Découvrir</span>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         MANIFESTE (PIN + WORD REVEAL)
+    ═══════════════════════════════════════════ -->
+    <section class="manifeste" id="manifeste" aria-label="Notre manifeste">
+      <div class="manifeste__pin-wrap">
+        <div class="manifeste__inner">
+          <p class="manifeste__label">Notre manifeste</p>
+          <h2 class="manifeste__text" id="manifesteText">
+            <span class="word-reveal">Votre</span>
+            <span class="word-reveal">mariage</span>
+            <span class="word-reveal">est</span>
+            <span class="word-reveal">unique.</span>
+            <span class="word-reveal word-reveal--gold">Votre</span>
+            <span class="word-reveal word-reveal--gold">site</span>
+            <span class="word-reveal word-reveal--gold">devrait</span>
+            <span class="word-reveal word-reveal--gold">l'être</span>
+            <span class="word-reveal word-reveal--gold">aussi.</span>
+            <span class="word-reveal">Nous</span>
+            <span class="word-reveal">créons</span>
+            <span class="word-reveal">des</span>
+            <span class="word-reveal">expériences</span>
+            <span class="word-reveal">web</span>
+            <span class="word-reveal">qui</span>
+            <span class="word-reveal">capturent</span>
+            <span class="word-reveal">l'essence</span>
+            <span class="word-reveal">de</span>
+            <span class="word-reveal">votre</span>
+            <span class="word-reveal">histoire,</span>
+            <span class="word-reveal">pour</span>
+            <span class="word-reveal">que</span>
+            <span class="word-reveal">vos</span>
+            <span class="word-reveal">invités</span>
+            <span class="word-reveal">arrivent</span>
+            <span class="word-reveal word-reveal--italic">déjà</span>
+            <span class="word-reveal word-reveal--italic">émerveillés.</span>
+          </h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         COMMENT ÇA MARCHE
+    ═══════════════════════════════════════════ -->
+    <section class="process" id="process" aria-labelledby="processTitle">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-label">Le processus</p>
+          <h2 class="section-title" id="processTitle">Comment ça marche</h2>
+        </div>
+
+        <div class="process__steps">
+
+          <div class="process__step" data-step="01">
+            <div class="process__number" aria-hidden="true">01</div>
+            <div class="process__line" aria-hidden="true"></div>
+            <div class="process__content">
+              <h3 class="process__step-title">Vous nous partagez votre vision</h3>
+              <p class="process__step-desc">Remplissez notre formulaire de découverte en 15 minutes. Couleurs, ambiance, textes, photos — tout ce qui vous ressemble.</p>
+            </div>
+          </div>
+
+          <div class="process__step" data-step="02">
+            <div class="process__number" aria-hidden="true">02</div>
+            <div class="process__line" aria-hidden="true"></div>
+            <div class="process__content">
+              <h3 class="process__step-title">Nous créons votre site sur-mesure</h3>
+              <p class="process__step-desc">Notre studio travaille pendant 48 à 72 heures pour concevoir un site qui vous ressemble — animations, galerie, RSVP, carte interactive.</p>
+            </div>
+          </div>
+
+          <div class="process__step" data-step="03">
+            <div class="process__number" aria-hidden="true">03</div>
+            <div class="process__line process__line--last" aria-hidden="true"></div>
+            <div class="process__content">
+              <h3 class="process__step-title">Vous recevez le lien, et invitez vos proches</h3>
+              <p class="process__step-desc">Votre site est en ligne. Partagez le lien à vos invités et regardez l'émerveillement s'installer avant même le Jour J.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         PORTFOLIO — SCROLL HORIZONTAL
+    ═══════════════════════════════════════════ -->
+    <section class="portfolio" id="portfolio" aria-labelledby="portfolioTitle">
+      <div class="portfolio__header container">
+        <p class="section-label">Nos créations</p>
+        <h2 class="section-title" id="portfolioTitle">Des histoires uniques,<br/><em>des sites inoubliables</em></h2>
+      </div>
+
+      <div class="portfolio__track-wrap" id="portfolioWrap">
+        <div class="portfolio__track" id="portfolioTrack" role="list">
+
+          <article class="portfolio__card" role="listitem" tabindex="0">
+            <div class="portfolio__card-img portfolio__card-img--autumn" aria-hidden="true">
+              <div class="portfolio__card-overlay"><span class="portfolio__card-tag">Automne 2024</span></div>
+            </div>
+            <div class="portfolio__card-info">
+              <h3 class="portfolio__card-names">Catherine &amp; Nhu-Sao</h3>
+              <p class="portfolio__card-meta">15 octobre · Château de Vaux-le-Vicomte</p>
+              <a href="#" class="portfolio__card-link" aria-label="Voir le site de Catherine & Nhu-Sao">Voir le site →</a>
+            </div>
+          </article>
+
+          <article class="portfolio__card" role="listitem" tabindex="0">
+            <div class="portfolio__card-img portfolio__card-img--summer" aria-hidden="true">
+              <div class="portfolio__card-overlay"><span class="portfolio__card-tag">Été 2024</span></div>
+            </div>
+            <div class="portfolio__card-info">
+              <h3 class="portfolio__card-names">Lucie &amp; Antoine</h3>
+              <p class="portfolio__card-meta">22 juin · Villa Médicis, Rome</p>
+              <a href="#" class="portfolio__card-link" aria-label="Voir le site de Lucie & Antoine">Voir le site →</a>
+            </div>
+          </article>
+
+          <article class="portfolio__card" role="listitem" tabindex="0">
+            <div class="portfolio__card-img portfolio__card-img--rural" aria-hidden="true">
+              <div class="portfolio__card-overlay"><span class="portfolio__card-tag">Champêtre</span></div>
+            </div>
+            <div class="portfolio__card-info">
+              <h3 class="portfolio__card-names">Margaux &amp; Théo</h3>
+              <p class="portfolio__card-meta">7 septembre · Domaine de la Borie, Dordogne</p>
+              <a href="#" class="portfolio__card-link" aria-label="Voir le site de Margaux & Théo">Voir le site →</a>
+            </div>
+          </article>
+
+          <article class="portfolio__card" role="listitem" tabindex="0">
+            <div class="portfolio__card-img portfolio__card-img--urban" aria-hidden="true">
+              <div class="portfolio__card-overlay"><span class="portfolio__card-tag">Urbain</span></div>
+            </div>
+            <div class="portfolio__card-info">
+              <h3 class="portfolio__card-names">Sofia &amp; Romain</h3>
+              <p class="portfolio__card-meta">3 mai · Le Comptoir Général, Paris</p>
+              <a href="#" class="portfolio__card-link" aria-label="Voir le site de Sofia & Romain">Voir le site →</a>
+            </div>
+          </article>
+
+          <article class="portfolio__card" role="listitem" tabindex="0">
+            <div class="portfolio__card-img portfolio__card-img--winter" aria-hidden="true">
+              <div class="portfolio__card-overlay"><span class="portfolio__card-tag">Hiver 2025</span></div>
+            </div>
+            <div class="portfolio__card-info">
+              <h3 class="portfolio__card-names">Élise &amp; Hugo</h3>
+              <p class="portfolio__card-meta">14 février · Manoir de Kerlevenan, Bretagne</p>
+              <a href="#" class="portfolio__card-link" aria-label="Voir le site d'Élise & Hugo">Voir le site →</a>
+            </div>
+          </article>
+
+          <article class="portfolio__card" role="listitem" tabindex="0">
+            <div class="portfolio__card-img portfolio__card-img--provence" aria-hidden="true">
+              <div class="portfolio__card-overlay"><span class="portfolio__card-tag">Provence</span></div>
+            </div>
+            <div class="portfolio__card-info">
+              <h3 class="portfolio__card-names">Camille &amp; Jules</h3>
+              <p class="portfolio__card-meta">30 août · Mas Saint-Joseph, Alpilles</p>
+              <a href="#" class="portfolio__card-link" aria-label="Voir le site de Camille & Jules">Voir le site →</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+      <div class="portfolio__hint" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L14 7M19 12L14 17" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Faire défiler</span>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         FORMULES
+    ═══════════════════════════════════════════ -->
+    <section class="formules" id="formules" aria-labelledby="formulesTitle">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-label">Nos offres</p>
+          <h2 class="section-title" id="formulesTitle">Une formule pour<br/><em>chaque histoire</em></h2>
+        </div>
+
+        <div class="formules__grid">
+
+          <article class="formule-card" aria-labelledby="formuleEssentielle">
+            <div class="formule-card__header">
+              <p class="formule-card__name" id="formuleEssentielle">Essentielle</p>
+              <div class="formule-card__price">
+                <span class="formule-card__amount">290</span>
+                <span class="formule-card__currency">€</span>
+              </div>
+              <p class="formule-card__tagline">Pour commencer avec élégance</p>
+            </div>
+            <ul class="formule-card__features" role="list">
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8L6.5 11.5L13 4" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Site 1 page, config personnalisée</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8L6.5 11.5L13 4" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Hero · Programme · RSVP · Carte</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8L6.5 11.5L13 4" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>1 langue</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8L6.5 11.5L13 4" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Livraison en 5 jours ouvrés</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8L6.5 11.5L13 4" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Hébergement 12 mois inclus</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8L6.5 11.5L13 4" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Support email</li>
+            </ul>
+            <a href="#contact" class="btn btn--outline btn--magnetic formule-card__cta">Choisir cette formule</a>
+          </article>
+
+          <article class="formule-card formule-card--premium" aria-labelledby="formulePremium">
+            <div class="formule-card__badge" aria-label="La plus populaire">Le plus populaire</div>
+            <div class="formule-card__glow" aria-hidden="true"></div>
+            <div class="formule-card__header">
+              <p class="formule-card__name" id="formulePremium">Premium</p>
+              <div class="formule-card__price">
+                <span class="formule-card__amount">490</span>
+                <span class="formule-card__currency">€</span>
+              </div>
+              <p class="formule-card__tagline">L'expérience complète</p>
+            </div>
+            <ul class="formule-card__features" role="list">
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8L6.5 11.5L13 4" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Tout l'Essentielle inclus</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8L6.5 11.5L13 4" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Galerie photos</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8L6.5 11.5L13 4" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Compte à rebours animé</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8L6.5 11.5L13 4" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Multilingue (FR + 1 langue)</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8L6.5 11.5L13 4" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Notre histoire (timeline)</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8L6.5 11.5L13 4" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Code vestimentaire &amp; FAQ</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8L6.5 11.5L13 4" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Livraison en 3 jours ouvrés</li>
+            </ul>
+            <a href="#contact" class="btn btn--primary btn--magnetic formule-card__cta">Choisir cette formule</a>
+          </article>
+
+          <article class="formule-card" aria-labelledby="formuleSurMesure">
+            <div class="formule-card__header">
+              <p class="formule-card__name" id="formuleSurMesure">Sur-mesure</p>
+              <div class="formule-card__price">
+                <span class="formule-card__amount formule-card__amount--devis">Sur devis</span>
+              </div>
+              <p class="formule-card__tagline">Pour les couples qui veulent tout</p>
+            </div>
+            <ul class="formule-card__features" role="list">
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8L6.5 11.5L13 4" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Tout le Premium inclus</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8L6.5 11.5L13 4" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Design entièrement personnalisé</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8L6.5 11.5L13 4" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Sections sur-mesure</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8L6.5 11.5L13 4" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Animations additionnelles</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8L6.5 11.5L13 4" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Vidéo héro personnalisée</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8L6.5 11.5L13 4" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Accompagnement dédié</li>
+            </ul>
+            <a href="#contact" class="btn btn--outline btn--magnetic formule-card__cta">Nous contacter</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         TÉMOIGNAGES
+    ═══════════════════════════════════════════ -->
+    <section class="temoignages" id="temoignages" aria-labelledby="temoignagesTitle">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-label">Ils nous ont fait confiance</p>
+          <h2 class="section-title sr-only" id="temoignagesTitle">Témoignages</h2>
+        </div>
+        <div class="temoignages__grid">
+          <blockquote class="temoignage">
+            <p class="temoignage__quote">« Notre site a été notre plus belle carte d'invitation. Les invités nous ont écrit pour nous dire qu'ils avaient l'eau à la bouche avant même d'arriver. Wedoria a compris notre histoire en quelques échanges. »</p>
+            <footer class="temoignage__footer">
+              <div class="temoignage__avatar" aria-hidden="true">C&nbsp;N</div>
+              <div>
+                <cite class="temoignage__name">Catherine &amp; Nhu-Sao</cite>
+                <p class="temoignage__detail">Mariage en octobre 2024 · Formule Premium</p>
+              </div>
+            </footer>
+          </blockquote>
+          <blockquote class="temoignage">
+            <p class="temoignage__quote">« Livré en 3 jours, exactement comme promis. Le design dépasse tout ce qu'on espérait. Simple, élégant, et tellement nous. Merci Wedoria. »</p>
+            <footer class="temoignage__footer">
+              <div class="temoignage__avatar" aria-hidden="true">L&nbsp;A</div>
+              <div>
+                <cite class="temoignage__name">Lucie &amp; Antoine</cite>
+                <p class="temoignage__detail">Mariage en juin 2024 · Formule Premium</p>
+              </div>
+            </footer>
+          </blockquote>
+          <blockquote class="temoignage">
+            <p class="temoignage__quote">« On ne savait pas quoi attendre, et on a été soufflés. Le site capture parfaitement l'ambiance champêtre qu'on voulait, avec ces petites animations qui font sourire. »</p>
+            <footer class="temoignage__footer">
+              <div class="temoignage__avatar" aria-hidden="true">M&nbsp;T</div>
+              <div>
+                <cite class="temoignage__name">Margaux &amp; Théo</cite>
+                <p class="temoignage__detail">Mariage en septembre 2024 · Formule Sur-mesure</p>
+              </div>
+            </footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         CONTACT
+    ═══════════════════════════════════════════ -->
+    <section class="contact" id="contact" aria-labelledby="contactTitle">
+      <div class="container contact__inner">
+        <div class="contact__left">
+          <p class="section-label">Commençons</p>
+          <h2 class="section-title contact__title" id="contactTitle">Prêts à<br/><em>commencer ?</em></h2>
+          <p class="contact__desc">Partagez-nous votre histoire. Nous vous revenons sous 24h avec une proposition adaptée à votre mariage.</p>
+          <p class="contact__reassurance">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="#C9A96E" stroke-width="1.2"/><path d="M8 5v3.5L10 10" stroke="#C9A96E" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Réponse sous 24h · Sans engagement
+          </p>
+        </div>
+        <div class="contact__right">
+          <form class="contact__form" id="contactForm" action="#" novalidate aria-label="Formulaire de contact Wedoria">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="prenoms" class="form-label">Prénom des mariés <span aria-label="obligatoire">*</span></label>
+                <input type="text" id="prenoms" name="prenoms" class="form-input" placeholder="Ex : Catherine &amp; Nhu-Sao" required autocomplete="name" />
+              </div>
+              <div class="form-group">
+                <label for="date" class="form-label">Date du mariage <span aria-label="obligatoire">*</span></label>
+                <input type="date" id="date" name="date" class="form-input" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email" class="form-label">Adresse e-mail <span aria-label="obligatoire">*</span></label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="votre@email.com" required autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <label for="formule" class="form-label">Formule souhaitée</label>
+              <select id="formule" name="formule" class="form-input form-select">
+                <option value="" disabled selected>Choisir une formule…</option>
+                <option value="essentielle">Essentielle — 290€</option>
+                <option value="premium">Premium — 490€</option>
+                <option value="sur-mesure">Sur-mesure — devis</option>
+                <option value="indecis">Je ne sais pas encore</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message" class="form-label">Votre histoire</label>
+              <textarea id="message" name="message" class="form-input form-textarea" rows="4" placeholder="Parlez-nous de votre mariage : ambiance, lieu, ce qui vous tient à cœur…"></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary btn--full btn--magnetic" id="submitBtn">
+              <span class="btn-text">Envoyer notre projet</span>
+              <span class="btn-loading" aria-hidden="true">Envoi en cours…</span>
+            </button>
+          </form>
+          <div class="contact__success" id="contactSuccess" role="alert" aria-live="polite" hidden>
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="23" stroke="#C9A96E" stroke-width="1.5"/><path d="M15 24L21.5 30.5L33 17" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h3>Message envoyé !</h3>
+            <p>Nous avons bien reçu votre projet. Vous aurez de nos nouvelles d'ici 24h.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="#" class="footer__logo" aria-label="Wedoria — retour en haut">Wedoria</a>
+        <p class="footer__tagline">Fait avec soin, pour chaque histoire.</p>
+      </div>
+      <nav class="footer__links" aria-label="Liens rapides du pied de page">
+        <a href="#portfolio" class="footer__link">Portfolio</a>
+        <a href="#formules" class="footer__link">Formules</a>
+        <a href="#process" class="footer__link">Comment ça marche</a>
+        <a href="#contact" class="footer__link">Contact</a>
+      </nav>
+      <div class="footer__contact">
+        <a href="mailto:bonjour@wedoria.fr" class="footer__email">bonjour@wedoria.fr</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 Wedoria &nbsp;·&nbsp; Fait avec soin, pour chaque histoire.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
