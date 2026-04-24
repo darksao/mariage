@@ -266,3 +266,146 @@ details.panel-section summary::-webkit-details-marker { display: none; }
   background: #000; color: var(--text-dim); font-size: 0.85rem;
   display: none;
 }
+
+/* ── CLIENTS TABLE ── */
+.clients-table { width: 100%; border-collapse: collapse; }
+.clients-table th {
+  text-align: left; padding: 10px 12px;
+  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--text-dim);
+  border-bottom: 1px solid var(--border);
+}
+.clients-table td {
+  padding: 12px; font-size: 0.82rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.clients-table tr:hover td { background: var(--surface2); }
+.clients-table .col-actions { display: flex; gap: 0.4rem; }
+.badge-template {
+  display: inline-block; padding: 2px 8px; border-radius: 99px;
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.04em;
+  background: var(--border); color: var(--text-dim);
+}
+
+/* ── TABS ── */
+.tabs-nav {
+  display: flex; gap: 0; border-bottom: 1px solid var(--border);
+  padding: 0 1rem;
+}
+.tabs-nav button {
+  background: none; border: none; cursor: pointer;
+  padding: 10px 14px; font-size: 0.78rem; font-weight: 500;
+  color: var(--text-dim); border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+.tabs-nav button.active { color: var(--gold); border-bottom-color: var(--gold); }
+.tabs-nav button:hover:not(.active) { color: var(--text); }
+.tab-content { display: none; padding: 1rem; }
+.tab-content.active { display: block; }
+
+/* ── STATES ── */
+.page-body {
+  max-width: 960px; margin: 0 auto; padding: 1.5rem 1rem;
+}
+.state-loading, .state-empty, .state-error {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 1rem; padding: 4rem 1rem; color: var(--text-dim); text-align: center;
+}
+.state-error { color: var(--red); }
+.spinner {
+  width: 28px; height: 28px; border: 3px solid var(--border);
+  border-top-color: var(--gold); border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── CONFIRM MODAL ── */
+.modal-backdrop {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 200;
+}
+.modal-backdrop.hidden { display: none; }
+.modal-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; padding: 1.5rem; max-width: 360px; width: 90%;
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.modal-box p { font-size: 0.88rem; color: var(--text); }
+.modal-actions { display: flex; gap: 0.5rem; justify-content: flex-end; }
+
+/* ── SAVE FEEDBACK TOAST ── */
+.save-feedback {
+  position: fixed; bottom: 1.5rem; right: 1.5rem;
+  background: var(--green); color: #111; padding: 0.5rem 1rem;
+  border-radius: 6px; font-size: 0.8rem; font-weight: 600;
+  opacity: 0; transition: opacity 0.2s; pointer-events: none;
+  z-index: 300;
+}
+.save-feedback.visible { opacity: 1; }
+
+/* ── UPLOAD SLOT ── */
+.upload-slot {
+  border: 1px dashed var(--border); border-radius: 6px;
+  padding: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem;
+}
+.upload-slot .upload-preview {
+  width: 100%; height: 80px; object-fit: cover;
+  border-radius: 4px; display: none;
+}
+.upload-slot .upload-preview.visible { display: block; }
+.upload-drop {
+  text-align: center; padding: 0.75rem;
+  color: var(--text-dim); font-size: 0.75rem; cursor: pointer;
+}
+.upload-drop:hover { color: var(--gold); }
+.upload-url { width: 100%; }
+
+/* ── DYNAMIC LIST (histoire, programme, etc.) ── */
+.list-items { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.5rem; }
+.list-item {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 6px; padding: 0.75rem; position: relative;
+}
+.list-item .btn-rm-item {
+  position: absolute; top: 6px; right: 8px;
+  background: none; border: none; color: var(--text-dim);
+  cursor: pointer; font-size: 1rem; line-height: 1;
+}
+.list-item .btn-rm-item:hover { color: var(--red); }
+.btn-add-item {
+  background: transparent; border: 1px dashed var(--border);
+  color: var(--text-dim); padding: 5px 12px; border-radius: 6px;
+  font-size: 0.75rem; cursor: pointer; width: 100%;
+}
+.btn-add-item:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ── PAGE LAYOUT (clients + studio) ── */
+.page-topbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--topbar-h); background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0 1rem; z-index: 100;
+}
+.page-main {
+  padding-top: var(--topbar-h); height: 100vh;
+  overflow-y: auto;
+}
+.studio-form {
+  max-width: 720px; margin: 0 auto; padding-bottom: 3rem;
+}
+
+/* ── FORM FIELDS (studio form) ── */
+.field { display: flex; flex-direction: column; gap: 0.25rem; margin-bottom: 0.75rem; }
+.field label { font-size: 0.75rem; color: var(--text-dim); }
+.field input, .field select, .field textarea {
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text); border-radius: 4px; padding: 6px 8px;
+  font-size: 0.82rem; font-family: inherit; width: 100%;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none; border-color: var(--gold);
+}
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
