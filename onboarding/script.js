@@ -2,11 +2,8 @@
    WEDORIA ONBOARDING · script.js
 ═══════════════════════════════════════════════════ */
 
-// ── CONFIG EMAILJS (à remplacer avec vos vraies clés) ──
-const EMAILJS_SERVICE_ID  = 'VOTRE_SERVICE_ID';
-const EMAILJS_TEMPLATE_ID = 'VOTRE_TEMPLATE_ID';
-const EMAILJS_PUBLIC_KEY  = 'VOTRE_PUBLIC_KEY';
-const RECIPIENT_EMAIL     = 'votre@email.com';
+// ── API Wedoria Studio (URL de la vitrine Vercel) ──
+const API_BASE = 'https://wedoria-site-vitrine.vercel.app';
 
 
 // ── ÉTAT DU WIZARD ──
@@ -346,37 +343,51 @@ function downloadConfig(content, prenom1, prenom2) {
 }
 
 // ── SOUMISSION ──
-let _emailjsReady = false;
 async function handleSubmit() {
   const m         = generateMAIRIAGE();
   const configStr = generateConfigJS(m);
 
-  // 1. Téléchargement immédiat (même si l'email échoue)
+  // 1. Téléchargement immédiat du config.js
   downloadConfig(configStr, m.prenom1, m.prenom2);
 
   // 2. Désactiver le bouton
   btnSubmit.disabled    = true;
   btnSubmit.textContent = 'Envoi en cours…';
 
-  // 3. Envoi email via EmailJS
+  // 3. Envoi du brief à l'API Wedoria
   try {
-    if (!_emailjsReady) {
-      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-      _emailjsReady = true;
-    }
-    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-      to_email:       RECIPIENT_EMAIL,
-      subject:        `Nouveau client — ${m.prenom1} & ${m.prenom2}`,
-      prenom1:        m.prenom1,
-      prenom2:        m.prenom2,
-      date:           m.date_affichage,
-      lieu:           `${m.domaine}, ${m.ville}`,
-      email_client:   m.email,
-      config_content: configStr,
+    const lead_id = localStorage.getItem('wedoria_lead_id') || null;
+    const payload = {
+      lead_id,
+      prenom1:      m.prenom1,
+      prenom2:      m.prenom2,
+      email_client: m.email,
+      date_mariage: m.date_iso || null,
+      lieu:         [m.domaine, m.ville].filter(Boolean).join(', ') || null,
+      programme:    m.programme
+        ? m.programme.filter(p => p.heure || p.titre)
+            .map(p => `${p.heure || ''} ${p.titre || ''}`.trim()).join(' · ')
+        : null,
+      infos_pratiques: m.infos
+        ? m.infos.filter(i => i.texte).map(i => `${i.titre} : ${i.texte}`).join('\n')
+        : null,
+    };
+
+    const res  = await fetch(`${API_BASE}/api/onboarding`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
     });
+    const json = await res.json();
+
+    if (res.ok && json.projet_id) {
+      localStorage.setItem('wedoria_projet_id', json.projet_id);
+    } else if (!res.ok) {
+      console.error('API onboarding error:', json.error);
+    }
   } catch (err) {
-    console.error('EmailJS error:', err);
-    // L'email a échoué mais le fichier a déjà été téléchargé — on continue
+    console.error('Onboarding API error:', err);
+    // Non-fatal — config.js already downloaded
   }
 
   // 4. Afficher la confirmation
