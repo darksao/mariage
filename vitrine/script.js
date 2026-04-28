@@ -402,7 +402,35 @@ function initContact() {
     });
     if (!valid) { const f = form.querySelector('[aria-invalid="true"]'); if (f) f.focus(); return; }
     btn.classList.add('loading'); btn.disabled = true;
-    await new Promise(resolve => setTimeout(resolve, 1400));
+
+    try {
+      const data = Object.fromEntries(new FormData(form));
+      const prenomsParts = (data.prenoms || '').split(/\s*[&et]\s*/i).map(s => s.trim()).filter(Boolean);
+      const payload = {
+        prenom1:      prenomsParts[0] || data.prenoms,
+        prenom2:      prenomsParts[1] || null,
+        email:        data.email,
+        date_mariage: data.date || null,
+        message:      [
+          data.formule && data.formule !== '' ? `Formule souhaitée : ${data.formule}` : '',
+          data.message || '',
+        ].filter(Boolean).join('\n\n') || null,
+      };
+
+      const res  = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const json = await res.json();
+
+      if (res.ok && json.lead_id) {
+        localStorage.setItem('wedoria_lead_id', json.lead_id);
+      }
+    } catch (err) {
+      console.error('Contact API error:', err);
+    }
+
     form.style.display = 'none';
     success.hidden = false;
   });
