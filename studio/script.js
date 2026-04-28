@@ -121,21 +121,41 @@ function generateDressCodePalette(mainHex) {
   ];
 }
 
-// ── CHARGEMENT ASSETS TEMPLATE ──
-async function loadTemplateAssets() {
+// ── SÉLECTION TEMPLATE VIA DOSSIER ──
+let templateDirHandle = null;
+
+async function pickTemplate() {
+  if (!window.showDirectoryPicker) {
+    alert('Votre navigateur ne supporte pas la sélection de dossier.\nUtilisez Chrome ou Edge.');
+    return;
+  }
   try {
+    const dir = await window.showDirectoryPicker({ mode: 'read' });
+    templateDirHandle = dir;
+
+    const readFile = async (name) => {
+      const fh = await dir.getFileHandle(name);
+      const f  = await fh.getFile();
+      return f.text();
+    };
+
     const [html, css, js] = await Promise.all([
-      fetch('../template/index.html').then(r => r.text()),
-      fetch('../template/style.css').then(r => r.text()),
-      fetch('../template/script.js').then(r => r.text()),
+      readFile('index.html'),
+      readFile('style.css'),
+      readFile('script.js'),
     ]);
+
     templateHTML = html;
     templateCSS  = css;
     templateJS   = js;
-    document.getElementById('drop-status').textContent = 'Prêt · glisser un config.js';
+
+    document.getElementById('btn-template').textContent = `📁 ${dir.name}`;
+    document.getElementById('drop-status').textContent  = 'Prêt · glisser un config.js';
   } catch (e) {
-    document.getElementById('drop-status').textContent =
-      '⚠️ Erreur chargement template — serveur requis';
+    if (e.name !== 'AbortError') {
+      document.getElementById('drop-status').textContent = '⚠️ Impossible de lire le dossier';
+      console.error(e);
+    }
   }
 }
 
@@ -145,9 +165,7 @@ function buildPreviewHTML(m) {
 
   let html = templateHTML;
 
-  // 0. Base href → tous les chemins relatifs pointent vers /template/ sur le serveur
-  const baseTag = `<base href="http://localhost:3003/template/" />`;
-  html = html.replace('<head>', '<head>\n  ' + baseTag);
+  // 0. Base href supprimée — les assets sont résolus via blob URLs ou ignorés
 
   // 1. CSS inline
   html = html.replace(
@@ -587,6 +605,300 @@ document.getElementById('t_font_sans').addEventListener('change',  updateFontPre
 btnSave.addEventListener('click',   () => { const m = readFormIntoMARIAGE(); if (m) showPreview(m); });
 btnExport.addEventListener('click', exportConfig);
 
+// ── BOUTON TEMPLATE ──
+document.getElementById('btn-template').addEventListener('click', pickTemplate);
+
+// ── ONGLETS FORMULE ──
+const FORMULE_TABS = document.querySelectorAll('.formule-tab');
+
+function applyFormuleTab(formule) {
+  FORMULE_TABS.forEach(t => t.classList.toggle('active', t.dataset.tab === formule));
+  document.querySelectorAll('.panel-section[data-formule]').forEach(sec => {
+    const allowed = sec.dataset.formule.split(',');
+    sec.classList.toggle('formule-hidden', !allowed.includes(formule));
+  });
+}
+
+FORMULE_TABS.forEach(tab => {
+  tab.addEventListener('click', () => applyFormuleTab(tab.dataset.tab));
+});
+
+// ── THÈME PAR PROMPT ──
+// ── CARTE SÉMANTIQUE COULEURS ──
+// Chaque entrée : mot (normalisé, sans accents) → hex
+// Priorité : plus spécifique en premier
+const WORD_COLORS = {
+  // ── Couleurs nommées (fr + en) ──
+  'rouge':        '#B02030', 'red':          '#B02030',
+  'rose':         '#9E4D6A', 'pink':         '#9E4D6A',
+  'bleu':         '#2A5A8B', 'blue':         '#2A5A8B',
+  'vert':         '#2E6B47', 'green':        '#2E6B47',
+  'violet':       '#5E3A8B', 'purple':       '#5E3A8B',
+  'jaune':        '#B09030', 'yellow':       '#B09030',
+  'orange':       '#B0602A', 'corail':       '#B5503A',
+  'coral':        '#B5503A', 'or':           '#8B6B2A',
+  'gold':         '#8B6B2A', 'dore':         '#8B6B2A',
+  'dore':         '#8B6B2A', 'argent':       '#6A7080',
+  'silver':       '#6A7080', 'blanc':        '#8A7A5A',
+  'white':        '#8A7A5A', 'noir':         '#2A2535',
+  'black':        '#2A2535', 'gris':         '#5A6070',
+  'grey':         '#5A6070', 'gray':         '#5A6070',
+  'beige':        '#8A7050', 'ivoire':       '#8A7A50',
+  'ivory':        '#8A7A50', 'creme':        '#8A7050',
+  'cream':        '#8A7050', 'taupe':        '#7A6050',
+  'bordeaux':     '#6B2737', 'burgundy':     '#6B2737',
+  'bordeaux':     '#6B2737', 'prune':        '#5A2A4A',
+  'mauve':        '#7A5070', 'lavande':      '#5E4B8B',
+  'lavender':     '#5E4B8B', 'lilas':        '#7A5A80',
+  'lilac':        '#7A5A80', 'turquoise':    '#2D8B7A',
+  'teal':         '#2D7A7A', 'emeraude':     '#2A7A50',
+  'emerald':      '#2A7A50', 'saphir':       '#2A3A8B',
+  'sapphire':     '#2A3A8B', 'rubis':        '#8B2040',
+  'ruby':         '#8B2040', 'ocre':         '#9E6B2A',
+  'ochre':        '#9E6B2A', 'terracotta':   '#9E5A2E',
+  'brun':         '#7A4B2A', 'marron':       '#7A4B2A',
+  'brown':        '#7A4B2A', 'chocolat':     '#5A3020',
+  'chocolate':    '#5A3020', 'caramel':      '#9A6030',
+  'miel':         '#9E7B3A', 'honey':        '#9E7B3A',
+  'peche':        '#A06850', 'peach':        '#A06850',
+  'saumon':       '#A05A48', 'salmon':       '#A05A48',
+  'indigo':       '#3A4A8B', 'marine':       '#1A3A6A',
+  'navy':         '#1A3A6A', 'cobalt':       '#2A4A8B',
+  'sage':         '#5A7A50', 'kaki':         '#6A7040',
+  'khaki':        '#6A7040', 'olive':        '#5A6830',
+  'foret':        '#2E6B47', 'forest':       '#2E6B47',
+  'champagne':    '#8B6B3A', 'dore':         '#8B6B2A',
+
+  // ── Fleurs & nature ──
+  'roses':        '#9E4D6A', 'pivoines':     '#A05070',
+  'pivoine':      '#A05070', 'peonies':      '#A05070',
+  'orchidee':     '#7A4080', 'orchid':       '#7A4080',
+  'jasmin':       '#C9A96E', 'jasmine':      '#C9A96E',
+  'lilas':        '#7A5A80', 'wisteria':     '#6A5080',
+  'glycine':      '#6A5080', 'dahlia':       '#8B3A50',
+  'tulipe':       '#9A4060', 'tulip':        '#9A4060',
+  'muguet':       '#4A8A60', 'lily':         '#C9A96E',
+  'lys':          '#C9A96E', 'lotus':        '#8A5060',
+  'bambou':       '#4A7A40', 'bamboo':       '#4A7A40',
+  'cerisier':     '#9E5870', 'cherry':       '#9E5870',
+  'sakura':       '#9E5870', 'eucalyptus':   '#5A7A65',
+  'verdure':      '#4A7040', 'fougere':      '#3A6A40',
+  'fern':         '#3A6A40', 'moss':         '#4A6A35',
+  'mousse':       '#4A6A35', 'lierre':       '#3A6035',
+  'vigne':        '#6A4035', 'vigne':        '#6A4035',
+
+  // ── Saisons & météo ──
+  'printemps':    '#7A8A40', 'spring':       '#7A8A40',
+  'ete':          '#B0602A', 'summer':       '#B0602A',
+  'automne':      '#9E5A2E', 'autumn':       '#9E5A2E',
+  'fall':         '#9E5A2E', 'hiver':        '#4A5A70',
+  'winter':       '#4A5A70', 'neige':        '#5A6A80',
+  'snow':         '#5A6A80', 'givre':        '#4A6070',
+  'pluie':        '#4A6080', 'rain':         '#4A6080',
+  'soleil':       '#B09030', 'sun':          '#B09030',
+  'coucher':      '#B0502A', 'sunset':       '#B0502A',
+  'aurore':       '#B06050', 'dawn':         '#B06050',
+  'nuit':         '#1A2040', 'night':        '#1A2040',
+  'etoiles':      '#2A2A5A', 'stars':        '#2A2A5A',
+  'lune':         '#4A5070', 'moon':         '#4A5070',
+  'crepuscule':   '#5A3060', 'dusk':         '#5A3060',
+  'brume':        '#5A6A70', 'mist':         '#5A6A70',
+  'brouillard':   '#5A6A70', 'fog':          '#5A6A70',
+
+  // ── Lieux & géographie ──
+  'paris':        '#4A3A5A', 'france':       '#4A3A5A',
+  'versailles':   '#5A4A2A', 'provence':     '#5E4B8B',
+  'cote':         '#2A6A8B', 'mediteranee':  '#2A6A8B',
+  'bord':         '#2A6A8B', 'ocean':        '#2A5A8B',
+  'mer':          '#2A6B8B', 'sea':          '#2A6B8B',
+  'plage':        '#8A6A40', 'beach':        '#8A6A40',
+  'jardin':       '#3A6A40', 'garden':       '#3A6A40',
+  'chateau':      '#6A5040', 'castle':       '#6A5040',
+  'toscane':      '#9A5535', 'tuscany':      '#9A5535',
+  'italie':       '#9A5535', 'italy':        '#9A5535',
+  'grece':        '#2A7A8B', 'greece':       '#2A7A8B',
+  'santorini':    '#2A7A8B', 'mykonos':      '#2A7A8B',
+  'marrakech':    '#9E4A2A', 'maroc':        '#9E4A2A',
+  'morocco':      '#9E4A2A', 'bali':         '#7A5A30',
+  'indonesie':    '#7A5A30', 'hawaii':       '#2A7A6A',
+  'tokyo':        '#9E5870', 'japon':        '#9E5870',
+  'japan':        '#9E5870', 'venise':       '#2A5A7A',
+  'venice':       '#2A5A7A', 'new york':     '#4A5060',
+  'irlande':      '#3A7A40', 'ireland':      '#3A7A40',
+  'ecosse':       '#3A5A70', 'scotland':     '#3A5A70',
+  'andalousie':   '#9E602A', 'espagne':      '#9E602A',
+  'colombie':     '#2A8B5A', 'mexique':      '#B05A30',
+
+  // ── Styles & époques ──
+  'art deco':     '#7A5A2A', 'deco':         '#7A5A2A',
+  'art nouveau':  '#4A6A40', 'nouveau':      '#4A6A40',
+  'baroque':      '#6B2737', 'renaissance':  '#7A3030',
+  'victorien':    '#4A3060', 'victorian':    '#4A3060',
+  'medieval':     '#5A4035', 'antique':      '#7A5A35',
+  'vintage':      '#5A7080', 'retro':        '#8A5A40',
+  'scandinave':   '#4A5468', 'nordic':       '#4A5468',
+  'japandi':      '#5A5040', 'wabi':         '#6A6050',
+  'boheme':       '#8B5E3C', 'boho':         '#8B5E3C',
+  'rustique':     '#7A4B2A', 'rustic':       '#7A4B2A',
+  'champetre':    '#7A4B2A', 'campagne':     '#7A4B2A',
+  'romantique':   '#9E4D6A', 'romantic':     '#9E4D6A',
+  'moderne':      '#3A4A5E', 'modern':       '#3A4A5E',
+  'minimaliste':  '#5A5A60', 'minimal':      '#5A5A60',
+  'luxe':         '#6B2737', 'luxury':       '#6B2737',
+  'elegant':      '#6B2737', 'elegance':     '#6B2737',
+  'tropical':     '#B5453A', 'exotique':     '#2A7A6A',
+  'exotic':       '#2A7A6A', 'colonial':     '#7A5530',
+  'oriental':     '#8B3A30', 'africain':     '#9A5020',
+  'africaine':    '#9A5020', 'celtique':     '#3A5A45',
+
+  // ── Matières & textures ──
+  'velours':      '#5A2A4A', 'velvet':       '#5A2A4A',
+  'soie':         '#C9A96E', 'silk':         '#C9A96E',
+  'dentelle':     '#8A7A60', 'lace':         '#8A7A60',
+  'lin':          '#8A7050', 'linen':        '#8A7050',
+  'bois':         '#7A4B2A', 'wood':         '#7A4B2A',
+  'marbre':       '#7A7A80', 'marble':       '#7A7A80',
+  'pierre':       '#6A6A70', 'stone':        '#6A6A70',
+  'ardoise':      '#4A5A60', 'slate':        '#4A5A60',
+  'cuivre':       '#9A5A30', 'copper':       '#9A5A30',
+  'bronze':       '#8A6030', 'laiton':       '#9A7A30',
+  'brass':        '#9A7A30', 'acier':        '#5A6070',
+  'steel':        '#5A6070', 'verre':        '#4A6A80',
+  'cristal':      '#4A6A80', 'crystal':      '#4A6A80',
+  'nacre':        '#8A8070', 'pearl':        '#8A8070',
+  'sable':        '#9A8060', 'sand':         '#9A8060',
+  'paille':       '#A09050', 'straw':        '#A09050',
+  'feuille':      '#3A6A40', 'leaf':         '#3A6A40',
+
+  // ── Ambiances & émotions ──
+  'mystere':      '#2A2040', 'mystery':      '#2A2040',
+  'magie':        '#4A2A6A', 'magic':        '#4A2A6A',
+  'feerique':     '#6A4A8A', 'fairy':        '#6A4A8A',
+  'enchante':     '#4A6A5A', 'enchanted':    '#4A6A5A',
+  'intime':       '#6A3A40', 'intimate':     '#6A3A40',
+  'festif':       '#B05A30', 'festive':      '#B05A30',
+  'doux':         '#9A6070', 'soft':         '#9A6070',
+  'serein':       '#4A6A80', 'serene':       '#4A6A80',
+  'grandiose':    '#5A3A2A', 'grand':        '#5A3A2A',
+  'poétique':     '#5A4A6A', 'poetique':     '#5A4A6A',
+  'sauvage':      '#4A5A35', 'wild':         '#4A5A35',
+  'solaire':      '#B08030', 'sunny':        '#B08030',
+  'lumineux':     '#B09030', 'bright':       '#B09030',
+  'sombre':       '#2A2A3A', 'dark':         '#2A2A3A',
+  'pastel':       '#8A6A7A', 'doux':         '#8A6A7A',
+};
+
+// ── Règles typographiques ──
+const FONT_RULES = [
+  { mots: ['moderne','minimal','contemporain','epure','scandinave','nordic','japandi','acier','verre','geometrique'],
+    serif: 'Bodoni Moda',        sans: 'DM Sans' },
+  { mots: ['baroque','victorien','medieval','renaissance','antique','grandiose','luxe','velours','royal'],
+    serif: 'EB Garamond',        sans: 'Raleway' },
+  { mots: ['boheme','boho','rustique','champetre','campagne','lin','paille','grange','libre'],
+    serif: 'Lora',               sans: 'Josefin Sans' },
+  { mots: ['vintage','retro','art deco','deco','cuivre','bronze','laiton'],
+    serif: 'Libre Baskerville',  sans: 'Josefin Sans' },
+  { mots: ['romantique','rose','floral','pivoines','dentelle','doux','intime','feerique','poetique','magie'],
+    serif: 'Cormorant Garamond', sans: 'Raleway' },
+  { mots: ['tropical','exotique','festif','couleur','hawaii','bali','mexique'],
+    serif: 'Playfair Display',   sans: 'Montserrat' },
+  { mots: ['nature','foret','jardin','vegetal','sauvage','fougere','mousse','bambou','eucalyptus'],
+    serif: 'EB Garamond',        sans: 'DM Sans' },
+];
+
+function normalize(s) {
+  return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+}
+
+// Hash déterministe → couleur plausible (fallback pour tout thème inconnu)
+function textToHashColor(text) {
+  let h = 0;
+  for (let i = 0; i < text.length; i++) {
+    h = Math.imul(31, h) + text.charCodeAt(i) | 0;
+  }
+  const hu = Math.abs(h);
+  const hue = hu % 360;
+  const sat = 30 + (hu >> 8 & 0xff) % 30;   // 30–60 %
+  const lig = 22 + (hu >> 16 & 0xff) % 18;  // 22–40 % (sombre = élégant)
+  return hslToHex(hue, sat, lig);
+}
+
+function applyThemeColors(hex, serif, sans) {
+  document.getElementById('t_wine').value = hex;
+  const p = generateThemePalette(hex);
+  document.getElementById('t_wine_dk').value  = p.wineDk;
+  document.getElementById('t_wine_lt').value  = p.wineLt;
+  document.getElementById('t_gold').value     = p.gold;
+  document.getElementById('t_gold_lt').value  = p.goldLt;
+  document.getElementById('t_olive').value    = p.olive;
+  document.getElementById('t_cream').value    = p.cream;
+  document.getElementById('t_cream_dk').value = p.creamDk;
+  document.getElementById('t_dark').value     = p.dark;
+  document.getElementById('t_dark_md').value  = p.darkMd;
+  document.getElementById('t_text').value     = p.text;
+  document.getElementById('t_text_lt').value  = p.textLt;
+  if (serif) document.getElementById('t_font_serif').value = serif;
+  if (sans)  document.getElementById('t_font_sans').value  = sans;
+  updateFontPreview();
+}
+
+function resolveTheme(text) {
+  const n = normalize(text);
+  // Tokens filtrés : min 3 chars pour éviter les faux positifs ("a", "en"…)
+  const tokens = n.split(/[\s,;.!?'-]+/).filter(t => t.length >= 3);
+
+  let hex = null;
+
+  // 1. Clés multi-mots d'abord ("art deco", "new york"…)
+  for (const [key, val] of Object.entries(WORD_COLORS)) {
+    if (key.includes(' ') && n.includes(key)) { hex = val; break; }
+  }
+
+  // 2. Correspondance exacte par token
+  if (!hex) {
+    for (const token of tokens) {
+      if (WORD_COLORS[token]) { hex = WORD_COLORS[token]; break; }
+    }
+  }
+
+  // 3. Préfixe : "romantiques" → "romantique", "etoiles" → "etoiles"
+  if (!hex) {
+    outer: for (const token of tokens) {
+      for (const [key] of Object.entries(WORD_COLORS)) {
+        if (token.startsWith(key) || key.startsWith(token)) {
+          hex = WORD_COLORS[key]; break outer;
+        }
+      }
+    }
+  }
+
+  // 4. Hash déterministe (tout thème libre)
+  if (!hex) hex = textToHashColor(n);
+
+  // Police : première règle qui matche dans le texte complet
+  let serif = null, sans = null;
+  for (const rule of FONT_RULES) {
+    if (rule.mots.some(m => n.includes(m))) {
+      serif = rule.serif; sans = rule.sans; break;
+    }
+  }
+
+  return { hex, serif: serif || 'Cormorant Garamond', sans: sans || 'Montserrat' };
+}
+
+function applyThemePrompt(text) {
+  const { hex, serif, sans } = resolveTheme(text);
+  applyThemeColors(hex, serif, sans);
+}
+
+document.getElementById('btn-gen-prompt').addEventListener('click', () => {
+  const text = document.getElementById('t_theme_prompt').value.trim();
+  if (text) applyThemePrompt(text);
+});
+document.getElementById('t_theme_prompt').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('btn-gen-prompt').click();
+});
+
 // ── INIT ──
-loadTemplateAssets();
 updateFontPreview();
+applyFormuleTab('standard');

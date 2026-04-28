@@ -2,22 +2,54 @@
    WEDORIA ONBOARDING · script.js
 ═══════════════════════════════════════════════════ */
 
-// ── API Wedoria Studio (URL de la vitrine Vercel) ──
-const API_BASE = 'https://wedoria-site-vitrine.vercel.app';
+const SUPABASE_URL     = 'https://wvujjzrttnkchxzjalce.supabase.co';
+const SUPABASE_ANON    = 'sb_publishable_q_NmRiGdRZ5UCJvq6DMakw_26A0KkE9';
+const STORAGE_BUCKET   = 'couple-photos';
+const API_BASE         = 'https://wedoria-vitrine.vercel.app';
 
+const MAX_PHOTOS       = 3;
+const MAX_PHOTO_MB     = 5;
 
-// ── ÉTAT DU WIZARD ──
-const TOTAL_STEPS = 14;
-let currentStep = 1;
+// ── FORMULE (URL param: ?formule=premium) ──
+const urlParams = new URLSearchParams(window.location.search);
+const FORMULE   = urlParams.get('formule') || 'standard';
 
-const steps        = document.querySelectorAll('.wizard-step');
-const btnPrev      = document.getElementById('btn-prev');
-const btnNext      = document.getElementById('btn-next');
-const btnSubmit    = document.getElementById('btn-submit');
+const FORMULE_LABELS = {
+  standard:    { label: 'Formule Standard',    icon: '◆' },
+  premium:     { label: 'Formule Premium',      icon: '⭐' },
+  'sur-mesure':{ label: 'Formule Sur-mesure',   icon: '✦' },
+};
+
+// ── ÉTAT ──
+const TOTAL_STEPS = 8;
+let currentStep   = 1;
+const photoFiles  = [null, null, null];
+
+// Données dynamiques
+let histoireItems  = [{ annee: '', titre: '', texte: '' }];
+let programmeItems = [{ ceremonie: '', heure: '', lieu: '' }];
+
+// ── DOM ──
+const steps         = document.querySelectorAll('.wizard-step');
+const btnPrev       = document.getElementById('btn-prev');
+const btnNext       = document.getElementById('btn-next');
+const btnSubmit     = document.getElementById('btn-submit');
 const progressFill  = document.getElementById('progress-fill');
 const progressLabel = document.getElementById('progress-label');
 
-// Champs obligatoires par étape (validation manuelle — pas de <form>)
+// ── INIT FORMULE ──
+(function initFormule() {
+  const badge = document.getElementById('formule-badge');
+  const info  = FORMULE_LABELS[FORMULE] || FORMULE_LABELS.standard;
+  badge.textContent = `${info.icon} ${info.label}`;
+  badge.className   = `wizard-formule formule-${FORMULE}`;
+
+  if (FORMULE === 'premium' || FORMULE === 'sur-mesure') {
+    document.getElementById('video-section').style.display = 'block';
+  }
+})();
+
+// ── VALIDATION ──
 const REQUIRED_BY_STEP = {
   1: ['prenom1', 'prenom2'],
   2: ['date_affichage', 'date_iso', 'domaine', 'ville'],
@@ -28,22 +60,18 @@ function validateStep(n) {
   const required = REQUIRED_BY_STEP[n];
   if (!required) return true;
   let valid = true;
-  let firstInvalid = null;
   for (const id of required) {
     const el = document.getElementById(id);
     if (!el || !el.value.trim()) {
-      if (el) {
-        el.style.borderColor = '#c0392b';
-        setTimeout(() => { el.style.borderColor = ''; }, 2000);
-        if (!firstInvalid) firstInvalid = el;
-      }
+      if (el) { el.style.borderColor = '#c0392b'; setTimeout(() => { el.style.borderColor = ''; }, 2000); }
+      if (valid) el && el.focus();
       valid = false;
     }
   }
-  if (firstInvalid) firstInvalid.focus();
   return valid;
 }
 
+// ── NAVIGATION ──
 function showStep(n) {
   steps.forEach(s => s.classList.remove('active'));
   const target = document.querySelector(`.wizard-step[data-step="${n}"]`);
@@ -53,7 +81,7 @@ function showStep(n) {
   btnNext.style.display    = n === TOTAL_STEPS ? 'none'         : 'inline-block';
   btnSubmit.style.display  = n === TOTAL_STEPS ? 'inline-block' : 'none';
 
-  progressFill.style.width = `${(n / TOTAL_STEPS) * 100}%`;
+  progressFill.style.width  = `${(n / TOTAL_STEPS) * 100}%`;
   progressLabel.textContent = `Étape ${n} / ${TOTAL_STEPS}`;
 
   currentStep = n;
@@ -69,330 +97,355 @@ btnPrev.addEventListener('click', () => {
   if (currentStep > 1) showStep(currentStep - 1);
 });
 
-// Masquer/afficher champ URL selon type vidéo
-document.getElementById('video_type').addEventListener('change', function () {
-  document.getElementById('video_src_group').style.display =
-    this.value === 'url' ? 'block' : 'none';
-});
-document.getElementById('video_src_group').style.display = 'none';
+// ── PHOTO UPLOAD ZONES ──
+function initPhotoZones() {
+  for (let i = 0; i < MAX_PHOTOS; i++) {
+    const zone    = document.getElementById(`zone-${i}`);
+    const input   = document.getElementById(`photo_${i}`);
+    const preview = document.getElementById(`prev-${i}`);
+    const img     = document.getElementById(`prev-img-${i}`);
+    const btnRm   = zone.querySelector('.upload-remove');
 
-// ── DONNÉES DÉMO (Sophie & Thomas) ──
-const DEMO = {
-  prenom1: 'Sophie',         nom1: 'Martin',
-  prenom2: 'Thomas',         nom2: 'Dupont',
-  date_affichage: 'Samedi 12 Juillet 2025',
-  date_iso:       '2025-07-12T14:00:00',
-  rsvp_deadline:  '1er Mai 2025',
-  domaine: 'Domaine des Brumes',
-  ville:   'Beaune, Bourgogne',
-  email:    'sophie.thomas@exemple.com',
-  whatsapp: '06 12 34 56 78',
-  lang_en: false, lang_vi: false,
-  photo_couple: 'photo-couple.jpg',
-  photo_couple_caption: 'Sophie & Thomas · Paris, France',
-  hero_intro:   'Vous êtes invités au mariage de',
-  hero_cta:     'Confirmer ma présence',
-  sr_line1:     'Avant ce jour,',
-  sr_line2:     "notre histoire s'écrivait",
-  citation:     "« Aimer, c'est trouver sa richesse en l'autre. »",
-  bandeau:      'France, Barcelone, Sophie, Thomas, Juillet 2025, Beaune, Bourgogne',
-  histoire_eyebrow: 'Depuis 2019',
-  histoire_titre:   'Notre Histoire',
-  h0_annee: '2019', h0_titre: 'La Rencontre',
-  h0_texte: "Un soir de novembre lors d'une soirée entre amis, nos regards se sont croisés pour la première fois.",
-  h0_align: 'left',
-  h1_annee: '2022', h1_titre: 'Notre Premier Voyage',
-  h1_texte: "Direction Lisbonne pour notre premier voyage. Entre pastéis de nata et tramways colorés, nous avons su que nous étions faits l'un pour l'autre.",
-  h1_align: 'right',
-  h2_annee: '2024', h2_titre: 'La Demande',
-  h2_texte: "Au coucher du soleil sur la plage de Biarritz, Thomas s'est agenouillé et a demandé à Sophie de partager sa vie.",
-  h2_align: 'left',
-  h3_annee: '2025', h3_titre: 'Le Grand Jour',
-  h3_texte: 'Nous célébrons notre union entourés de ceux que nous aimons.',
-  h3_align: 'right',
-  h4_annee: '', h4_titre: '', h4_texte: '', h4_align: 'left',
-  programme_eyebrow: '12 Juillet 2025',
-  programme_titre:   'Le Jour J',
-  p0_heure: '14h00', p0_icon: '💍', p0_titre: 'Cérémonie Laïque',  p0_lieu: 'Chapelle du Domaine des Brumes',
-  p1_heure: '15h30', p1_icon: '🥂', p1_titre: "Vin d'Honneur",     p1_lieu: 'Jardins du Domaine',
-  p2_heure: '19h30', p2_icon: '🍽️', p2_titre: 'Dîner de Gala',     p2_lieu: 'Grande Salle du Château',
-  p3_heure: '22h00', p3_icon: '🎵', p3_titre: 'Soirée Dansante',   p3_lieu: "Jusqu'au bout de la nuit !",
-  galerie_eyebrow: 'Le décor de notre amour',
-  galerie_titre:   'Le Domaine',
-  g0_icon: '🏰', g0_label: 'Façade du Domaine',   g0_photo: '',
-  g1_icon: '🌿', g1_label: 'Les Jardins',          g1_photo: '',
-  g2_icon: '✨', g2_label: 'Grande Salle',         g2_photo: '',
-  g3_icon: '⛪', g3_label: 'Chapelle',             g3_photo: '',
-  g4_icon: '🌸', g4_label: 'Terrasse',             g4_photo: '',
-  g5_icon: '🕯️', g5_label: 'Décoration de Table', g5_photo: '',
-  l0_icon: '⛪', l0_type: 'Cérémonie Laïque', l0_nom: 'Chapelle Saint-Jean',
-  l0_adresse1: '12 Route des Vignes', l0_adresse2: '21200 Beaune, Bourgogne',
-  l1_icon: '🏰', l1_type: 'Réception', l1_nom: 'Domaine des Brumes',
-  l1_adresse1: 'Hameau des Brumes',   l1_adresse2: '21200 Beaune, Bourgogne',
-  l2_nom: 'Hôtel Le Cep ★★★★', l2_adresse1: '27 Rue Maufoux', l2_adresse2: '21200 Beaune, Bourgogne',
-  carte_lat: '47.0239', carte_lng: '4.8397', carte_nom: 'Domaine des Brumes',
-  carte_caption: '📍 Domaine des Brumes · Hameau des Brumes, 21200 Beaune',
-  dress_intro: 'Tenue de soirée souhaitée. Inspirez-vous des teintes printanières !',
-  c0_nom: 'Rose poudré',  c0_hex: '#F2C4CE', c0_eviter: false,
-  c1_nom: 'Champagne',    c1_hex: '#F0DCA0', c1_eviter: false,
-  c2_nom: 'Sauge',        c2_hex: '#87A878', c2_eviter: false,
-  c3_nom: 'Ivoire',       c3_hex: '#F5F0E0', c3_eviter: false,
-  c4_nom: 'Blanc',        c4_hex: '#F5F5F5', c4_eviter: true,
-  c5_nom: 'Noir',         c5_hex: '#1A1A1A', c5_eviter: true,
-  i0_texte: 'Parking gratuit sur le domaine. Depuis Paris : A6 sortie Beaune. Depuis Lyon : A6 sortie Beaune Nord.',
-  i1_texte: 'Gare de Beaune à 8 km. Des navettes seront organisées depuis la gare à 13h30 et 13h50.',
-  i2_texte: "Des chambres ont été pré-réservées à l'Hôtel Le Cep. Contactez-nous pour le code préférentiel.",
-  i3_texte: 'Soirée adultes uniquement.',
-  i4_texte: 'Un photographe professionnel sera présent. Les photos seront partagées via un lien privé après le mariage.',
-  i5_icon: '➕', i5_titre: '', i5_texte: '',
-  faq0_q: "Puis-je amener un +1 non mentionné sur l'invitation ?",
-  faq0_r: "Merci de nous contacter directement avant de confirmer votre venue avec un accompagnant supplémentaire.",
-  faq1_q: "Y a-t-il une liste de mariage ?",
-  faq1_r: "Oui ! Nous avons ouvert une liste chez Zola et une cagnotte voyage. Détails envoyés par email après RSVP.",
-  faq2_q: 'Comment nous contacter ?',
-  faq2_r: 'Écrivez-nous à <a href="mailto:sophie.thomas@exemple.com">sophie.thomas@exemple.com</a>.',
-  faq3_q: '', faq3_r: '',
-  faq4_q: '', faq4_r: '',
-  video_type: 'local',
-  video_src:  '',
-  rsvp_intro: 'Merci de nous confirmer votre présence avant le 1er mai 2025 afin que nous puissions organiser cette belle journée dans les meilleures conditions.',
-};
+    zone.addEventListener('click', (e) => {
+      if (e.target === btnRm || btnRm.contains(e.target)) return;
+      input.click();
+    });
 
-// Pré-remplir tous les champs du formulaire avec DEMO
-document.getElementById('btn-demo').addEventListener('click', () => {
-  Object.entries(DEMO).forEach(([key, value]) => {
-    const el = document.getElementById(key) || document.querySelector(`[name="${key}"]`);
-    if (!el) return;
-    if (el.type === 'checkbox') { el.checked = Boolean(value); return; }
-    el.value = value;
+    zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.classList.add('drag-over'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+    zone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      zone.classList.remove('drag-over');
+      const file = e.dataTransfer.files[0];
+      if (file) handlePhotoFile(i, file, img, preview, zone);
+    });
+
+    input.addEventListener('change', () => {
+      if (input.files[0]) handlePhotoFile(i, input.files[0], img, preview, zone);
+    });
+
+    btnRm.addEventListener('click', () => {
+      photoFiles[i] = null;
+      input.value   = '';
+      preview.style.display = 'none';
+      zone.querySelector('.upload-placeholder').style.display = 'flex';
+      zone.classList.remove('has-file');
+    });
+  }
+}
+
+function handlePhotoFile(idx, file, img, preview, zone) {
+  if (!file.type.match(/image\/(jpeg|png|webp)/)) {
+    alert('Format non supporté. Utilisez JPG, PNG ou WebP.'); return;
+  }
+  if (file.size > MAX_PHOTO_MB * 1024 * 1024) {
+    alert(`Photo trop lourde (max ${MAX_PHOTO_MB} Mo).`); return;
+  }
+  photoFiles[idx] = file;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    img.src = e.target.result;
+    preview.style.display = 'flex';
+    zone.querySelector('.upload-placeholder').style.display = 'none';
+    zone.classList.add('has-file');
+  };
+  reader.readAsDataURL(file);
+}
+
+// ── HISTOIRE DYNAMIQUE ──
+const HISTOIRE_EXEMPLES = [
+  { annee: '', titre: 'La Rencontre', texte: 'Décrivez comment vous vous êtes rencontrés...' },
+  { annee: '', titre: 'Le Premier Move', texte: 'Qui a fait le premier pas ?' },
+  { annee: '', titre: 'Notre Premier Voyage', texte: 'Ce voyage qui a tout changé...' },
+  { annee: '', titre: 'La Demande', texte: 'Le moment où vous avez dit oui...' },
+  { annee: '', titre: 'Le Grand Jour', texte: 'Et maintenant, nous célébrons...' },
+];
+
+function renderHistoire() {
+  const container = document.getElementById('histoire-container');
+  container.innerHTML = histoireItems.map((item, i) => `
+    <div class="dynamic-block" data-idx="${i}">
+      <div class="block-header">
+        <span class="block-num">${i + 1}</span>
+        ${histoireItems.length > 1 ? `<button type="button" class="btn-remove-block" data-idx="${i}">✕</button>` : ''}
+      </div>
+      <div class="form-row">
+        <div class="form-group" style="flex:0 0 120px">
+          <label>Année</label>
+          <input type="text" value="${item.annee}" placeholder="2019"
+            oninput="histoireItems[${i}].annee = this.value" />
+        </div>
+        <div class="form-group">
+          <label>Titre <span class="req">*</span></label>
+          <input type="text" value="${item.titre}"
+            placeholder="${HISTOIRE_EXEMPLES[i % HISTOIRE_EXEMPLES.length].titre}"
+            oninput="histoireItems[${i}].titre = this.value" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea placeholder="${HISTOIRE_EXEMPLES[i % HISTOIRE_EXEMPLES.length].texte}"
+          oninput="histoireItems[${i}].texte = this.value">${item.texte}</textarea>
+      </div>
+    </div>
+  `).join('');
+
+  container.querySelectorAll('.btn-remove-block').forEach(btn => {
+    btn.addEventListener('click', () => {
+      histoireItems.splice(parseInt(btn.dataset.idx), 1);
+      renderHistoire();
+    });
   });
-  document.getElementById('video_type').dispatchEvent(new Event('change'));
+}
+
+document.getElementById('btn-add-histoire').addEventListener('click', () => {
+  if (histoireItems.length >= 5) return;
+  histoireItems.push({ annee: '', titre: '', texte: '' });
+  renderHistoire();
+});
+
+// ── PROGRAMME DYNAMIQUE ──
+const PROGRAMME_SUGGESTIONS = ['Cérémonie', 'Vin d\'Honneur', 'Cocktail', 'Dîner', 'Soirée dansante', 'Brunch du lendemain'];
+
+function renderProgramme() {
+  const container = document.getElementById('programme-container');
+  container.innerHTML = programmeItems.map((item, i) => `
+    <div class="dynamic-block" data-idx="${i}">
+      <div class="block-header">
+        <span class="block-num">${i + 1}</span>
+        ${programmeItems.length > 1 ? `<button type="button" class="btn-remove-block" data-idx="${i}">✕</button>` : ''}
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Moment <span class="req">*</span></label>
+          <input type="text" list="prog-suggestions" value="${item.ceremonie}"
+            placeholder="Cérémonie"
+            oninput="programmeItems[${i}].ceremonie = this.value" />
+        </div>
+        <div class="form-group" style="flex:0 0 130px">
+          <label>Heure</label>
+          <input type="text" value="${item.heure}" placeholder="14h00"
+            oninput="programmeItems[${i}].heure = this.value" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Lieu</label>
+        <input type="text" value="${item.lieu}" placeholder="Chapelle du Domaine"
+          oninput="programmeItems[${i}].lieu = this.value" />
+      </div>
+    </div>
+  `).join('') + `<datalist id="prog-suggestions">${PROGRAMME_SUGGESTIONS.map(s => `<option value="${s}">`).join('')}</datalist>`;
+
+  container.querySelectorAll('.btn-remove-block').forEach(btn => {
+    btn.addEventListener('click', () => {
+      programmeItems.splice(parseInt(btn.dataset.idx), 1);
+      renderProgramme();
+    });
+  });
+}
+
+document.getElementById('btn-add-programme').addEventListener('click', () => {
+  programmeItems.push({ ceremonie: '', heure: '', lieu: '' });
+  renderProgramme();
+});
+
+// ── DONNÉES DÉMO ──
+document.getElementById('btn-demo').addEventListener('click', () => {
+  document.getElementById('prenom1').value       = 'Sophie';
+  document.getElementById('nom1').value          = 'Martin';
+  document.getElementById('prenom2').value       = 'Thomas';
+  document.getElementById('nom2').value          = 'Dupont';
+  document.getElementById('date_affichage').value = 'Samedi 12 Juillet 2025';
+  document.getElementById('date_iso').value       = '2025-07-12T14:00';
+  document.getElementById('rsvp_deadline').value  = '1er Mai 2025';
+  document.getElementById('domaine').value        = 'Domaine des Brumes';
+  document.getElementById('ville').value          = 'Beaune, Bourgogne';
+  document.getElementById('email').value          = 'sophie.thomas@exemple.com';
+  document.getElementById('whatsapp').value       = '06 12 34 56 78';
+
+  histoireItems = [
+    { annee: '2019', titre: 'La Rencontre', texte: "Un soir de novembre lors d'une soirée entre amis, nos regards se sont croisés pour la première fois." },
+    { annee: '2022', titre: 'Notre Premier Voyage', texte: "Direction Lisbonne. Entre pastéis de nata et tramways colorés, nous avons su que nous étions faits l'un pour l'autre." },
+    { annee: '2024', titre: 'La Demande', texte: "Au coucher du soleil sur la plage de Biarritz, Thomas s'est agenouillé et a demandé à Sophie de partager sa vie." },
+    { annee: '2025', titre: 'Le Grand Jour', texte: 'Nous célébrons notre union entourés de ceux que nous aimons.' },
+  ];
+  renderHistoire();
+
+  programmeItems = [
+    { ceremonie: 'Cérémonie Laïque', heure: '14h00', lieu: 'Chapelle du Domaine des Brumes' },
+    { ceremonie: "Vin d'Honneur",    heure: '15h30', lieu: 'Jardins du Domaine' },
+    { ceremonie: 'Dîner de Gala',    heure: '19h30', lieu: 'Grande Salle du Château' },
+    { ceremonie: 'Soirée Dansante',  heure: '22h00', lieu: "Jusqu'au bout de la nuit !" },
+  ];
+  renderProgramme();
+
+  document.getElementById('infos_libres').value =
+    "🚗 Parking gratuit sur le domaine.\n🚂 Gare de Beaune à 8 km — navettes depuis la gare à 13h30.\n🏨 Des chambres pré-réservées à l'Hôtel Le Cep (contactez-nous pour le code).";
+
   showStep(2);
 });
+
+// ── UPLOAD PHOTO → SUPABASE STORAGE ──
+async function uploadPhoto(file, slug, idx) {
+  const ext  = file.name.split('.').pop();
+  const path = `${slug}/photo-${idx + 1}-${Date.now()}.${ext}`;
+  const res  = await fetch(
+    `${SUPABASE_URL}/storage/v1/object/${STORAGE_BUCKET}/${path}`,
+    {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${SUPABASE_ANON}`,
+        'Content-Type': file.type,
+        'x-upsert': 'true',
+      },
+      body: file,
+    }
+  );
+  if (!res.ok) throw new Error(`Upload photo ${idx + 1} échoué`);
+  return `${SUPABASE_URL}/storage/v1/object/public/${STORAGE_BUCKET}/${path}`;
+}
 
 // ── LECTURE DES VALEURS ──
 function v(id) {
   const el = document.getElementById(id);
   return el ? el.value.trim() : '';
 }
-function vCheck(id) {
-  const el = document.getElementById(id);
-  return el ? el.checked : false;
-}
 
-// ── GÉNÉRATION DE L'OBJET MARIAGE ──
-function generateMAIRIAGE() {
+// ── GÉNÉRATION CONFIG ──
+function generateConfig() {
   const langues = ['fr'];
-  if (vCheck('lang_en')) langues.push('en');
-  if (vCheck('lang_vi')) langues.push('vi');
+  if (document.getElementById('lang_en').checked) langues.push('en');
+  if (document.getElementById('lang_vi').checked) langues.push('vi');
 
-  const bandeau = v('bandeau')
-    ? v('bandeau').split(',').map(s => s.trim()).filter(Boolean)
-    : [];
+  const programme = programmeItems
+    .filter(p => p.ceremonie)
+    .map(p => ({
+      heure: p.heure,
+      icon: '◆',
+      titre: p.ceremonie,
+      lieu: p.lieu,
+    }));
 
-  const histoire = [0, 1, 2, 3, 4].map(i => ({
-    annee: v(`h${i}_annee`),
-    titre: v(`h${i}_titre`),
-    texte: v(`h${i}_texte`),
-    align: v(`h${i}_align`) || 'left',
-  }));
-
-  const programme = [0, 1, 2, 3].map(i => ({
-    heure: v(`p${i}_heure`),
-    icon:  v(`p${i}_icon`) || '◆',
-    titre: v(`p${i}_titre`),
-    lieu:  v(`p${i}_lieu`),
-  }));
-
-  const galerie = [0, 1, 2, 3, 4, 5].map(i => ({
-    icon:  v(`g${i}_icon`) || '🏛️',
-    label: v(`g${i}_label`),
-    photo: v(`g${i}_photo`) || null,
-  }));
-
-  const carteLatRaw = v('carte_lat');
-  const carteLngRaw = v('carte_lng');
-  const carte = {
-    lat:     carteLatRaw ? parseFloat(carteLatRaw) : null,
-    lng:     carteLngRaw ? parseFloat(carteLngRaw) : null,
-    zoom:    14,
-    nom:     v('carte_nom'),
-    adresse: [v('l1_adresse1'), v('l1_adresse2')].filter(Boolean),
-    caption: v('carte_caption'),
-  };
-
-  const lieux = [
-    {
-      icon: v('l0_icon') || '⛪', type: v('l0_type'),
-      nom:  v('l0_nom'),
-      adresse: [v('l0_adresse1'), v('l0_adresse2')].filter(Boolean),
-      featured: false, badge: '',
-      btn: { label: 'Voir sur la carte', href: '#map' },
-    },
-    {
-      icon: v('l1_icon') || '🏰', type: v('l1_type'),
-      nom:  v('l1_nom'),
-      adresse: [v('l1_adresse1'), v('l1_adresse2')].filter(Boolean),
-      featured: true, badge: 'Lieu principal',
-      btn: { label: 'Voir sur la carte', href: '#map' },
-    },
-    {
-      icon: '🏨', type: 'Hébergement conseillé',
-      nom:  v('l2_nom'),
-      adresse: [v('l2_adresse1'), v('l2_adresse2')].filter(Boolean),
-      featured: false, badge: '',
-      btn: { label: "Plus d'infos", href: '#infos' },
-    },
-  ];
-
-  const dress_couleurs = [0, 1, 2, 3, 4, 5].map(i => ({
-    nom:    v(`c${i}_nom`),
-    hex:    v(`c${i}_hex`),
-    eviter: vCheck(`c${i}_eviter`),
-  })).filter(c => c.nom);
-
-  const infos = [
-    { icon: '🚗', titre: 'Parking',     texte: v('i0_texte') },
-    { icon: '🚂', titre: 'Train',       texte: v('i1_texte') },
-    { icon: '🏨', titre: 'Hébergement', texte: v('i2_texte') },
-    { icon: '👶', titre: 'Enfants',     texte: v('i3_texte') },
-    { icon: '📸', titre: 'Photos',      texte: v('i4_texte') },
-    { icon: v('i5_icon') || '➕', titre: v('i5_titre'), texte: v('i5_texte') },
-  ];
-
-  const faq = [0, 1, 2, 3, 4].map(i => ({
-    q: v(`faq${i}_q`),
-    r: v(`faq${i}_r`),
-  }));
+  const histoire = histoireItems
+    .filter(h => h.titre)
+    .map((h, i) => ({
+      annee: h.annee,
+      titre: h.titre,
+      texte: h.texte,
+      align: i % 2 === 0 ? 'left' : 'right',
+    }));
 
   return {
     prenom1: v('prenom1'), nom1: v('nom1'),
     prenom2: v('prenom2'), nom2: v('nom2'),
     date_affichage: v('date_affichage'),
-    date_iso:       v('date_iso'),
+    date_iso:       v('date_iso') || null,
     rsvp_deadline:  v('rsvp_deadline') || null,
     domaine: v('domaine'),
     ville:   v('ville'),
     email:    v('email'),
     whatsapp: v('whatsapp') || null,
     langues,
-    photo_couple:         v('photo_couple') || null,
-    photo_couple_caption: v('photo_couple_caption'),
-    hero_intro:   v('hero_intro'),
-    hero_cta:     v('hero_cta'),
-    scroll_label: 'Découvrir',
-    citation:     v('citation'),
-    sr_line1:     v('sr_line1'),
-    sr_line2:     v('sr_line2'),
-    bandeau,
-    histoire_eyebrow: v('histoire_eyebrow'),
-    histoire_titre:   v('histoire_titre'),
+    formule: FORMULE,
+    photo_couple: null,
+    photos: [],
+    video_hero: { type: 'local', src: v('video_src') || 'hero.mp4' },
+    histoire_eyebrow: '',
+    histoire_titre:   'Notre Histoire',
     histoire,
-    programme_eyebrow: v('programme_eyebrow'),
-    programme_titre:   v('programme_titre'),
+    programme_eyebrow: v('date_affichage') || '',
+    programme_titre:   'Le Jour J',
     programme,
-    galerie_eyebrow: v('galerie_eyebrow'),
-    galerie_titre:   v('galerie_titre'),
-    galerie_hint:    '',
-    galerie,
-    lieux_eyebrow: 'Où nous rejoindre',
-    lieux_titre:   'Les Lieux',
-    lieux,
-    carte,
-    dress_eyebrow: "Pour l'occasion",
-    dress_titre:   'Code Vestimentaire',
-    dress_intro:   v('dress_intro'),
-    dress_couleurs,
-    infos_eyebrow: "Tout ce qu'il faut savoir",
-    infos_titre:   'Infos Pratiques',
-    infos,
-    faq_titre: 'Questions fréquentes',
-    faq,
-    video_hero: {
-      type: v('video_type') || 'local',
-      src:  v('video_src') || 'hero.mp4',
-    },
+    infos_libres: v('infos_libres'),
+    infos:  v('infos_libres') ? [{ icon: '📋', titre: 'Informations pratiques', texte: v('infos_libres') }] : [],
+    faq: [],
     rsvp_titre: 'Confirmer votre présence',
-    rsvp_intro: v('rsvp_intro'),
+    rsvp_intro: '',
     i18n: {},
   };
 }
 
-// ── GÉNÉRATION DU FICHIER config.js ──
 function generateConfigJS(m) {
   return `/* ═══════════════════════════════════════════════════════════════
    CONFIG.JS — Généré par Wedoria Onboarding
-   ─────────────────────────────────────────────────────────────
-   C'est le SEUL fichier à modifier pour chaque nouveau client.
+   Couple : ${m.prenom1} & ${m.prenom2}
 ═══════════════════════════════════════════════════════════════ */
 
 const MARIAGE = ${JSON.stringify(m, null, 2)};
 `;
 }
 
-// ── TÉLÉCHARGEMENT DU FICHIER ──
 function downloadConfig(content, prenom1, prenom2) {
   const filename = `config-${prenom1.toLowerCase()}-${prenom2.toLowerCase()}.js`;
   const blob = new Blob([content], { type: 'text/javascript' });
   const url  = URL.createObjectURL(blob);
   const a    = document.createElement('a');
-  a.href     = url;
-  a.download = filename;
-  a.click();
+  a.href = url; a.download = filename; a.click();
   setTimeout(() => URL.revokeObjectURL(url), 100);
 }
 
 // ── SOUMISSION ──
-async function handleSubmit() {
-  const m         = generateMAIRIAGE();
-  const configStr = generateConfigJS(m);
+btnSubmit.addEventListener('click', async () => {
+  const config    = generateConfig();
+  const configStr = generateConfigJS(config);
 
-  // 1. Téléchargement immédiat du config.js
-  downloadConfig(configStr, m.prenom1, m.prenom2);
+  downloadConfig(configStr, config.prenom1, config.prenom2);
 
-  // 2. Désactiver le bouton
   btnSubmit.disabled    = true;
   btnSubmit.textContent = 'Envoi en cours…';
 
-  // 3. Envoi du brief à l'API Wedoria
+  // Upload photos → Supabase Storage
+  const slug = `${config.prenom1}-${config.prenom2}`.toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/[^a-z0-9-]/g, '-');
+
+  const photoUrls = [];
+  for (let i = 0; i < MAX_PHOTOS; i++) {
+    if (photoFiles[i]) {
+      try {
+        const url = await uploadPhoto(photoFiles[i], slug, i);
+        photoUrls.push(url);
+      } catch (err) {
+        console.error('Upload photo error:', err);
+        // Non-fatal — on continue sans la photo
+      }
+    }
+  }
+  config.photos       = photoUrls;
+  config.photo_couple = photoUrls[0] || null;
+
+  // Envoi brief API
   try {
     const lead_id = localStorage.getItem('wedoria_lead_id') || null;
     const payload = {
       lead_id,
-      prenom1:      m.prenom1,
-      prenom2:      m.prenom2,
-      email_client: m.email,
-      date_mariage: m.date_iso || null,
-      lieu:         [m.domaine, m.ville].filter(Boolean).join(', ') || null,
-      programme:    m.programme
-        ? m.programme.filter(p => p.heure || p.titre)
-            .map(p => `${p.heure || ''} ${p.titre || ''}`.trim()).join(' · ')
-        : null,
-      infos_pratiques: m.infos
-        ? m.infos.filter(i => i.texte).map(i => `${i.titre} : ${i.texte}`).join('\n')
-        : null,
+      prenom1:      config.prenom1,
+      prenom2:      config.prenom2,
+      email_client: config.email,
+      date_mariage: config.date_iso || null,
+      lieu:         [config.domaine, config.ville].filter(Boolean).join(', ') || null,
+      programme:    config.programme.filter(p => p.heure || p.titre)
+        .map(p => `${p.heure} ${p.titre}`.trim()).join(' · ') || null,
+      infos_pratiques: config.infos_libres || null,
     };
-
     const res  = await fetch(`${API_BASE}/api/onboarding`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
     const json = await res.json();
-
     if (res.ok && json.projet_id) {
       localStorage.setItem('wedoria_projet_id', json.projet_id);
-    } else if (!res.ok) {
-      console.error('API onboarding error:', json.error);
     }
   } catch (err) {
     console.error('Onboarding API error:', err);
-    // Non-fatal — config.js already downloaded
   }
 
-  // 4. Afficher la confirmation
-  document.getElementById('wizard').style.display     = 'none';
+  document.getElementById('wizard').style.display   = 'none';
   document.getElementById('confirmation').classList.remove('hidden');
-}
+});
 
-btnSubmit.addEventListener('click', handleSubmit);
+// ── INIT ──
+renderHistoire();
+renderProgramme();
+showStep(1);

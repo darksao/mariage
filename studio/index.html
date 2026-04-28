@@ -13,7 +13,8 @@
   <span class="topbar-logo">◆ STUDIO</span>
   <span class="topbar-client" id="topbar-client">Aucun config chargé</span>
   <input type="file" id="file-input" accept=".js" style="display:none" />
-  <button class="btn-load" id="btn-load">📂 Charger</button>
+  <button class="btn-template" id="btn-template">📁 Template</button>
+  <button class="btn-load" id="btn-load">📂 Charger config</button>
   <button class="btn-save" id="btn-save" disabled>↺ Mettre à jour</button>
   <button class="btn-export" id="btn-export" disabled>⬇ Exporter</button>
 </header>
@@ -23,6 +24,13 @@
 
   <!-- LEFT: formulaire éditable -->
   <aside class="left-panel" id="left-panel">
+
+    <!-- ══ ONGLETS FORMULE ══ -->
+    <div class="formule-tabs">
+      <button class="formule-tab active" data-tab="standard">Standard</button>
+      <button class="formule-tab" data-tab="premium">Premium</button>
+      <button class="formule-tab" data-tab="sur-mesure">Sur-mesure</button>
+    </div>
 
     <!-- ══ MARIÉS ══ -->
     <details class="panel-section" open>
@@ -148,12 +156,17 @@
       <summary class="panel-section-title">🎨 Thème visuel</summary>
       <div class="section-body">
 
+        <div class="theme-prompt-row">
+          <input type="text" id="t_theme_prompt" placeholder="Ex : champêtre, romantique, bohème, provençal…" />
+          <button class="btn-generate" id="btn-gen-prompt">✦ Générer</button>
+        </div>
+
         <div class="theme-generate-row">
           <div class="field" style="margin:0;flex:1">
             <label>Couleur principale</label>
             <input type="color" id="t_wine" value="#6B2737" />
           </div>
-          <button class="btn-generate" id="btn-gen-theme">✦ Générer palette</button>
+          <button class="btn-generate" id="btn-gen-theme">↻ Palette</button>
         </div>
 
         <div class="color-grid">
@@ -243,7 +256,7 @@
     </details>
 
     <!-- ══ DRESS CODE ══ -->
-    <details class="panel-section">
+    <details class="panel-section" data-formule="premium,sur-mesure">
       <summary class="panel-section-title">Dress Code</summary>
       <div class="section-body">
         <div class="field"><label>Description</label><textarea id="s_dress_intro"></textarea></div>
@@ -257,7 +270,7 @@
     </details>
 
     <!-- ══ VIDÉO HERO ══ -->
-    <details class="panel-section">
+    <details class="panel-section" data-formule="premium,sur-mesure">
       <summary class="panel-section-title">Vidéo Hero</summary>
       <div class="section-body">
         <div class="field">
@@ -289,7 +302,7 @@
       <div class="drop-title">Glisser un config.js ici</div>
       <div class="drop-sub">ou</div>
       <button class="btn-form-preview" id="btn-form-preview">Prévisualiser depuis le formulaire</button>
-      <div class="drop-or" id="drop-status">Prêt · serveur actif</div>
+      <div class="drop-or" id="drop-status">Cliquez « 📁 Template » pour commencer</div>
     </div>
     <div class="preview-loading" id="preview-loading">Chargement du template…</div>
     <iframe id="preview-iframe" title="Preview site mariage"></iframe>
