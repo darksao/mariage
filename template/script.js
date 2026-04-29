@@ -665,7 +665,7 @@ class Leaf {
   }
 }
 
-if (canvas && ctx) {
+if (canvas && ctx && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const leafCount = window.innerWidth < 768 ? 35 : 95;
   const leaves = Array.from({ length: leafCount }, () => new Leaf(true));
   let frame = 0;

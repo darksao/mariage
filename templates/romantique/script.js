@@ -180,7 +180,7 @@ function initPetales() {
   var ctx = canvas.getContext('2d');
 
   var COLORS = ['#F2C4CE', '#E8A0B0', '#F7D6DC', '#D4849A', '#FAC0CC'];
-  var COUNT  = 60;
+  var COUNT  = window.innerWidth < 768 ? 30 : 60;
   var petals = [];
 
   function resize() {
