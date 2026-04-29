@@ -1,9 +1,9 @@
 {
-  "date": "2026-04-24",
+  "date": "2026-04-29",
   "sprint": {
     "numero": 3,
     "nom": "Stratégie notoriété",
-    "progression": 0
+    "progression": 20
   },
   "agents": {
     "ceo":         { "statut": "actif" },
@@ -18,18 +18,42 @@
   "enCours": [],
   "aFaire": [
     {
-      "id": "t4",
-      "agent": "support",
-      "priorite": "normal",
-      "tache": "Rédiger FAQ initiale (5 questions fréquentes anticipées)"
+      "id": "s1",
+      "agent": "marketing",
+      "priorite": "important",
+      "tache": "Définir stratégie SEO initiale (mots-clés mariage, balises meta vitrine)"
+    },
+    {
+      "id": "s2",
+      "agent": "commercial",
+      "priorite": "important",
+      "tache": "Préparer le pitch commercial (1 page, tarifs, différenciateurs)"
+    },
+    {
+      "id": "s3",
+      "agent": "dev",
+      "priorite": "bloquant",
+      "tache": "Créer tables Supabase (leads + projets) + configurer Vercel env vars + Resend domaine"
     }
   ],
-  "escalades": [],
+  "escalades": [
+    {
+      "id": "e1",
+      "date": "2026-04-29",
+      "agent": "dev",
+      "message": "3 actions manuelles requises pour débloquer le flux E2E : (1) Créer tables Supabase via SQL Editor, (2) Ajouter env vars sur Vercel, (3) Vérifier domaine wedoria.fr dans Resend. Sans ces étapes, les leads ne sont pas enregistrés."
+    }
+  ],
   "decisions": [
     {
       "date": "2026-04-24",
       "agent": "ceo",
       "decision": "Sprint 1 terminé et validé (sprint1_valide: true). Transition vers Sprint 2 — Mise sur le site vitrine. Agents actifs : Dev, Designer, Chef de projet. Tech Lead en attente. Marketing et Commercial activés au Sprint 3."
+    },
+    {
+      "date": "2026-04-29",
+      "agent": "dev",
+      "decision": "Sprint 3 démarré. FAQ vitrine livrée (t4). Prochaines priorités : SEO, pitch commercial, et déblocage E2E (escalade e1)."
     }
   ],
   "termine": [
@@ -48,6 +72,7 @@
     { "id": "d10", "agent": "dev", "tache": "Fix romantique — pétales canvas réduits sur mobile" },
     { "id": "d11", "agent": "dev", "tache": "Fix template/ — prefers-reduced-motion feuilles JS" },
     { "id": "tl1", "agent": "tech-lead", "tache": "Validation Sprint 1 — sprint1_valide: true" },
-    { "id": "ds1", "agent": "designer", "tache": "Validation visuelle Sprint 1 OK" }
+    { "id": "ds1", "agent": "designer", "tache": "Validation visuelle Sprint 1 OK" },
+    { "id": "t4", "agent": "support", "tache": "FAQ initiale — 5 questions fréquentes (vitrine, accordion)" }
   ]
 }
