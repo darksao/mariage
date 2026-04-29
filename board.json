@@ -3,7 +3,7 @@
   "sprint": {
     "numero": 3,
     "nom": "Stratégie notoriété",
-    "progression": 20
+    "progression": 55
   },
   "agents": {
     "ceo":         { "statut": "actif" },
@@ -18,22 +18,16 @@
   "enCours": [],
   "aFaire": [
     {
-      "id": "s1",
-      "agent": "marketing",
-      "priorite": "important",
-      "tache": "Définir stratégie SEO initiale (mots-clés mariage, balises meta vitrine)"
-    },
-    {
-      "id": "s2",
-      "agent": "commercial",
-      "priorite": "important",
-      "tache": "Préparer le pitch commercial (1 page, tarifs, différenciateurs)"
-    },
-    {
       "id": "s3",
       "agent": "dev",
       "priorite": "bloquant",
       "tache": "Créer tables Supabase (leads + projets) + configurer Vercel env vars + Resend domaine"
+    },
+    {
+      "id": "s4",
+      "agent": "dev",
+      "priorite": "important",
+      "tache": "Renommer projet Vercel 'wedoria-vitrine' → 'wedoria-studio' via dashboard Vercel"
     }
   ],
   "escalades": [
@@ -73,6 +67,9 @@
     { "id": "d11", "agent": "dev", "tache": "Fix template/ — prefers-reduced-motion feuilles JS" },
     { "id": "tl1", "agent": "tech-lead", "tache": "Validation Sprint 1 — sprint1_valide: true" },
     { "id": "ds1", "agent": "designer", "tache": "Validation visuelle Sprint 1 OK" },
-    { "id": "t4", "agent": "support", "tache": "FAQ initiale — 5 questions fréquentes (vitrine, accordion)" }
+    { "id": "t4", "agent": "support", "tache": "FAQ initiale — 5 questions fréquentes (vitrine, accordion)" },
+    { "id": "s1", "agent": "marketing", "tache": "SEO vitrine — Open Graph, Twitter Card, JSON-LD (ProfessionalService)" },
+    { "id": "s2", "agent": "commercial", "tache": "Pitch commercial livré (pitch.html — 1 page, tarifs, différenciateurs)" },
+    { "id": "s5", "agent": "dev", "tache": "Renommer références wedoria-vitrine → wedoria-studio dans fichiers locaux" }
   ]
 }

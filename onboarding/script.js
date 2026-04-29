@@ -5,7 +5,7 @@
 const SUPABASE_URL     = 'https://wvujjzrttnkchxzjalce.supabase.co';
 const SUPABASE_ANON    = 'sb_publishable_q_NmRiGdRZ5UCJvq6DMakw_26A0KkE9';
 const STORAGE_BUCKET   = 'couple-photos';
-const API_BASE         = 'https://wedoria-vitrine.vercel.app';
+const API_BASE         = 'https://wedoria-studio.vercel.app';
 
 const MAX_PHOTOS       = 3;
 const MAX_PHOTO_MB     = 5;
