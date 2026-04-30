@@ -32,6 +32,7 @@ function initLoader() {
   const wordmark = document.querySelector('.loader__wordmark');
   const bar      = document.querySelector('.loader__bar');
   if (!loader) { onLoaderComplete(); return; }
+  if (!bar) { loader.style.display = 'none'; document.body.classList.remove('loading'); onLoaderComplete(); return; }
   if (prefersReducedMotion) {
     loader.style.opacity = '0';
     setTimeout(() => { loader.style.display='none'; document.body.classList.remove('loading'); onLoaderComplete(); }, 200);
