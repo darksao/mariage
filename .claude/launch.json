@@ -1,0 +1,35 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Site Invités",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "site-invites", "--listen", "3000", "--no-clipboard"],
+      "port": 3000
+    },
+    {
+      "name": "Scraper Domaines 77",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "scraper", "--listen", "3001", "--no-clipboard"],
+      "port": 3001
+    }
+    ,{
+      "name": "Template Mariage",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "template", "--listen", "3002", "--no-clipboard"],
+      "port": 3002
+    }
+    ,{
+      "name": "Wedoria Studio",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", ".", "--listen", "3003", "--no-clipboard"],
+      "port": 3003
+    }
+    ,{
+      "name": "Wedoria Studio (Vitrine)",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "vitrine", "--listen", "3004", "--no-clipboard"],
+      "port": 3004
+    }
+  ]
+}

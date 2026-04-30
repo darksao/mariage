@@ -1,0 +1,40 @@
+{
+  "planPath": "docs/superpowers/plans/2026-04-24-equipe-agents.md",
+  "tasks": [
+    {
+      "id": 0,
+      "subject": "Task 0: AGENTS.md — Règles globales et protocole",
+      "status": "pending",
+      "description": "**Goal:** Créer le fichier de référence que chaque agent lit avant d'agir.\n\n**Files:**\n- Create: `AGENTS.md`\n\n**Acceptance Criteria:**\n- [ ] Tous les rôles sont définis avec leurs responsabilités\n- [ ] Le protocole board.json est documenté\n- [ ] Les 3 sprints et leurs critères de fin sont définis\n\n```json:metadata\n{\"files\": [\"AGENTS.md\"], \"verifyCommand\": \"\", \"acceptanceCriteria\": [\"AGENTS.md créé avec les 8 rôles\", \"protocole board.json documenté\", \"3 sprints définis\"], \"requiresUserVerification\": false}\n```"
+    },
+    {
+      "id": 1,
+      "subject": "Task 1: agents/ — 8 fichiers contexte agents",
+      "status": "pending",
+      "blockedBy": [0],
+      "description": "**Goal:** Créer le répertoire agents/ avec un fichier contexte par agent.\n\n**Files:**\n- Create: `agents/ceo.md`, `agents/tech-lead.md`, `agents/dev.md`, `agents/designer.md`, `agents/chef-projet.md`, `agents/marketing.md`, `agents/commercial.md`, `agents/support.md`\n\n**Acceptance Criteria:**\n- [ ] 8 fichiers créés dans agents/\n- [ ] Chaque fichier contient rôle, responsabilités, escalades\n\n```json:metadata\n{\"files\": [\"agents/ceo.md\", \"agents/tech-lead.md\", \"agents/dev.md\", \"agents/designer.md\", \"agents/chef-projet.md\", \"agents/marketing.md\", \"agents/commercial.md\", \"agents/support.md\"], \"verifyCommand\": \"\", \"acceptanceCriteria\": [\"8 fichiers créés\", \"chaque fichier a rôle + responsabilités + escalades\"], \"requiresUserVerification\": false}\n```"
+    },
+    {
+      "id": 2,
+      "subject": "Task 2: board.json — État initial Sprint 1",
+      "status": "pending",
+      "blockedBy": [0],
+      "description": "**Goal:** Créer le fichier source de vérité avec l'état initial du Sprint 1.\n\n**Files:**\n- Create: `board.json`\n\n**Acceptance Criteria:**\n- [ ] JSON valide\n- [ ] Sprint 1 configuré\n- [ ] 4 tâches initiales\n\n**Verify:** `node -e \"JSON.parse(require('fs').readFileSync('board.json','utf8')); console.log('JSON valide')\"`\n\n```json:metadata\n{\"files\": [\"board.json\"], \"verifyCommand\": \"node -e \\\"JSON.parse(require('fs').readFileSync('board.json','utf8')); console.log('JSON valide')\\\"\", \"acceptanceCriteria\": [\"JSON valide\", \"Sprint 1 configuré\", \"4 tâches initiales\"], \"requiresUserVerification\": false}\n```"
+    },
+    {
+      "id": 3,
+      "subject": "Task 3: dashboard.html — Dashboard interactif",
+      "status": "pending",
+      "blockedBy": [1, 2],
+      "description": "**Goal:** Créer le dashboard HTML interactif qui lit et écrit board.json via File System Access API.\n\n**Files:**\n- Create: `dashboard.html`\n\n**Acceptance Criteria:**\n- [ ] S'ouvre dans le navigateur sans serveur\n- [ ] Demande de sélectionner board.json\n- [ ] Affiche sprint, agents, escalades, tâches\n- [ ] Répondre à une escalade met à jour board.json\n- [ ] Marquer terminé met à jour board.json\n- [ ] Auto-refresh 30s\n\n**Verify:** Ouvrir dans Chrome → sélectionner board.json → vérifier affichage\n\n```json:metadata\n{\"files\": [\"dashboard.html\"], \"verifyCommand\": \"Ouvrir dashboard.html dans Chrome\", \"acceptanceCriteria\": [\"s'ouvre sans serveur\", \"lit board.json\", \"affiche sprint + agents + tâches\", \"interactions écrivent dans board.json\"], \"requiresUserVerification\": true, \"userVerificationPrompt\": \"Le dashboard s'ouvre correctement dans ton navigateur et affiche bien le Sprint 1 ?\"}\n```"
+    },
+    {
+      "id": 4,
+      "subject": "Task 4: Vérification utilisateur — Dashboard fonctionnel",
+      "status": "pending",
+      "blockedBy": [3],
+      "description": "**Goal:** Confirmer que le dashboard est utilisable au quotidien.\n\n**User Verification Required:**\nAppeler AskUserQuestion pour confirmer que le dashboard fonctionne.\n\n```json:metadata\n{\"files\": [], \"verifyCommand\": \"\", \"acceptanceCriteria\": [\"utilisateur confirme que le dashboard fonctionne\"], \"requiresUserVerification\": true, \"userVerificationPrompt\": \"Le dashboard s'ouvre dans Chrome, charge board.json, et affiche correctement sprint / agents / tâches ?\"}\n```"
+    }
+  ],
+  "lastUpdated": "2026-04-24T00:00:00Z"
+}

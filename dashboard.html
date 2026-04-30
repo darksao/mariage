@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedoria Studio · Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ivory: #FAFAF7;
+    --cream: #F8F4EE;
+    --gold: #C9A96E;
+    --text: #2C2C2C;
+    --text-light: #8A8A8A;
+    --border: #E8E2D9;
+    --escalade: #C0392B;
+    --actif: #27AE60;
+    --attente: #BDC3C7;
+  }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--ivory);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+    font-weight: 300;
+  }
+
+  header {
+    background: var(--cream);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+  }
+
+  .logo span { color: var(--gold); }
+
+  .header-right { display: flex; align-items: center; gap: 16px; }
+
+  #date-display { color: var(--text-light); font-size: 13px; }
+
+  #btn-open {
+    background: var(--text);
+    color: var(--ivory);
+    border: none;
+    padding: 8px 16px;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+
+  #btn-open:hover { background: var(--gold); }
+
+  main {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: calc(100vh - 57px);
+  }
+
+  .sidebar {
+    background: var(--cream);
+    border-right: 1px solid var(--border);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 12px;
+  }
+
+  .sprint-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .sprint-num { color: var(--text-light); font-size: 12px; margin-bottom: 12px; }
+
+  .progress-bar { height: 3px; background: var(--border); margin-bottom: 4px; }
+
+  .progress-fill { height: 100%; background: var(--gold); transition: width 0.4s; }
+
+  .progress-label { font-size: 12px; color: var(--text-light); }
+
+  .agents-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .agent-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .agent-row:last-child { border-bottom: none; }
+
+  .agent-name { font-size: 13px; }
+
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot.actif { background: var(--actif); }
+  .dot.attente { background: var(--attente); }
+  .dot.escalade { background: var(--escalade); }
+
+  .sprint-transition { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+
+  .btn-sprint {
+    background: none;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 8px 16px;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    width: 100%;
+  }
+
+  .btn-sprint:hover { background: var(--gold); color: white; }
+
+  .content { padding: 24px 32px; display: flex; flex-direction: column; gap: 32px; overflow-y: auto; }
+
+  #no-file {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 300px;
+    grid-column: 1 / -1;
+  }
+
+  #no-file p { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--text-light); }
+
+  .btn-open-center {
+    background: none;
+    border: 1px solid var(--border);
+    padding: 10px 20px;
+    font-family: 'Jost', sans-serif;
+    cursor: pointer;
+    font-size: 13px;
+  }
+
+  .btn-open-center:hover { border-color: var(--gold); color: var(--gold); }
+
+  .escalade-card {
+    background: #FDF3F2;
+    border: 1px solid #E8C4C0;
+    border-left: 3px solid var(--escalade);
+    padding: 16px 20px;
+    margin-bottom: 12px;
+  }
+
+  .escalade-from {
+    font-size: 11px;
+    color: var(--escalade);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+
+  .escalade-question { font-size: 14px; margin-bottom: 12px; line-height: 1.5; }
+
+  .escalade-options { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .btn-option {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-option:hover { background: var(--text); color: var(--ivory); border-color: var(--text); }
+
+  .tasks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  .task-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .task-item:last-child { border-bottom: none; }
+
+  .task-agent {
+    font-size: 10px;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    padding-top: 2px;
+    min-width: 80px;
+  }
+
+  .task-text { font-size: 13px; line-height: 1.4; flex: 1; }
+
+  .btn-done {
+    background: none;
+    border: 1px solid var(--border);
+    width: 18px; height: 18px;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: var(--text-light);
+    transition: all 0.2s;
+  }
+
+  .btn-done:hover { border-color: var(--actif); color: var(--actif); }
+
+  .done-check { color: var(--actif); font-size: 12px; }
+
+  .empty-state { color: var(--text-light); font-size: 13px; font-style: italic; padding: 8px 0; }
+
+  .refresh-note { font-size: 11px; color: var(--text-light); text-align: right; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Wedoria <span>Studio</span> · Équipe</div>
+  <div class="header-right">
+    <span id="date-display"></span>
+    <button id="btn-open">Ouvrir board.json</button>
+  </div>
+</header>
+
+<main>
+  <aside class="sidebar">
+    <div>
+      <div class="section-title">Sprint actuel</div>
+      <div class="sprint-name" id="sprint-nom">—</div>
+      <div class="sprint-num" id="sprint-num">—</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+      </div>
+      <div class="progress-label" id="progress-label">0%</div>
+      <div class="sprint-transition">
+        <button class="btn-sprint" id="btn-sprint-next">Passer au sprint suivant</button>
+      </div>
+    </div>
+    <div>
+      <div class="section-title">Agents</div>
+      <div class="agents-list" id="agents-list"></div>
+    </div>
+  </aside>
+
+  <div class="content" id="content-area">
+    <div id="no-file">
+      <p>Aucun board chargé</p>
+      <button class="btn-open-center" id="btn-open-2">Sélectionner board.json</button>
+    </div>
+
+    <div id="dashboard-content" style="display:none">
+      <div>
+        <div class="section-title">⚠ Escalades — décisions requises</div>
+        <div id="escalades-list"></div>
+      </div>
+
+      <div class="tasks-grid">
+        <div>
+          <div class="section-title">En cours</div>
+          <div id="en-cours-list"></div>
+        </div>
+        <div>
+          <div class="section-title">Terminé ✓</div>
+          <div id="termine-list"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">À faire</div>
+        <div id="a-faire-list"></div>
+      </div>
+
+      <div class="refresh-note" id="refresh-note"></div>
+    </div>
+  </div>
+</main>
+
+<script>
+  const AGENT_LABELS = {
+    'ceo': 'CEO', 'tech-lead': 'Tech Lead', 'dev': 'Dev',
+    'designer': 'Designer', 'chef-projet': 'Chef de projet',
+    'marketing': 'Marketing', 'commercial': 'Commercial', 'support': 'Support'
+  };
+
+  const SPRINT_NAMES = {
+    1: 'Robustesse produit',
+    2: 'Mise sur le site vitrine',
+    3: 'Stratégie notoriété'
+  };
+
+  let fileHandle = null;
+  let board = null;
+  let refreshInterval = null;
+
+  // Date display
+  document.getElementById('date-display').textContent =
+    new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+  async function openFile() {
+    try {
+      [fileHandle] = await window.showOpenFilePicker({
+        types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }]
+      });
+      await readAndRender();
+      document.getElementById('no-file').style.display = 'none';
+      document.getElementById('dashboard-content').style.display = 'flex';
+      document.getElementById('dashboard-content').style.flexDirection = 'column';
+      document.getElementById('dashboard-content').style.gap = '32px';
+      clearInterval(refreshInterval);
+      refreshInterval = setInterval(readAndRender, 30000);
+    } catch (e) { /* user cancelled */ }
+  }
+
+  async function readAndRender() {
+    if (!fileHandle) return;
+    const file = await fileHandle.getFile();
+    board = JSON.parse(await file.text());
+    render();
+    document.getElementById('refresh-note').textContent =
+      'Dernière mise à jour : ' + new Date().toLocaleTimeString('fr-FR');
+  }
+
+  async function writeBoard() {
+    const writable = await fileHandle.createWritable();
+    await writable.write(JSON.stringify(board, null, 2));
+    await writable.close();
+  }
+
+  function render() {
+    // Sprint
+    document.getElementById('sprint-nom').textContent = board.sprint.nom;
+    document.getElementById('sprint-num').textContent = 'Sprint ' + board.sprint.numero;
+    const pct = board.sprint.progression || 0;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = pct + '%';
+
+    // Agents
+    const agentsList = document.getElementById('agents-list');
+    agentsList.innerHTML = '';
+    for (const [key, val] of Object.entries(board.agents)) {
+      const hasEscalade = board.escalades.some(e => e.de === key && !e.reponse);
+      const statut = hasEscalade ? 'escalade' : val.statut;
+      const row = document.createElement('div');
+      row.className = 'agent-row';
+      row.innerHTML = `<span class="agent-name">${AGENT_LABELS[key] || key}</span><span class="dot ${statut}"></span>`;
+      agentsList.appendChild(row);
+    }
+
+    // Escalades
+    const escaladesList = document.getElementById('escalades-list');
+    escaladesList.innerHTML = '';
+    const pending = board.escalades.filter(e => !e.reponse);
+    if (pending.length === 0) {
+      escaladesList.innerHTML = '<div class="empty-state">Aucune escalade en attente</div>';
+    } else {
+      pending.forEach(e => {
+        const card = document.createElement('div');
+        card.className = 'escalade-card';
+        const opts = (e.options || []).map(opt =>
+          `<button class="btn-option" data-id="${e.id}" data-rep="${opt}">${opt}</button>`
+        ).join('');
+        card.innerHTML = `
+          <div class="escalade-from">↑ ${AGENT_LABELS[e.de] || e.de}</div>
+          <div class="escalade-question">${e.question}</div>
+          <div class="escalade-options">${opts}</div>`;
+        escaladesList.appendChild(card);
+      });
+      escaladesList.querySelectorAll('.btn-option').forEach(btn => {
+        btn.addEventListener('click', () => repondreEscalade(btn.dataset.id, btn.dataset.rep));
+      });
+    }
+
+    // Tâches
+    renderTasks('en-cours-list', board.enCours, true);
+    renderTasks('a-faire-list', board.aFaire, false);
+    renderDone();
+  }
+
+  function renderTasks(id, tasks, showDone) {
+    const el = document.getElementById(id);
+    el.innerHTML = '';
+    if (!tasks || tasks.length === 0) {
+      el.innerHTML = '<div class="empty-state">Aucune tâche</div>';
+      return;
+    }
+    tasks.forEach(t => {
+      const item = document.createElement('div');
+      item.className = 'task-item';
+      const doneBtn = showDone
+        ? `<button class="btn-done" data-id="${t.id}" title="Marquer terminé">✓</button>`
+        : '';
+      item.innerHTML = `
+        <span class="task-agent">${AGENT_LABELS[t.agent] || t.agent}</span>
+        <span class="task-text">${t.tache}</span>${doneBtn}`;
+      el.appendChild(item);
+    });
+    if (showDone) {
+      el.querySelectorAll('.btn-done').forEach(btn => {
+        btn.addEventListener('click', () => marquerTermine(btn.dataset.id));
+      });
+    }
+  }
+
+  function renderDone() {
+    const el = document.getElementById('termine-list');
+    el.innerHTML = '';
+    if (!board.termine || board.termine.length === 0) {
+      el.innerHTML = '<div class="empty-state">Aucune tâche terminée</div>';
+      return;
+    }
+    [...board.termine].reverse().slice(0, 8).forEach(t => {
+      const item = document.createElement('div');
+      item.className = 'task-item';
+      item.innerHTML = `
+        <span class="task-agent">${AGENT_LABELS[t.agent] || t.agent}</span>
+        <span class="task-text">${t.tache}</span>
+        <span class="done-check">✓</span>`;
+      el.appendChild(item);
+    });
+  }
+
+  async function repondreEscalade(id, reponse) {
+    const e = board.escalades.find(x => x.id === id);
+    if (!e) return;
+    e.reponse = reponse;
+    board.decisions.push({
+      date: new Date().toISOString().slice(0, 10),
+      agent: 'pm',
+      decision: `Escalade [${id}] "${e.question}" → ${reponse}`
+    });
+    await writeBoard();
+    await readAndRender();
+  }
+
+  async function marquerTermine(id) {
+    const idx = board.enCours.findIndex(t => t.id === id);
+    if (idx === -1) return;
+    const [task] = board.enCours.splice(idx, 1);
+    board.termine.push(task);
+    const total = board.enCours.length + board.aFaire.length + board.termine.length;
+    board.sprint.progression = total > 0 ? Math.round((board.termine.length / total) * 100) : 0;
+    await writeBoard();
+    await readAndRender();
+  }
+
+  async function passerSprintSuivant() {
+    const n = board.sprint.numero;
+    if (n >= 3) { alert('Sprint 3 est le dernier sprint.'); return; }
+    if (!confirm(`Passer au Sprint ${n + 1} : ${SPRINT_NAMES[n + 1]} ?`)) return;
+    board.sprint = { numero: n + 1, nom: SPRINT_NAMES[n + 1], progression: 0 };
+    if (n === 1) {
+      board.agents['designer'].statut = 'actif';
+      board.agents['chef-projet'].statut = 'actif';
+    } else if (n === 2) {
+      board.agents['marketing'].statut = 'actif';
+      board.agents['commercial'].statut = 'actif';
+    }
+    board.decisions.push({
+      date: new Date().toISOString().slice(0, 10),
+      agent: 'pm',
+      decision: `Transition vers Sprint ${n + 1} (${SPRINT_NAMES[n + 1]}) forcée par le PM.`
+    });
+    await writeBoard();
+    await readAndRender();
+  }
+
+  document.getElementById('btn-open').addEventListener('click', openFile);
+  document.getElementById('btn-open-2').addEventListener('click', openFile);
+  document.getElementById('btn-sprint-next').addEventListener('click', passerSprintSuivant);
+</script>
+</body>
+</html>

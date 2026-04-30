@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Mariage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="is-loading">
+
+  <!-- ══ LOADER ═══════════════════════════════════════════ -->
+  <div id="loader">
+    <div class="loader-inner">
+      <div class="loader-monogram">
+        <span id="loader-p1" class="lm-l"></span>
+        <span class="lm-amp">◆</span>
+        <span id="loader-p2" class="lm-a"></span>
+      </div>
+      <p class="loader-date" id="loader-date"></p>
+      <div class="loader-bar"><div class="loader-progress" id="loader-progress"></div></div>
+    </div>
+  </div>
+
+  <!-- ══ NAVIGATION ════════════════════════════════════════ -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#accueil" class="nav-logo">
+        <span id="nav-p1"></span>
+        <span class="nav-amp">&amp;</span>
+        <span id="nav-p2"></span>
+      </a>
+      <div class="lang-switch" id="lang-switch">
+        <button class="lang-btn active" data-lang="fr" title="Français"><img src="https://flagcdn.com/fr.svg" alt="FR" class="flag-icon"></button>
+        <button class="lang-btn" data-lang="en" title="English"><img src="https://flagcdn.com/gb.svg" alt="EN" class="flag-icon"></button>
+        <button class="lang-btn" data-lang="vi" title="Tiếng Việt"><img src="https://flagcdn.com/vn.svg" alt="VI" class="flag-icon"></button>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#histoire">Histoire</a></li>
+        <li><a href="#programme">Le Jour J</a></li>
+        <li><a href="#galerie">Domaine</a></li>
+        <li><a href="#lieux">Les Lieux</a></li>
+        <li><a href="#rsvp">RSVP</a></li>
+        <li><a href="#infos">Infos</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ══ HERO VIDÉO ════════════════════════════════════════ -->
+  <section id="accueil" class="hero-video-section">
+    <canvas id="leaves-canvas"></canvas>
+    <p id="hero-invite">Vous êtes invités au mariage de</p>
+    <div id="hero-video-wrap">
+      <video id="hero-video" autoplay loop muted playsinline preload="auto">
+        <source src="hero.mp4"  type="video/mp4"  />
+        <source src="hero.webm" type="video/webm" />
+      </video>
+      <div id="hero-frame"></div>
+      <div id="hero-veil"></div>
+      <div id="hero-overlay">
+        <div id="hero-monogram">
+          <span id="hero-p1" class="hv-l"></span>
+          <span class="hv-amp">◆</span>
+          <span id="hero-p2" class="hv-r"></span>
+        </div>
+        <p id="hero-names-overlay"></p>
+        <p id="hero-date-overlay"></p>
+        <a href="#rsvp" id="hero-cta-overlay" class="btn-gold">Confirmer ma présence</a>
+      </div>
+    </div>
+    <div id="hero-scroll-hint">
+      <div class="scroll-mouse"><div class="scroll-dot"></div></div>
+      <span class="scroll-label">Découvrir</span>
+    </div>
+  </section>
+
+  <!-- ══ COUNTDOWN ══════════════════════════════════════════ -->
+  <section class="section sect-dark countdown-section">
+    <div class="sect-header">
+      <div class="ornament-line dark"><span class="orn-rule"></span><span class="orn-diamond">◆</span><span class="orn-rule"></span></div>
+    </div>
+    <div id="countdown" class="countdown">
+      <div class="cd-item"><span id="cd-days" class="cd-num">000</span><small class="cd-lbl">jours</small></div>
+      <div class="cd-item"><span id="cd-hours" class="cd-num">00</span><small class="cd-lbl">heures</small></div>
+      <div class="cd-item"><span id="cd-min" class="cd-num">00</span><small class="cd-lbl">minutes</small></div>
+      <div class="cd-item"><span id="cd-sec" class="cd-num">00</span><small class="cd-lbl">secondes</small></div>
+    </div>
+  </section>
+
+  <!-- ══ PHOTO COUPLE ═════════════════════════════════════ -->
+  <section class="couple-photo-section" id="couple-photo">
+    <div class="cp-image-wrap">
+      <img id="cp-img" alt="Photo du couple" />
+      <div class="cp-overlay"></div>
+    </div>
+    <div class="cp-text">
+      <div class="ornament-line dark" style="max-width:120px;margin-bottom:2rem;">
+        <span class="orn-rule"></span><span class="orn-diamond">◆</span><span class="orn-rule"></span>
+      </div>
+      <h2 class="cp-names" id="cp-names"></h2>
+      <p class="cp-caption" id="cp-caption"></p>
+      <div class="ornament-line dark" style="max-width:120px;margin-top:2rem;">
+        <span class="orn-rule"></span><span class="orn-diamond">◆</span><span class="orn-rule"></span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ STICKY REVEAL ════════════════════════════════════ -->
+  <section class="sticky-reveal" id="sticky-reveal" data-ambiance="0">
+    <div class="sr-sticky">
+      <div class="sr-line" id="sr-line-1">Avant ce jour,</div>
+      <div class="sr-line" id="sr-line-2">notre histoire s'écrivait</div>
+      <div class="sr-line sr-line-names" id="sr-line-3">
+        <span id="sr-p1"></span>
+        <span class="sr-amp">＆</span>
+        <span id="sr-p2"></span>
+      </div>
+      <div class="sr-line sr-line-date" id="sr-line-4" style="opacity:0"></div>
+    </div>
+  </section>
+
+  <!-- ══ NOTRE HISTOIRE ════════════════════════════════════ -->
+  <section id="histoire" class="section sect-cream">
+    <div class="sect-header">
+      <p class="sect-eyebrow" id="histoire-eyebrow"></p>
+      <h2 id="histoire-titre"></h2>
+      <div class="ornament-line"><span class="orn-rule"></span><span class="orn-diamond">◆</span><span class="orn-rule"></span></div>
+    </div>
+    <div class="histoire-wrap" id="histoire-wrap">
+      <!-- filled by JS -->
+    </div>
+  </section>
+
+  <!-- ══ PHOTO AMBIANCE 1 ══════════════════════════════════ -->
+  <div class="photo-band" id="photo-band-1" style="display:none">
+    <img class="photo-band-img" id="photo-band-img-1" alt="Photo d'ambiance du mariage" />
+    <div class="photo-band-overlay"></div>
+  </div>
+
+  <!-- ══ BANDEAU DÉFILANT ════════════════════════════════ -->
+  <div id="bandeau-section" class="bandeau-section" style="display:none">
+    <div class="bandeau-track" id="bandeau-track"></div>
+  </div>
+
+  <!-- ══ PROGRAMME ═════════════════════════════════════════ -->
+  <section id="programme" class="section sect-dark">
+    <div class="sect-header">
+      <p class="sect-eyebrow" id="programme-eyebrow"></p>
+      <h2 id="programme-titre"></h2>
+      <div class="ornament-line dark"><span class="orn-rule"></span><span class="orn-diamond">◆</span><span class="orn-rule"></span></div>
+    </div>
+    <div class="prog-split">
+      <div class="prog-left">
+        <div class="prog-vline"></div>
+        <div class="prog-wrap" id="prog-wrap">
+          <!-- filled by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ GALERIE ════════════════════════════════════════════ -->
+  <section id="galerie" class="section sect-cream">
+    <div class="sect-header">
+      <p class="sect-eyebrow" id="galerie-eyebrow"></p>
+      <h2 id="galerie-titre"></h2>
+      <div class="ornament-line"><span class="orn-rule"></span><span class="orn-diamond">◆</span><span class="orn-rule"></span></div>
+      <p class="galerie-hint" id="galerie-hint"></p>
+    </div>
+    <div class="gallery-grid" id="gallery-grid">
+      <!-- filled by JS -->
+    </div>
+  </section>
+
+  <!-- ══ LES LIEUX ══════════════════════════════════════════ -->
+  <section id="lieux" class="section sect-tinted">
+    <div class="sect-header">
+      <p class="sect-eyebrow" id="lieux-eyebrow"></p>
+      <h2 id="lieux-titre"></h2>
+      <div class="ornament-line"><span class="orn-rule"></span><span class="orn-diamond">◆</span><span class="orn-rule"></span></div>
+    </div>
+    <div class="lieux-cards" id="lieux-cards">
+      <!-- filled by JS -->
+    </div>
+    <div id="map" class="map-container"></div>
+    <p class="map-caption" id="map-caption"></p>
+  </section>
+
+  <!-- ══ DRESS CODE ═════════════════════════════════════════ -->
+  <section class="section sect-wine-dk dress-code">
+    <div class="sect-header">
+      <p class="sect-eyebrow gold" id="dress-eyebrow"></p>
+      <h2 class="light" id="dress-titre"></h2>
+      <div class="ornament-line dark"><span class="orn-rule"></span><span class="orn-diamond">◆</span><span class="orn-rule"></span></div>
+    </div>
+    <p class="dc-intro" id="dress-intro"></p>
+    <div class="dc-palette" id="dc-palette">
+      <!-- filled by JS -->
+    </div>
+  </section>
+
+  <!-- ══ PHOTO AMBIANCE 2 ══════════════════════════════════ -->
+  <div class="photo-band" id="photo-band-2" style="display:none">
+    <img class="photo-band-img" id="photo-band-img-2" alt="Photo d'ambiance du mariage" />
+    <div class="photo-band-overlay"></div>
+  </div>
+
+  <!-- ══ RSVP ══════════════════════════════════════════════ -->
+  <section id="rsvp" class="section sect-cream">
+    <div class="rsvp-inner">
+      <div class="sect-header">
+        <p class="sect-eyebrow" id="rsvp-eyebrow"></p>
+        <h2 id="rsvp-titre"></h2>
+        <div class="ornament-line"><span class="orn-rule"></span><span class="orn-diamond">◆</span><span class="orn-rule"></span></div>
+        <p class="rsvp-intro" id="rsvp-intro"></p>
+      </div>
+
+      <form id="rsvp-form" class="rsvp-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label id="lbl-prenom" for="f-prenom">Prénom *</label>
+            <input type="text" id="f-prenom" name="prenom" placeholder="Votre prénom" required />
+          </div>
+          <div class="form-group">
+            <label id="lbl-nom" for="f-nom">Nom *</label>
+            <input type="text" id="f-nom" name="nom" placeholder="Votre nom" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label id="lbl-email" for="f-email">Email *</label>
+          <input type="email" id="f-email" name="email" placeholder="votre@email.com" required />
+        </div>
+        <div class="form-group">
+          <label id="lbl-presence">Serez-vous présent(e) ? *</label>
+          <div class="radio-group">
+            <label class="radio-opt"><input type="radio" name="presence" value="oui" required /><span class="radio-btn"></span><span id="lbl-oui">Oui, avec joie ! 🎉</span></label>
+            <label class="radio-opt"><input type="radio" name="presence" value="non" /><span class="radio-btn"></span><span id="lbl-non">Non, malheureusement 😢</span></label>
+          </div>
+        </div>
+        <div class="form-group" id="grp-invites" style="display:none">
+          <label id="lbl-invites" for="f-invites">Nombre d'accompagnant(s)</label>
+          <select id="f-invites" name="invites">
+            <option value="0">Je viens seul(e)</option>
+            <option value="1">+ 1 accompagnant(e)</option>
+            <option value="2">+ 2 accompagnants</option>
+            <option value="3">+ 3 accompagnants</option>
+            <option value="4">+ 4 ou plus</option>
+          </select>
+        </div>
+        <div class="form-group" id="grp-accompagnants" style="display:none">
+          <label for="f-accompagnants">Prénom(s) de votre/vos accompagnant(s) *</label>
+          <input type="text" id="f-accompagnants" name="accompagnants" placeholder="Ex : Marie, Pierre" />
+        </div>
+        <div class="form-group" id="grp-menu" style="display:none">
+          <label id="lbl-menu">Préférence de menu</label>
+          <div class="radio-group radio-inline">
+            <label class="radio-opt"><input type="radio" name="menu" value="standard" /><span class="radio-btn"></span><span>Standard</span></label>
+            <label class="radio-opt"><input type="radio" name="menu" value="vegetarien" /><span class="radio-btn"></span><span id="lbl-vegetarien">Végétarien</span></label>
+            <label class="radio-opt"><input type="radio" name="menu" value="vegan" /><span class="radio-btn"></span><span>Vegan</span></label>
+          </div>
+        </div>
+        <div class="form-group" id="grp-allergies" style="display:none">
+          <label id="lbl-allergies" for="f-allergies">Allergies ou régimes alimentaires</label>
+          <input type="text" id="f-allergies" name="allergies" placeholder="Ex : sans gluten, allergie aux noix…" />
+        </div>
+        <div class="form-group">
+          <label id="lbl-message" for="f-msg">Un mot pour les mariés</label>
+          <textarea id="f-msg" name="message" rows="4" placeholder="Votre message, vœux, anecdote…"></textarea>
+        </div>
+        <button type="submit" id="btn-submit" class="btn-gold btn-full">Envoyer ma réponse</button>
+      </form>
+
+      <div id="rsvp-ok" class="rsvp-ok" style="display:none">
+        <span class="ok-icon">◆</span>
+        <h3 id="ok-h3">Merci !</h3>
+        <p id="ok-msg"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ INFOS PRATIQUES ═══════════════════════════════════ -->
+  <section id="infos" class="section sect-dark">
+    <div class="sect-header">
+      <p class="sect-eyebrow" id="infos-eyebrow"></p>
+      <h2 id="infos-titre"></h2>
+      <div class="ornament-line dark"><span class="orn-rule"></span><span class="orn-diamond">◆</span><span class="orn-rule"></span></div>
+    </div>
+    <div class="infos-grid" id="infos-grid">
+      <!-- filled by JS -->
+    </div>
+
+    <div class="faq-wrap">
+      <h3 class="faq-title" id="faq-titre"></h3>
+      <div class="faq-list" id="faq-list">
+        <!-- filled by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ═════════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="ft-monogram" id="ft-monogram"></div>
+    <p class="ft-date" id="ft-date"></p>
+    <div class="ornament-line dark" style="max-width:180px;margin:1.5rem auto;">
+      <span class="orn-rule"></span><span class="orn-diamond">◆</span><span class="orn-rule"></span>
+    </div>
+    <p class="ft-quote" id="ft-quote"></p>
+    <p class="ft-credit">Fait avec amour ♥</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

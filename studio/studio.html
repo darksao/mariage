@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>◆ Wedoria Studio — Éditeur</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="page-topbar">
+  <span class="topbar-logo">◆ STUDIO</span>
+  <span class="topbar-client" id="topbar-client">Nouveau mariage</span>
+  <span style="flex:1"></span>
+  <button class="btn-load" id="btn-clients">← Clients</button>
+  <button class="btn-save" id="btn-save">Sauvegarder</button>
+  <button class="btn-export" id="btn-preview-nav">Prévisualiser →</button>
+</header>
+
+<main class="page-main">
+  <div class="studio-form">
+
+    <!-- TABS NAV -->
+    <nav class="tabs-nav">
+      <button class="active" data-tab="infos">Infos</button>
+      <button data-tab="contenu">Contenu</button>
+      <button data-tab="medias">Médias</button>
+      <button data-tab="theme">Thème</button>
+      <button data-tab="template">Template</button>
+    </nav>
+
+    <!-- ── ONGLET INFOS ── -->
+    <div class="tab-content active" id="tab-infos">
+      <div class="field-row">
+        <div class="field"><label>Prénom 1</label><input type="text" id="s_prenom1" /></div>
+        <div class="field"><label>Nom 1</label><input type="text" id="s_nom1" /></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Prénom 2</label><input type="text" id="s_prenom2" /></div>
+        <div class="field"><label>Nom 2</label><input type="text" id="s_nom2" /></div>
+      </div>
+      <div class="field"><label>Date affichée</label><input type="text" id="s_date_affichage" placeholder="12 juillet 2025" /></div>
+      <div class="field"><label>Date ISO</label><input type="text" id="s_date_iso" placeholder="2025-07-12T14:00:00" /></div>
+      <div class="field"><label>Deadline RSVP</label><input type="text" id="s_rsvp_deadline" placeholder="2025-06-01" /></div>
+      <div class="field-row">
+        <div class="field"><label>Domaine</label><input type="text" id="s_domaine" /></div>
+        <div class="field"><label>Ville</label><input type="text" id="s_ville" /></div>
+      </div>
+      <div class="field"><label>Email contact</label><input type="email" id="s_email" /></div>
+      <div class="field"><label>WhatsApp</label><input type="text" id="s_whatsapp" /></div>
+      <div class="field">
+        <label>Vidéo hero — type</label>
+        <select id="s_video_type">
+          <option value="none">Aucune</option>
+          <option value="youtube">YouTube</option>
+          <option value="vimeo">Vimeo</option>
+          <option value="mp4">MP4 direct</option>
+        </select>
+      </div>
+      <div class="field"><label>Vidéo hero — URL/src</label><input type="text" id="s_video_src" /></div>
+      <div class="field"><label>Intro RSVP</label><textarea id="s_rsvp_intro" rows="2"></textarea></div>
+    </div>
+
+    <!-- ── ONGLET CONTENU ── -->
+    <div class="tab-content" id="tab-contenu">
+      <!-- Injected by studio.js -->
+    </div>
+
+    <!-- ── ONGLET MÉDIAS ── -->
+    <div class="tab-content" id="tab-medias">
+      <!-- Injected by studio.js -->
+    </div>
+
+    <!-- ── ONGLET THÈME ── -->
+    <div class="tab-content" id="tab-theme">
+      <!-- Injected by studio.js -->
+    </div>
+
+    <!-- ── ONGLET TEMPLATE ── -->
+    <div class="tab-content" id="tab-template">
+      <!-- Injected by studio.js -->
+    </div>
+
+  </div>
+</main>
+
+<div class="save-feedback" id="save-feedback">Sauvegardé ✓</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="studio-config.js"></script>
+<script src="studio-supabase.js"></script>
+<script src="studio.js"></script>
+</body>
+</html>

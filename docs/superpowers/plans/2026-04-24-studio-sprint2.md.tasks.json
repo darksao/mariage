@@ -1,0 +1,61 @@
+{
+  "planPath": "docs/superpowers/plans/2026-04-24-studio-sprint2.md",
+  "tasks": [
+    {
+      "id": 0,
+      "subject": "Task 0: studio-config.js + studio-supabase.js",
+      "status": "completed",
+      "description": "**Goal:** Create the shared Supabase client and all CRUD operations used by every page.\n\n**Files:**\n- Create: `studio/studio-config.js`\n- Create: `studio/studio-supabase.js`\n\n**Acceptance Criteria:**\n- [ ] supabase client initialises without error\n- [ ] listMariages() returns array\n- [ ] saveMariage() inserts and returns id\n- [ ] deleteMariage() removes row\n- [ ] duplicateMariage() creates copy\n- [ ] uploadPhoto() returns public URL\n\n**Verify:** browser console: `listMariages().then(console.log)`\n\n```json:metadata\n{\"files\": [\"studio/studio-config.js\", \"studio/studio-supabase.js\"], \"verifyCommand\": \"browser console: listMariages().then(console.log)\", \"acceptanceCriteria\": [\"listMariages() returns array\", \"saveMariage() inserts and returns id\", \"deleteMariage() removes row\", \"duplicateMariage() creates copy\", \"uploadPhoto() returns public URL\"], \"requiresUserVerification\": false}\n```"
+    },
+    {
+      "id": 1,
+      "subject": "Task 1: style.css — Shared styles additions",
+      "status": "pending",
+      "blockedBy": [],
+      "description": "**Goal:** Extend existing dark-theme CSS for table, tabs, loading/empty/error states, confirm modal, upload slots.\n\n**Files:**\n- Modify: `studio/style.css`\n\n**Acceptance Criteria:**\n- [ ] .clients-table renders\n- [ ] .tabs and .tab-content show/hide via .active\n- [ ] .state-loading/.state-empty/.state-error display correctly\n- [ ] .modal-confirm overlays\n- [ ] .save-feedback toast appears\n- [ ] .upload-slot renders\n\n```json:metadata\n{\"files\": [\"studio/style.css\"], \"verifyCommand\": \"visual check in browser\", \"acceptanceCriteria\": [\"table renders\", \"tabs work\", \"states display\", \"modal overlays\", \"toast appears\"], \"requiresUserVerification\": false}\n```"
+    },
+    {
+      "id": 2,
+      "subject": "Task 2: clients.html + clients.js",
+      "status": "pending",
+      "blockedBy": [0, 1],
+      "description": "**Goal:** Page listing all marriages from Supabase with Edit/Preview/Duplicate/Delete actions.\n\n**Files:**\n- Create: `studio/clients.html`\n- Create: `studio/clients.js`\n\n**Acceptance Criteria:**\n- [ ] spinner on load\n- [ ] table renders rows\n- [ ] edit navigates to studio.html?id=\n- [ ] preview sets sessionStorage and navigates\n- [ ] duplicate reloads list\n- [ ] delete shows confirm then removes\n- [ ] empty state when no data\n\n```json:metadata\n{\"files\": [\"studio/clients.html\", \"studio/clients.js\"], \"verifyCommand\": \"open studio/clients.html in browser\", \"acceptanceCriteria\": [\"spinner shows on load\", \"table renders rows\", \"edit navigates\", \"preview sets sessionStorage\", \"duplicate reloads\", \"delete confirms then removes\", \"empty state works\"], \"requiresUserVerification\": false}\n```"
+    },
+    {
+      "id": 3,
+      "subject": "Task 3: studio.html + studio.js — Shell + Onglet Infos",
+      "status": "pending",
+      "blockedBy": [0, 1],
+      "description": "**Goal:** Editor page shell with topbar, 5-tab nav, Infos tab, load from Supabase, manual save.\n\n**Files:**\n- Create: `studio/studio.html`\n- Create: `studio/studio.js`\n\n**Acceptance Criteria:**\n- [ ] 5 tabs switch correctly\n- [ ] Infos fields populate from Supabase when ?id= given\n- [ ] Sauvegarder triggers UPSERT + green toast\n- [ ] ← Clients navigates back\n- [ ] Prévisualiser sets sessionStorage\n\n```json:metadata\n{\"files\": [\"studio/studio.html\", \"studio/studio.js\"], \"verifyCommand\": \"open studio/studio.html in browser\", \"acceptanceCriteria\": [\"5 tabs switch\", \"Infos populates from Supabase\", \"save triggers UPSERT + toast\", \"clients nav works\", \"preview sets sessionStorage\"], \"requiresUserVerification\": false}\n```"
+    },
+    {
+      "id": 4,
+      "subject": "Task 4: studio.js — Onglet Contenu",
+      "status": "pending",
+      "blockedBy": [3],
+      "description": "**Goal:** Wire Contenu tab with 6 dynamic lists (histoire, programme, lieux, galerie domaine, FAQ, infos pratiques).\n\n**Files:**\n- Modify: `studio/studio.js`\n\n**Acceptance Criteria:**\n- [ ] 6 list sections render\n- [ ] + Ajouter adds item block\n- [ ] × removes item block\n- [ ] readContenu reads all items\n- [ ] populateContenu fills from saved config\n- [ ] round-trip save/reload preserves items\n\n```json:metadata\n{\"files\": [\"studio/studio.js\"], \"verifyCommand\": \"open studio/studio.html → click Contenu tab\", \"acceptanceCriteria\": [\"6 list sections render\", \"+ Ajouter adds block\", \"× removes block\", \"round-trip preserves items\"], \"requiresUserVerification\": false}\n```"
+    },
+    {
+      "id": 5,
+      "subject": "Task 5: studio.js — Onglets Médias + Thème + Template",
+      "status": "pending",
+      "blockedBy": [4],
+      "description": "**Goal:** Complete editor with photo upload slots (Médias), color/font editor (Thème), template selector (Template).\n\n**Files:**\n- Modify: `studio/studio.js`\n\n**Acceptance Criteria:**\n- [ ] upload slot accepts file and URL\n- [ ] file upload calls uploadPhoto()\n- [ ] color pickers sync with hex inputs\n- [ ] Générer palette fills 11 colors\n- [ ] 3 template radios selectable\n- [ ] round-trip restores all values\n\n```json:metadata\n{\"files\": [\"studio/studio.js\"], \"verifyCommand\": \"open studio/studio.html → test Médias, Thème, Template tabs\", \"acceptanceCriteria\": [\"upload accepts file + URL\", \"uploadPhoto() called on file drop\", \"palette generation works\", \"3 radios selectable\", \"round-trip save/reload works\"], \"requiresUserVerification\": false}\n```"
+    },
+    {
+      "id": 6,
+      "subject": "Task 6: preview.html + preview.js",
+      "status": "pending",
+      "blockedBy": [3],
+      "description": "**Goal:** Full-screen preview page reading sessionStorage, fetching template assets, displaying in iframe.\n\n**Files:**\n- Create: `studio/preview.html`\n- Create: `studio/preview.js`\n\n**Acceptance Criteria:**\n- [ ] correct template loaded by row.template\n- [ ] iframe displays site\n- [ ] topbar shows couple + template name\n- [ ] open in new tab works\n- [ ] empty session shows fallback\n\n```json:metadata\n{\"files\": [\"studio/preview.html\", \"studio/preview.js\"], \"verifyCommand\": \"open preview.html after setting sessionStorage.wedoria_current\", \"acceptanceCriteria\": [\"correct template path used\", \"iframe displays site\", \"topbar correct\", \"new tab works\", \"empty session fallback\"], \"requiresUserVerification\": false}\n```"
+    },
+    {
+      "id": 7,
+      "subject": "Task 7: Intégration end-to-end + validation utilisateur",
+      "status": "pending",
+      "blockedBy": [2, 5, 6],
+      "description": "**Goal:** Verify full flow works and get user confirmation of all 6 spec success criteria.\n\n**Files:** No code changes (fix in place if issues found).\n\n**User Verification Required:**\nBefore marking this task complete, you MUST call AskUserQuestion:\n```yaml\nAskUserQuestion:\n  question: \"Avez-vous pu tester le flux complet (créer → éditer → sauvegarder → prévisualiser) ? Tous les critères de succès sont-ils remplis ?\"\n  header: \"Validation Sprint 2\"\n  options:\n    - label: \"Oui — tout fonctionne\"\n      description: \"Sprint validé, on peut supprimer index.html + script.js\"\n    - label: \"Problème(s) détecté(s)\"\n      description: \"Décrire ce qui ne marche pas pour corriger\"\n```\n\n```json:metadata\n{\"files\": [], \"verifyCommand\": \"manual flow test\", \"acceptanceCriteria\": [\"create from scratch works\", \"all tabs editable\", \"3 templates previewable\", \"photo upload + URL works\", \"Supabase persists\", \"preview matches site\"], \"requiresUserVerification\": true, \"userVerificationPrompt\": \"Avez-vous pu tester le flux complet ? Tous les critères de succès sont-ils remplis ?\"}\n```"
+    }
+  ],
+  "lastUpdated": "2026-04-24T00:00:00.000Z"
+}

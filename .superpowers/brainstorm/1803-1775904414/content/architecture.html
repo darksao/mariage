@@ -1,0 +1,135 @@
+<h2>Architecture : 2 interfaces séparées</h2>
+<p class="subtitle">Voici comment les deux parties s'articulent</p>
+
+<style>
+.arch-flow {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin: 2rem 0;
+  font-family: inherit;
+}
+.arch-box {
+  flex: 1;
+  border-radius: 12px;
+  padding: 1.5rem;
+  position: relative;
+}
+.arch-box.client {
+  background: #f0f4ff;
+  border: 2px solid #6b8cff;
+}
+.arch-box.studio {
+  background: #f0fff4;
+  border: 2px solid #48bb78;
+}
+.arch-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  gap: 0.5rem;
+  min-width: 120px;
+}
+.arrow-line {
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, #6b8cff, #48bb78);
+  position: relative;
+}
+.arrow-line::after {
+  content: "▶";
+  position: absolute;
+  right: -6px;
+  top: -9px;
+  color: #48bb78;
+  font-size: 1.1rem;
+}
+.arch-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+.tag-public { background: #6b8cff; color: white; }
+.tag-private { background: #48bb78; color: white; }
+.arch-title { font-size: 1.1rem; font-weight: 700; margin: 0.3rem 0 0.8rem; }
+.arch-steps { list-style: none; padding: 0; margin: 0; }
+.arch-steps li {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.arch-steps li:last-child { border-bottom: none; }
+.step-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+.arrow-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #666;
+  text-align: center;
+  white-space: nowrap;
+}
+.arrow-sublabel {
+  font-size: 0.68rem;
+  color: #999;
+  text-align: center;
+}
+.highlight-box {
+  background: #fffbea;
+  border: 1px solid #f6c90e;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+}
+</style>
+
+<div class="arch-flow">
+  <!-- INTERFACE CLIENT -->
+  <div class="arch-box client">
+    <span class="arch-tag tag-public">🌐 Public — URL client</span>
+    <div class="arch-title">Formulaire d'onboarding</div>
+    <ul class="arch-steps">
+      <li><span class="step-icon">📋</span> Client remplit les 14 sections</li>
+      <li><span class="step-icon">🌍</span> Choix de la langue (FR/EN/VI)</li>
+      <li><span class="step-icon">🖼️</span> Upload photo couple + vidéo hero</li>
+      <li><span class="step-icon">📤</span> Soumet → config.js généré</li>
+      <li><span class="step-icon">📧</span> Envoyé automatiquement par email</li>
+    </ul>
+  </div>
+
+  <!-- FLÈCHE -->
+  <div class="arch-arrow">
+    <div class="arrow-label">config.js</div>
+    <div class="arrow-line"></div>
+    <div class="arrow-sublabel">par email<br>ou Supabase</div>
+  </div>
+
+  <!-- INTERFACE STUDIO -->
+  <div class="arch-box studio">
+    <span class="arch-tag tag-private">🔒 Privé — Wedoria Studio</span>
+    <div class="arch-title">Studio de vérification</div>
+    <ul class="arch-steps">
+      <li><span class="step-icon">📂</span> Drag & drop du config.js reçu</li>
+      <li><span class="step-icon">👁️</span> Prévisualisation iframe du site</li>
+      <li><span class="step-icon">✏️</span> Formulaire éditable pour ajuster</li>
+      <li><span class="step-icon">🔄</span> Aperçu mis à jour en temps réel</li>
+      <li><span class="step-icon">⬇️</span> Téléchargement du config.js final</li>
+    </ul>
+  </div>
+</div>
+
+<div class="highlight-box">
+  💡 <strong>Question clé :</strong> Comment le config.js doit-il t'être envoyé après que le client a soumis le formulaire ?<br>
+  <strong>A)</strong> Par <strong>email</strong> (pièce jointe ou contenu collable) — simple, aucune infra<br>
+  <strong>B)</strong> Via <strong>Supabase</strong> — stocké en DB, tu y accèdes depuis le Studio<br>
+  <strong>C)</strong> Le client <strong>télécharge lui-même</strong> et te l'envoie — le plus manuel
+</div>

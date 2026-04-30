@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedoria Studio — Pitch Commercial</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: #FAFAF7;
+      color: #1C1C1C;
+      line-height: 1.6;
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      .no-print { display: none; }
+      body { background: white; }
+      .page { box-shadow: none; margin: 0; }
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: white;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.08);
+    }
+
+    /* ── HEADER ── */
+    .pitch-header {
+      background: #1a1008;
+      color: white;
+      padding: 4rem 3.5rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .pitch-header::before {
+      content: 'W';
+      position: absolute;
+      right: 3rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18rem;
+      font-family: 'Georgia', serif;
+      font-style: italic;
+      color: rgba(201,169,110,0.08);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .pitch-logo {
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #C9A96E;
+      margin-bottom: 1.5rem;
+    }
+    .pitch-header h1 {
+      font-size: 2.8rem;
+      font-weight: normal;
+      font-style: italic;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      max-width: 560px;
+    }
+    .pitch-header .tagline {
+      font-family: 'Arial', sans-serif;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 3rem 3.5rem;
+      border-bottom: 1px solid #EDE5D8;
+    }
+    .section:last-child { border-bottom: none; }
+
+    .section-label {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #C9A96E;
+      margin-bottom: 1.2rem;
+    }
+    .section h2 {
+      font-size: 1.8rem;
+      font-weight: normal;
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      color: #1a1008;
+    }
+    p { color: #4A4540; font-size: 1rem; line-height: 1.75; }
+
+    /* ── PROBLÈME / SOLUTION ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .col-block {
+      background: #F8F4EE;
+      padding: 1.5rem 1.8rem;
+      border-radius: 4px;
+    }
+    .col-block h3 {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #C9A96E;
+      margin-bottom: 0.8rem;
+      font-family: 'Arial', sans-serif;
+      font-weight: 600;
+    }
+    .col-block ul {
+      padding-left: 1.2rem;
+      color: #4A4540;
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    /* ── OFFRE ── */
+    .formules-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      margin-top: 0.5rem;
+    }
+    .formule {
+      border: 1px solid #EDE5D8;
+      padding: 1.5rem 1.5rem 1.8rem;
+      border-radius: 4px;
+      position: relative;
+    }
+    .formule.premium {
+      border-color: #C9A96E;
+      background: #FDF9F3;
+    }
+    .formule .badge {
+      position: absolute;
+      top: -0.6rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #C9A96E;
+      color: white;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+      font-family: 'Arial', sans-serif;
+      white-space: nowrap;
+    }
+    .formule-name {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #8A7F74;
+      margin-bottom: 0.5rem;
+    }
+    .formule-price {
+      font-size: 2rem;
+      font-style: italic;
+      color: #1a1008;
+      margin-bottom: 0.8rem;
+      line-height: 1;
+    }
+    .formule-price span {
+      font-size: 0.9rem;
+      font-style: normal;
+      color: #8A7F74;
+    }
+    .formule ul {
+      list-style: none;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.82rem;
+      color: #4A4540;
+      line-height: 2;
+    }
+    .formule ul li::before {
+      content: '✓  ';
+      color: #C9A96E;
+      font-weight: bold;
+    }
+    .formule .delai {
+      margin-top: 1rem;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.75rem;
+      color: #8A7F74;
+      border-top: 1px solid #EDE5D8;
+      padding-top: 0.8rem;
+    }
+
+    /* ── DIFFÉRENCIATEURS ── */
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .diff-item {
+      text-align: center;
+    }
+    .diff-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.6rem;
+    }
+    .diff-item h4 {
+      font-size: 0.85rem;
+      font-style: italic;
+      color: #1a1008;
+      margin-bottom: 0.4rem;
+    }
+    .diff-item p {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.82rem;
+      color: #8A7F74;
+      line-height: 1.5;
+    }
+
+    /* ── STATS ── */
+    .stats-row {
+      display: flex;
+      gap: 0;
+    }
+    .stat {
+      flex: 1;
+      text-align: center;
+      padding: 1.5rem;
+      border-right: 1px solid #EDE5D8;
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-size: 2.5rem;
+      font-style: italic;
+      color: #C9A96E;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .stat-label {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #8A7F74;
+    }
+
+    /* ── PROCESS ── */
+    .process-steps {
+      display: flex;
+      gap: 0;
+    }
+    .step {
+      flex: 1;
+      padding: 0 1.5rem 0 0;
+      position: relative;
+    }
+    .step:last-child { padding-right: 0; }
+    .step::after {
+      content: '→';
+      position: absolute;
+      right: -0.3rem;
+      top: 0.15rem;
+      color: #C9A96E;
+      font-size: 1rem;
+    }
+    .step:last-child::after { display: none; }
+    .step-num {
+      font-size: 2rem;
+      font-style: italic;
+      color: #EDE5D8;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .step h4 {
+      font-size: 0.85rem;
+      font-style: italic;
+      color: #1a1008;
+      margin-bottom: 0.3rem;
+    }
+    .step p {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.78rem;
+      color: #8A7F74;
+      line-height: 1.5;
+    }
+
+    /* ── PARTENARIAT ── */
+    .partenariat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .part-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .part-icon {
+      width: 36px;
+      height: 36px;
+      border: 1px solid #C9A96E;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #C9A96E;
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .part-item h4 {
+      font-size: 0.9rem;
+      font-style: italic;
+      color: #1a1008;
+      margin-bottom: 0.25rem;
+    }
+    .part-item p {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.8rem;
+      color: #8A7F74;
+      line-height: 1.5;
+    }
+
+    /* ── CTA FOOTER ── */
+    .pitch-footer {
+      background: #1a1008;
+      color: white;
+      padding: 3rem 3.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+    }
+    .pitch-footer h2 {
+      font-size: 1.6rem;
+      font-style: italic;
+      font-weight: normal;
+      max-width: 360px;
+    }
+    .footer-contact {
+      text-align: right;
+      font-family: 'Arial', sans-serif;
+    }
+    .footer-contact a {
+      color: #C9A96E;
+      text-decoration: none;
+      font-size: 1rem;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .footer-contact .site {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.85rem;
+    }
+
+    /* ── PRINT BUTTON ── */
+    .print-bar {
+      text-align: center;
+      padding: 1rem;
+      background: #F8F4EE;
+    }
+    .print-bar button {
+      background: #C9A96E;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.8rem;
+      font-family: 'Arial', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+    .print-bar button:hover { background: #b8955c; }
+
+    @media (max-width: 700px) {
+      .pitch-header { padding: 3rem 2rem 2.5rem; }
+      .pitch-header h1 { font-size: 2rem; }
+      .section { padding: 2.5rem 2rem; }
+      .two-col, .formules-grid, .diff-grid, .partenariat-grid { grid-template-columns: 1fr; }
+      .stats-row, .process-steps { flex-direction: column; }
+      .stat { border-right: none; border-bottom: 1px solid #EDE5D8; }
+      .step::after { display: none; }
+      .pitch-footer { flex-direction: column; text-align: left; }
+      .footer-contact { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="print-bar no-print">
+  <button onclick="window.print()">Télécharger / Imprimer le pitch</button>
+</div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="pitch-header">
+    <div class="pitch-logo">Wedoria Studio</div>
+    <h1>Le site de mariage que vos clients méritent — livré en 5 jours.</h1>
+    <p class="tagline">Design premium · Sur-mesure · À partir de 290 €</p>
+  </header>
+
+  <!-- CONTEXTE -->
+  <section class="section">
+    <p class="section-label">Le marché</p>
+    <h2>Un marché en croissance, une offre inexistante.</h2>
+    <div class="two-col">
+      <div class="col-block">
+        <h3>Le problème aujourd'hui</h3>
+        <ul>
+          <li>Les couples veulent un site de mariage beau et personnalisé</li>
+          <li>Les solutions DIY (Wix, WordPress) prennent des semaines et donnent des résultats médiocres</li>
+          <li>Les agences Web sont trop chères et trop lentes pour ce besoin ponctuel</li>
+          <li>Aucun acteur ne propose un service clé-en-main à prix accessible</li>
+        </ul>
+      </div>
+      <div class="col-block">
+        <h3>Ce que propose Wedoria</h3>
+        <ul>
+          <li>Un site de mariage sur-mesure, livré en 3 à 5 jours</li>
+          <li>3 templates premium, entièrement personnalisés</li>
+          <li>RSVP, galerie photos, compte à rebours inclus</li>
+          <li>Hébergement 12 mois inclus — zéro gestion technique</li>
+          <li>Prix fixe et transparent : à partir de 290 €</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFRE -->
+  <section class="section">
+    <p class="section-label">Notre offre</p>
+    <h2>Trois formules, un seul engagement : la qualité.</h2>
+    <div class="formules-grid">
+      <div class="formule">
+        <p class="formule-name">Essentielle</p>
+        <p class="formule-price">290 <span>€ TTC</span></p>
+        <ul>
+          <li>1 page complète et élégante</li>
+          <li>Programme & infos pratiques</li>
+          <li>Formulaire RSVP</li>
+          <li>Hébergement 12 mois</li>
+        </ul>
+        <p class="delai">Livraison en 3 jours ouvrés</p>
+      </div>
+      <div class="formule premium">
+        <div class="badge">Le plus choisi</div>
+        <p class="formule-name">Premium</p>
+        <p class="formule-price">490 <span>€ TTC</span></p>
+        <ul>
+          <li>Tout l'Essentielle</li>
+          <li>Galerie photos animée</li>
+          <li>Compte à rebours</li>
+          <li>Carte interactive</li>
+          <li>Design enrichi sur-mesure</li>
+        </ul>
+        <p class="delai">Livraison en 5 jours ouvrés</p>
+      </div>
+      <div class="formule">
+        <p class="formule-name">Sur-mesure</p>
+        <p class="formule-price">Sur <span>devis</span></p>
+        <ul>
+          <li>Tout le Premium</li>
+          <li>Design entièrement personnalisé</li>
+          <li>Sections supplémentaires</li>
+          <li>Révisions illimitées</li>
+          <li>Support prioritaire</li>
+        </ul>
+        <p class="delai">Livraison en 10 jours ouvrés</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFFÉRENCIATEURS -->
+  <section class="section">
+    <p class="section-label">Pourquoi nous choisir</p>
+    <h2>Ce qui nous rend différents.</h2>
+    <div class="diff-grid">
+      <div class="diff-item">
+        <div class="diff-icon">⚡</div>
+        <h4>Rapidité</h4>
+        <p>Livraison en 3 à 5 jours. Pas des semaines. Le couple reçoit son site avant même que les invitations soient parties.</p>
+      </div>
+      <div class="diff-item">
+        <div class="diff-icon">✦</div>
+        <h4>Design premium</h4>
+        <p>3 templates créés par des designers. Animations fluides, typographies élégantes, rendu professionnel garanti.</p>
+      </div>
+      <div class="diff-item">
+        <div class="diff-icon">◎</div>
+        <h4>Clé-en-main</h4>
+        <p>Nous gérons tout : hébergement, domaine, maintenance. Le couple n'a rien à faire après la livraison.</p>
+      </div>
+      <div class="diff-item">
+        <div class="diff-icon">💬</div>
+        <h4>Sur-mesure réel</h4>
+        <p>Couleurs, photos, programme, textes : chaque site reflète l'identité du couple. Aucun site identique.</p>
+      </div>
+      <div class="diff-item">
+        <div class="diff-icon">📱</div>
+        <h4>Mobile first</h4>
+        <p>Conçus pour être lus sur smartphone. 85 % des invités consulteront le site depuis leur téléphone.</p>
+      </div>
+      <div class="diff-item">
+        <div class="diff-icon">€</div>
+        <h4>Prix accessible</h4>
+        <p>À partir de 290 €. Un budget mariage typique : entre 15 000 € et 30 000 €. Le site représente 1 % de l'enveloppe.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHIFFRES -->
+  <section class="section" style="padding-top:2.5rem;padding-bottom:2.5rem;">
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Templates premium</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3–5</div>
+        <div class="stat-label">Jours de livraison</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">12</div>
+        <div class="stat-label">Mois d'hébergement inclus</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">290€</div>
+        <div class="stat-label">Prix d'entrée</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESSUS -->
+  <section class="section">
+    <p class="section-label">Comment ça marche</p>
+    <h2>Simple pour vous, simple pour vos clients.</h2>
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h4>Prise de contact</h4>
+        <p>Le couple remplit le formulaire sur wedoria.studio en 5 minutes.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h4>Brief en ligne</h4>
+        <p>Wizard en 8 étapes : couleurs, template, programme, photos.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h4>Création</h4>
+        <p>Nous créons le site sur mesure selon le brief reçu.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h4>Livraison</h4>
+        <p>Le couple reçoit son lien par email. Modifications incluses.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTENARIAT -->
+  <section class="section">
+    <p class="section-label">Opportunité</p>
+    <h2>Devenez partenaire Wedoria.</h2>
+    <p style="margin-bottom:2rem;">Vous êtes photographe, wedding planner, traiteur ou lieu de réception ? Vos clients ont besoin d'un site de mariage. Recommandez Wedoria et créez une nouvelle source de revenus.</p>
+    <div class="partenariat-grid">
+      <div class="part-item">
+        <div class="part-icon">%</div>
+        <div>
+          <h4>Commission de recommandation</h4>
+          <p>Recevez une commission sur chaque client que vous nous envoyez. Conditions sur demande.</p>
+        </div>
+      </div>
+      <div class="part-item">
+        <div class="part-icon">★</div>
+        <div>
+          <h4>Valeur ajoutée pour vos clients</h4>
+          <p>Proposez un service complet. Le site de mariage complète parfaitement vos prestations.</p>
+        </div>
+      </div>
+      <div class="part-item">
+        <div class="part-icon">◈</div>
+        <div>
+          <h4>Co-branding possible</h4>
+          <p>Pour les partenaires réguliers, possibilité de mention sur le site livré.</p>
+        </div>
+      </div>
+      <div class="part-item">
+        <div class="part-icon">↗</div>
+        <div>
+          <h4>Référencement croisé</h4>
+          <p>Nous référençons vos services auprès de nos clients mariés en Île-de-France.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FOOTER -->
+  <footer class="pitch-footer">
+    <h2>Prêt à offrir le meilleur à vos futurs mariés ?</h2>
+    <div class="footer-contact">
+      <a href="mailto:vu.nhusao@gmail.com">vu.nhusao@gmail.com</a>
+      <a href="https://wedoria.studio" class="site">wedoria.studio</a>
+      <p class="site" style="margin-top:0.8rem;font-size:0.75rem;">Réponse sous 24h</p>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

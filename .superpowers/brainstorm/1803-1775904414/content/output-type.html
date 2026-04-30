@@ -1,0 +1,40 @@
+<h2>Que se passe-t-il après avoir rempli le formulaire ?</h2>
+<p class="subtitle">Choisis le mode de sortie qui te convient le mieux</p>
+
+<div class="options">
+  <div class="option" data-choice="download" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Téléchargement de config.js</h3>
+      <p>Le formulaire génère un fichier <code>config.js</code> prêt à l'emploi. Tu le glisses dans le dossier client et c'est parti.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Avantages</h4><ul><li>Simple et sans serveur</li><li>Fonctionne hors ligne</li><li>Intégration directe dans le workflow</li></ul></div>
+        <div class="cons"><h4>Inconvénients</h4><ul><li>Pas de prévisualisation en direct</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="preview" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Prévisualisation live + téléchargement</h3>
+      <p>En remplissant le formulaire, tu vois le site se mettre à jour en temps réel dans un iframe à côté. Une fois satisfait, tu télécharges le <code>config.js</code>.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Avantages</h4><ul><li>Validation visuelle immédiate</li><li>Aucune surprise au déploiement</li></ul></div>
+        <div class="cons"><h4>Inconvénients</h4><ul><li>Plus complexe à construire</li><li>Nécessite l'iframe du template</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="copy" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Copier dans le presse-papiers</h3>
+      <p>Le contenu de <code>config.js</code> est généré et copié en un clic. Tu colles dans ton éditeur.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Avantages</h4><ul><li>Instantané</li></ul></div>
+        <div class="cons"><h4>Inconvénients</h4><ul><li>Moins pratique pour gérer plusieurs clients</li><li>Pas de fichier nommé automatiquement</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>
