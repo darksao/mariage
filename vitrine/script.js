@@ -13,7 +13,7 @@ window.addEventListener('load', () => {
 });
 
 function revealAll() {
-  document.querySelectorAll('.hero__title,.hero__sub,.hero__cta,.process__step,.portfolio__card,.formule-card,.temoignage').forEach(el => { el.style.opacity='1'; el.style.transform='none'; });
+  document.querySelectorAll('.hero__title,.hero__sub,.hero__cta,.process__step,.portfolio-card,.formule-card,.temoignage').forEach(el => { el.style.opacity='1'; el.style.transform='none'; });
   document.querySelectorAll('.word-reveal').forEach(w => w.classList.add('is-revealed'));
   const loader = document.getElementById('loader');
   if (loader) loader.style.display = 'none';
@@ -314,7 +314,7 @@ function initProcess() {
 function initPortfolio() {
   const track = document.getElementById('portfolioTrack');
   const wrap  = document.getElementById('portfolioWrap');
-  const cards = document.querySelectorAll('.portfolio__card');
+  const cards = document.querySelectorAll('.portfolio-card');
   if (!track || !wrap) return;
 
   if (!prefersReducedMotion) {
