@@ -317,11 +317,15 @@ function initPortfolio() {
   const cards = document.querySelectorAll('.portfolio-card');
   if (!track || !wrap) return;
 
+  const revealCards = () => cards.forEach(c => { c.style.opacity='1'; c.style.transform='none'; c.style.transition='opacity 0.75s ease, transform 0.75s ease'; });
   if (!prefersReducedMotion) {
-    gsap.to(cards, { opacity:1, y:0, duration:0.8, stagger:0.1, ease:'power3.out',
-      scrollTrigger: { trigger:track, start:'top 80%', toggleActions:'play none none reverse' } });
+    const obs = new IntersectionObserver((entries) => {
+      if (entries.some(e => e.isIntersecting)) { revealCards(); obs.disconnect(); }
+    }, { threshold: 0.1 });
+    cards.forEach(c => obs.observe(c));
+    setTimeout(revealCards, 1500);
   } else {
-    cards.forEach(c => { c.style.opacity='1'; c.style.transform='none'; });
+    revealCards();
   }
 
   const isDesktop = () => window.matchMedia('(min-width: 1024px)').matches;
