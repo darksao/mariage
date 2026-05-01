@@ -13,7 +13,7 @@ window.addEventListener('load', () => {
 });
 
 function revealAll() {
-  document.querySelectorAll('.hero__title,.hero__sub,.hero__cta,.process__step,.portfolio-card,.formule-card,.temoignage').forEach(el => { el.style.opacity='1'; el.style.transform='none'; });
+  document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('revealed'));
   document.querySelectorAll('.word-reveal').forEach(w => w.classList.add('is-revealed'));
   const loader = document.getElementById('loader');
   if (loader) loader.style.display = 'none';
@@ -57,13 +57,14 @@ function initLoader() {
 function onLoaderComplete() {
   initNavbar();
   initHero();
-  initTextRotate();
+  initRollingText();
   initManifeste();
   initProcess();
   initPortfolio();
   initFormules();
   initTemoignages();
   initContact();
+  initRevealObserver();
   initMagneticButtons();
   ScrollTrigger.refresh();
 }
@@ -166,8 +167,48 @@ function initParticles() {
      animate          → translateY(0)   opacity 1  (spring CSS: cubic-bezier spring)
      exit             → translateY(-120%) opacity 0
 ────────────────────────────────────────────────────────── */
-function initTextRotate() {
-  const container = document.getElementById('textRotate');
+function initRollingText() {
+  const wrap = document.getElementById('rollingWrap');
+  if (!wrap) return;
+  const words = Array.from(wrap.querySelectorAll('.hero-rolling-word'));
+  if (!words.length) return;
+
+  let current = 0;
+
+  function show(idx, animate) {
+    const w = words[idx];
+    w.className = 'hero-rolling-word' + (animate ? ' enter' : '');
+    if (!animate) { w.style.opacity = '1'; w.style.transform = 'none'; }
+  }
+
+  function hide(idx) {
+    const w = words[idx];
+    w.classList.remove('enter');
+    w.classList.add('exit');
+    setTimeout(() => { w.className = 'hero-rolling-word'; }, 460);
+  }
+
+  if (prefersReducedMotion) {
+    show(0, false);
+    setInterval(() => {
+      words[current].className = 'hero-rolling-word';
+      current = (current + 1) % words.length;
+      show(current, false);
+    }, 3000);
+    return;
+  }
+
+  show(0, true);
+  setInterval(() => {
+    hide(current);
+    current = (current + 1) % words.length;
+    setTimeout(() => show(current, true), 470);
+  }, 3000);
+}
+
+function _oldTextRotate_DELETED() {
+  if(true) return; // removed
+  const container = document.getElementById('textRotate_DELETED');
   if (!container) return;
 
   const TEXTS    = ['inoubliable\u00A0✨', 'unique\u00A0💎', 'élégant\u00A0🌸', 'sur-mesure\u00A0🎀', 'votre\u00A0histoire\u00A0💌'];
@@ -301,12 +342,12 @@ function initManifeste() {
 
 /* ── PROCESS ── */
 function initProcess() {
-  const steps = document.querySelectorAll('.process__step');
+  const steps = document.querySelectorAll('.step');
   if (!steps.length) return;
   if (prefersReducedMotion) { steps.forEach(s => { s.style.opacity='1'; s.style.transform='none'; }); return; }
   steps.forEach((step, i) => {
-    gsap.to(step, { opacity:1, x:0, duration:0.9, ease:'power3.out', delay:i*0.15,
-      scrollTrigger: { trigger:step, start:'top 82%', toggleActions:'play none none reverse' } });
+    gsap.to(step, { opacity:1, y:0, duration:0.9, ease:'power3.out', delay:i*0.15,
+      scrollTrigger: { trigger:step, start:'top 85%', toggleActions:'play none none reverse' } });
   });
 }
 
@@ -388,7 +429,7 @@ function initTemoignages() {
 /* ── CONTACT ── */
 function initContact() {
   const form    = document.getElementById('contactForm');
-  const success = document.getElementById('contactSuccess');
+  const success = document.getElementById('formSuccess');
   const btn     = document.getElementById('submitBtn');
   if (!form) return;
 
@@ -406,14 +447,13 @@ function initContact() {
       }
     });
     if (!valid) { const f = form.querySelector('[aria-invalid="true"]'); if (f) f.focus(); return; }
-    btn.classList.add('loading'); btn.disabled = true;
+    if (btn) { btn.classList.add('loading'); btn.disabled = true; }
 
     try {
       const data = Object.fromEntries(new FormData(form));
-      const prenomsParts = (data.prenoms || '').split(/\s*[&et]\s*/i).map(s => s.trim()).filter(Boolean);
       const payload = {
-        prenom1:      prenomsParts[0] || data.prenoms,
-        prenom2:      prenomsParts[1] || null,
+        prenom1:      data.prenom1 || null,
+        prenom2:      data.prenom2 || null,
         email:        data.email,
         date_mariage: data.date || null,
         message:      [
@@ -437,7 +477,7 @@ function initContact() {
     }
 
     form.style.display = 'none';
-    success.hidden = false;
+    if (success) success.style.display = 'block';
   });
 
   form.querySelectorAll('.form-input').forEach(input => {
@@ -445,6 +485,23 @@ function initContact() {
       input.style.borderColor = (input.hasAttribute('required') && !input.value.trim()) ? 'rgba(107,39,55,0.5)' : '';
     });
   });
+}
+
+/* ── GLOBAL REVEAL OBSERVER ── */
+function initRevealObserver() {
+  const els = document.querySelectorAll('[data-reveal]');
+  if (!els.length) return;
+  if (prefersReducedMotion) { els.forEach(el => el.classList.add('revealed')); return; }
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const delay = parseInt(entry.target.dataset.delay) || 0;
+      setTimeout(() => entry.target.classList.add('revealed'), delay);
+      obs.unobserve(entry.target);
+    });
+  }, { threshold: 0.1 });
+  els.forEach(el => obs.observe(el));
+  setTimeout(() => els.forEach(el => el.classList.add('revealed')), 2500);
 }
 
 /* ── MAGNETIC BUTTONS ── */
