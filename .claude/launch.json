@@ -28,7 +28,7 @@
     ,{
       "name": "Wedoria Studio (Vitrine)",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["serve", "vitrine", "--listen", "3004", "--no-clipboard"],
+      "runtimeArgs": ["serve", ".", "--listen", "3004", "--no-clipboard"],
       "port": 3004
     }
   ]

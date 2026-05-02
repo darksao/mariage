@@ -1314,6 +1314,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   padding: 2.5rem 2rem;
   position: relative;
   transition: border-color 0.35s, background 0.35s;
+  opacity: 0;
+  transform: translateY(24px);
 }
 .formule-card:hover {
   background: rgba(250,250,247,0.07);
@@ -1687,6 +1689,7 @@ footer {
   }
   .scroll-line { animation: none; }
   .formule-card.featured::after { animation: none; }
+  .formule-card { opacity: 1; transform: none; }
 }
 
 /* ---- Reveal system (IntersectionObserver) ---- */
@@ -1924,63 +1927,62 @@ footer {
   </div>
 </section>
 
-<!-- ========== FAQ ========== -->
-<section id="faq" style="background:var(--warm);padding:6rem 0;">
+<!-- ========== FORMULES ========== -->
+<section id="formules">
   <div class="container">
-    <div class="text-center" style="margin-bottom:3.5rem">
-      <span class="section-label" data-reveal="">On répond à vos questions</span>
-      <h2 class="section-title" data-reveal="" data-delay="100">Questions fréquentes</h2>
+    <div class="text-center" style="margin-bottom:4rem">
+      <span class="section-label" data-reveal="">Nos formules</span>
+      <h2 class="section-title" data-reveal="" data-delay="100">Simple et transparent</h2>
     </div>
-    <div class="faq-list" style="max-width:780px;margin:0 auto;">
-<div class="faq-item" data-reveal="" data-delay="0" style="border-bottom:1px solid rgba(201,169,110,0.3);padding:1.75rem 0;">
-  <button class="faq-q" aria-expanded="false" style="width:100%;text-align:left;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:var(--font-display);font-size:1.25rem;font-weight:500;color:var(--charcoal);letter-spacing:0.02em;">
-    Est-ce que mon site est vraiment personnalisé ?
-    <span class="faq-icon" aria-hidden="true" style="flex-shrink:0;width:22px;height:22px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform 0.3s;font-size:0.9rem;color:var(--gold);">+</span>
-  </button>
-  <div class="faq-a" hidden style="padding-top:1rem;font-family:var(--font-body);font-size:1rem;line-height:1.75;color:var(--text-muted);">
-    Oui, chaque site est créé sur mesure à partir de vos informations : prénoms, date, lieu, programme, couleurs et photos. Aucun site ne ressemble à un autre.
-  </div>
-</div>
-
-<div class="faq-item" data-reveal="" data-delay="80" style="border-bottom:1px solid rgba(201,169,110,0.3);padding:1.75rem 0;">
-  <button class="faq-q" aria-expanded="false" style="width:100%;text-align:left;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:var(--font-display);font-size:1.25rem;font-weight:500;color:var(--charcoal);letter-spacing:0.02em;">
-    Combien de temps faut-il pour recevoir mon site ?
-    <span class="faq-icon" aria-hidden="true" style="flex-shrink:0;width:22px;height:22px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform 0.3s;font-size:0.9rem;color:var(--gold);">+</span>
-  </button>
-  <div class="faq-a" hidden style="padding-top:1rem;font-family:var(--font-body);font-size:1rem;line-height:1.75;color:var(--text-muted);">
-    En 3 jours ouvrés pour la formule Essentielle, 5 jours pour Premium, et jusqu’à 10 jours pour Sur-mesure. Vous recevez un email avec le lien de votre site dès qu’il est prêt.
-  </div>
-</div>
-
-<div class="faq-item" data-reveal="" data-delay="160" style="border-bottom:1px solid rgba(201,169,110,0.3);padding:1.75rem 0;">
-  <button class="faq-q" aria-expanded="false" style="width:100%;text-align:left;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:var(--font-display);font-size:1.25rem;font-weight:500;color:var(--charcoal);letter-spacing:0.02em;">
-    Puis-je demander des modifications après livraison ?
-    <span class="faq-icon" aria-hidden="true" style="flex-shrink:0;width:22px;height:22px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform 0.3s;font-size:0.9rem;color:var(--gold);">+</span>
-  </button>
-  <div class="faq-a" hidden style="padding-top:1rem;font-family:var(--font-body);font-size:1rem;line-height:1.75;color:var(--text-muted);">
-    Oui. Pour ajuster un texte, changer une photo ou modifier le programme, il vous suffit de répondre à l’email de livraison. Les ajustements mineurs sont inclus dans toutes les formules.
-  </div>
-</div>
-
-<div class="faq-item" data-reveal="" data-delay="240" style="border-bottom:1px solid rgba(201,169,110,0.3);padding:1.75rem 0;">
-  <button class="faq-q" aria-expanded="false" style="width:100%;text-align:left;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:var(--font-display);font-size:1.25rem;font-weight:500;color:var(--charcoal);letter-spacing:0.02em;">
-    Vos sites fonctionnent-ils bien sur mobile ?
-    <span class="faq-icon" aria-hidden="true" style="flex-shrink:0;width:22px;height:22px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform 0.3s;font-size:0.9rem;color:var(--gold);">+</span>
-  </button>
-  <div class="faq-a" hidden style="padding-top:1rem;font-family:var(--font-body);font-size:1rem;line-height:1.75;color:var(--text-muted);">
-    Absolument. Tous nos sites sont conçus en mobile-first — vos invités les consulteront principalement depuis leur téléphone, et chaque élément est optimisé pour ça.
-  </div>
-</div>
-
-<div class="faq-item" data-reveal="" data-delay="320" style="padding:1.75rem 0;">
-  <button class="faq-q" aria-expanded="false" style="width:100%;text-align:left;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:var(--font-display);font-size:1.25rem;font-weight:500;color:var(--charcoal);letter-spacing:0.02em;">
-    Que devient le site après le mariage ?
-    <span class="faq-icon" aria-hidden="true" style="flex-shrink:0;width:22px;height:22px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform 0.3s;font-size:0.9rem;color:var(--gold);">+</span>
-  </button>
-  <div class="faq-a" hidden style="padding-top:1rem;font-family:var(--font-body);font-size:1rem;line-height:1.75;color:var(--text-muted);">
-    Votre site reste en ligne pendant 12 mois. Vous pouvez l’utiliser comme galerie souvenir à partager avec vos proches. Au-delà, nous vous proposons une extension d’hébergement si vous souhaitez le conserver.
-  </div>
-</div>
+    <div class="formules-grid">
+      <!-- Essentielle -->
+      <div class="formule-card">
+        <div class="formule-name">Essentielle</div>
+        <div class="formule-price"><sup>&euro;</sup>290</div>
+        <div class="formule-price-note">Paiement unique &middot; Livraison 3 jours</div>
+        <div class="formule-divider"></div>
+        <ul class="formule-features">
+          <li>Site 1 page personnalis&eacute;</li>
+          <li>Compte &agrave; rebours &amp; infos pratiques</li>
+          <li>Design sur mesure (couleurs, typos)</li>
+          <li>Mobile-first &amp; rapide</li>
+          <li>H&eacute;bergement 12 mois inclus</li>
+        </ul>
+        <a href="#contact" class="btn btn-formule">D&eacute;marrer &rarr;</a>
+      </div>
+      <!-- Premium -->
+      <div class="formule-card featured">
+        <div class="formule-badge">Le plus choisi</div>
+        <div class="formule-name">Premium</div>
+        <div class="formule-price"><sup>&euro;</sup>490</div>
+        <div class="formule-price-note">Paiement unique &middot; Livraison 5 jours</div>
+        <div class="formule-divider"></div>
+        <ul class="formule-features">
+          <li>Tout de l'Essentielle</li>
+          <li>RSVP interactif &amp; gestion invit&eacute;s</li>
+          <li>Galerie photos anim&eacute;e</li>
+          <li>Programme jour J d&eacute;taill&eacute;</li>
+          <li>2 r&eacute;visions incluses</li>
+          <li>H&eacute;bergement 12 mois inclus</li>
+        </ul>
+        <a href="#contact" class="btn btn-formule">D&eacute;marrer &rarr;</a>
+      </div>
+      <!-- Sur-mesure -->
+      <div class="formule-card">
+        <div class="formule-name">Sur-mesure</div>
+        <div class="formule-price" style="font-size:1.8rem;padding-top:0.35rem;">Sur devis</div>
+        <div class="formule-price-note">D&eacute;lai selon le projet</div>
+        <div class="formule-divider"></div>
+        <ul class="formule-features">
+          <li>Tout de Premium</li>
+          <li>Design enti&egrave;rement unique</li>
+          <li>Fonctionnalit&eacute;s sp&eacute;cifiques</li>
+          <li>Multilingue</li>
+          <li>R&eacute;visions illimit&eacute;es</li>
+          <li>Support prioritaire</li>
+        </ul>
+        <a href="#contact" class="btn btn-formule">Nous contacter &rarr;</a>
+      </div>
     </div>
   </div>
 </section>
@@ -1988,57 +1990,53 @@ footer {
 <section id="faq" style="background:var(--warm);padding:6rem 0;">
   <div class="container">
     <div class="text-center" style="margin-bottom:3.5rem">
-      <span class="section-label" data-reveal="">On répond à vos questions</span>
-      <h2 class="section-title" data-reveal="" data-delay="100">Questions fréquentes</h2>
+      <span class="section-label" data-reveal="">On r&eacute;pond &agrave; vos questions</span>
+      <h2 class="section-title" data-reveal="" data-delay="100">Questions fr&eacute;quentes</h2>
     </div>
     <div class="faq-list" style="max-width:780px;margin:0 auto;">
 <div class="faq-item" data-reveal="" data-delay="0" style="border-bottom:1px solid rgba(201,169,110,0.3);padding:1.75rem 0;">
   <button class="faq-q" aria-expanded="false" style="width:100%;text-align:left;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:var(--font-display);font-size:1.25rem;font-weight:500;color:var(--charcoal);letter-spacing:0.02em;">
-    Est-ce que mon site est vraiment personnalisé ?
+    Est-ce que mon site est vraiment personnalis&eacute; ?
     <span class="faq-icon" aria-hidden="true" style="flex-shrink:0;width:22px;height:22px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform 0.3s;font-size:0.9rem;color:var(--gold);">+</span>
   </button>
   <div class="faq-a" hidden style="padding-top:1rem;font-family:var(--font-body);font-size:1rem;line-height:1.75;color:var(--text-muted);">
-    Oui, chaque site est créé sur mesure à partir de vos informations : prénoms, date, lieu, programme, couleurs et photos. Aucun site ne ressemble à un autre.
+    Oui, chaque site est cr&eacute;&eacute; sur mesure &agrave; partir de vos informations : pr&eacute;noms, date, lieu, programme, couleurs et photos. Aucun site ne ressemble &agrave; un autre.
   </div>
 </div>
-
 <div class="faq-item" data-reveal="" data-delay="80" style="border-bottom:1px solid rgba(201,169,110,0.3);padding:1.75rem 0;">
   <button class="faq-q" aria-expanded="false" style="width:100%;text-align:left;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:var(--font-display);font-size:1.25rem;font-weight:500;color:var(--charcoal);letter-spacing:0.02em;">
-    Combien de temps faut-il pour recevoir mon site ?
+    Combien de temps faut-il pour recevoir mon site ?
     <span class="faq-icon" aria-hidden="true" style="flex-shrink:0;width:22px;height:22px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform 0.3s;font-size:0.9rem;color:var(--gold);">+</span>
   </button>
   <div class="faq-a" hidden style="padding-top:1rem;font-family:var(--font-body);font-size:1rem;line-height:1.75;color:var(--text-muted);">
-    En 3 jours ouvrés pour la formule Essentielle, 5 jours pour Premium, et jusqu’à 10 jours pour Sur-mesure. Vous recevez un email avec le lien de votre site dès qu’il est prêt.
+    En 3 jours ouvr&eacute;s pour la formule Essentielle, 5 jours pour Premium, et jusqu&apos;&agrave; 10 jours pour Sur-mesure. Vous recevez un email avec le lien de votre site d&egrave;s qu&apos;il est pr&ecirc;t.
   </div>
 </div>
-
 <div class="faq-item" data-reveal="" data-delay="160" style="border-bottom:1px solid rgba(201,169,110,0.3);padding:1.75rem 0;">
   <button class="faq-q" aria-expanded="false" style="width:100%;text-align:left;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:var(--font-display);font-size:1.25rem;font-weight:500;color:var(--charcoal);letter-spacing:0.02em;">
-    Puis-je demander des modifications après livraison ?
+    Puis-je demander des modifications apr&egrave;s livraison ?
     <span class="faq-icon" aria-hidden="true" style="flex-shrink:0;width:22px;height:22px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform 0.3s;font-size:0.9rem;color:var(--gold);">+</span>
   </button>
   <div class="faq-a" hidden style="padding-top:1rem;font-family:var(--font-body);font-size:1rem;line-height:1.75;color:var(--text-muted);">
-    Oui. Pour ajuster un texte, changer une photo ou modifier le programme, il vous suffit de répondre à l’email de livraison. Les ajustements mineurs sont inclus dans toutes les formules.
+    Oui. Pour ajuster un texte, changer une photo ou modifier le programme, il vous suffit de r&eacute;pondre &agrave; l&apos;email de livraison. Les ajustements mineurs sont inclus dans toutes les formules.
   </div>
 </div>
-
 <div class="faq-item" data-reveal="" data-delay="240" style="border-bottom:1px solid rgba(201,169,110,0.3);padding:1.75rem 0;">
   <button class="faq-q" aria-expanded="false" style="width:100%;text-align:left;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:var(--font-display);font-size:1.25rem;font-weight:500;color:var(--charcoal);letter-spacing:0.02em;">
-    Vos sites fonctionnent-ils bien sur mobile ?
+    Vos sites fonctionnent-ils bien sur mobile ?
     <span class="faq-icon" aria-hidden="true" style="flex-shrink:0;width:22px;height:22px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform 0.3s;font-size:0.9rem;color:var(--gold);">+</span>
   </button>
   <div class="faq-a" hidden style="padding-top:1rem;font-family:var(--font-body);font-size:1rem;line-height:1.75;color:var(--text-muted);">
-    Absolument. Tous nos sites sont conçus en mobile-first — vos invités les consulteront principalement depuis leur téléphone, et chaque élément est optimisé pour ça.
+    Absolument. Tous nos sites sont con&ccedil;us en mobile-first &mdash; vos invit&eacute;s les consulteront principalement depuis leur t&eacute;l&eacute;phone, et chaque &eacute;l&eacute;ment est optimis&eacute; pour &ccedil;a.
   </div>
 </div>
-
 <div class="faq-item" data-reveal="" data-delay="320" style="padding:1.75rem 0;">
   <button class="faq-q" aria-expanded="false" style="width:100%;text-align:left;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;font-family:var(--font-display);font-size:1.25rem;font-weight:500;color:var(--charcoal);letter-spacing:0.02em;">
-    Que devient le site après le mariage ?
+    Que devient le site apr&egrave;s le mariage ?
     <span class="faq-icon" aria-hidden="true" style="flex-shrink:0;width:22px;height:22px;border:1.5px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform 0.3s;font-size:0.9rem;color:var(--gold);">+</span>
   </button>
   <div class="faq-a" hidden style="padding-top:1rem;font-family:var(--font-body);font-size:1rem;line-height:1.75;color:var(--text-muted);">
-    Votre site reste en ligne pendant 12 mois. Vous pouvez l’utiliser comme galerie souvenir à partager avec vos proches. Au-delà, nous vous proposons une extension d’hébergement si vous souhaitez le conserver.
+    Votre site reste en ligne pendant 12 mois. Vous pouvez l&apos;utiliser comme galerie souvenir &agrave; partager avec vos proches. Au-del&agrave;, nous vous proposons une extension d&apos;h&eacute;bergement si vous souhaitez le conserver.
   </div>
 </div>
     </div>

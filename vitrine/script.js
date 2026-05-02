@@ -28,30 +28,35 @@ function init() {
 /* ── LOADER ── */
 function initLoader() {
   const loader   = document.getElementById('loader');
-  const path     = document.querySelector('.loader__path');
-  const wordmark = document.querySelector('.loader__wordmark');
-  const bar      = document.querySelector('.loader__bar');
+  const monogram = document.querySelector('#loader .monogram');
+  const bar      = document.querySelector('#loader .loader-bar');
   if (!loader) { onLoaderComplete(); return; }
-  if (!bar) { loader.style.display = 'none'; document.body.classList.remove('loading'); onLoaderComplete(); return; }
-  if (prefersReducedMotion) {
+
+  function hideLoader() {
+    loader.style.transition = 'opacity 0.6s ease';
     loader.style.opacity = '0';
-    setTimeout(() => { loader.style.display='none'; document.body.classList.remove('loading'); onLoaderComplete(); }, 200);
-    return;
+    setTimeout(() => { loader.style.display = 'none'; document.body.classList.remove('loading'); }, 650);
+    onLoaderComplete();
   }
+
+  if (!bar || prefersReducedMotion) { hideLoader(); return; }
+
+  // Reveal monogram with CSS transition
+  if (monogram) {
+    monogram.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    setTimeout(() => { monogram.style.opacity = '1'; monogram.style.transform = 'translateY(0)'; }, 100);
+  }
+
+  // Fill bar progressively then hide
   let progress = 0;
   const barInterval = setInterval(() => {
     progress = Math.min(progress + Math.random() * 12, 100);
     bar.style.width = progress + '%';
-    if (progress >= 100) clearInterval(barInterval);
+    if (progress >= 100) {
+      clearInterval(barInterval);
+      setTimeout(hideLoader, 400);
+    }
   }, 60);
-  const tl = gsap.timeline({ onComplete: () => {
-    gsap.to(loader, { opacity: 0, duration: 0.6, ease: 'power2.inOut', onComplete: () => { loader.style.display='none'; document.body.classList.remove('loading'); } });
-    onLoaderComplete();
-  }});
-  tl.to('.loader__monogram', { opacity: 1, duration: 0.3 })
-    .to(path, { strokeDashoffset: 0, duration: 1.2, ease: 'power2.out' }, 0.1)
-    .to(wordmark, { opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.8)
-    .to({}, { duration: 0.8 });
 }
 
 function onLoaderComplete() {
@@ -409,7 +414,7 @@ function initFormules() {
   if (!cards.length) return;
   if (prefersReducedMotion) { cards.forEach(c => { c.style.opacity='1'; c.style.transform='none'; }); return; }
   cards.forEach((card, i) => {
-    const isPremium = card.classList.contains('formule-card--premium');
+    const isPremium = card.classList.contains('featured');
     gsap.to(card, { opacity:1, y:0, scale: isPremium ? 1.02 : 1, duration:0.85, ease:'power3.out', delay:i*0.12,
       scrollTrigger: { trigger:card, start:'top 85%', toggleActions:'play none none reverse' } });
   });
