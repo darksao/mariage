@@ -155,6 +155,760 @@
 }
 #hero .hero-bars-top { top: 0; }
 #hero .hero-bars-bottom { bottom: 0; }
+
+/* ============================================================
+   HERO REDESIGN — MODERN TECH
+   ============================================================ */
+
+#hero {
+  height: 100svh;
+  min-height: 600px;
+  background: #080609 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  position: relative;
+}
+
+#hero .hero-bg-img-el { display: none; }
+#hero .hero-bars-top, #hero .hero-bars-bottom { display: none; }
+
+#hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 110% 55% at 50% -5%, rgba(201,169,110,0.13) 0%, transparent 65%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+#hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(201,169,110,0.065) 1px, transparent 1px);
+  background-size: 36px 36px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#hero .hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 820px;
+  padding: calc(var(--navbar-h, 72px) + 3.5rem) 2rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 1.1rem 0.35rem 0.65rem;
+  border: 1px solid rgba(201,169,110,0.22);
+  border-radius: 9999px;
+  background: rgba(201,169,110,0.07);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(201,169,110,0.85);
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.hero-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #C9A96E;
+  box-shadow: 0 0 6px rgba(201,169,110,0.6);
+  animation: badge-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px rgba(201,169,110,0.6); }
+  50% { opacity: 0.4; box-shadow: 0 0 2px rgba(201,169,110,0.2); }
+}
+
+.hero-headline {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(2.8rem, 5.5vw, 5rem);
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: #FAFAF7;
+  max-width: 780px;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.hero-headline em {
+  font-style: italic;
+  color: #C9A96E;
+}
+
+.hero-sub {
+  font-family: 'Jost', sans-serif;
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(250,250,247,0.46);
+  max-width: 520px;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.hero-sub strong {
+  color: rgba(201,169,110,0.8);
+  font-weight: 500;
+}
+
+.hero-ctas {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.875rem;
+  border-radius: 9999px;
+  transition: all 260ms cubic-bezier(0.16,1,0.3,1);
+  text-decoration: none;
+}
+
+.hero-btn--primary {
+  background: #C9A96E;
+  color: #080609;
+  border: 1.5px solid #C9A96E;
+}
+
+.hero-btn--primary:hover {
+  background: #D9BF8C;
+  border-color: #D9BF8C;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(201,169,110,0.28);
+}
+
+.hero-btn--ghost {
+  background: transparent;
+  color: rgba(250,250,247,0.78);
+  border: 1.5px solid rgba(250,250,247,0.14);
+}
+
+.hero-btn--ghost:hover {
+  border-color: rgba(201,169,110,0.35);
+  color: #C9A96E;
+  transform: translateY(-2px);
+}
+
+.hero-stats {
+  display: flex;
+  align-items: center;
+  margin-top: 0.25rem;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1.75rem;
+}
+
+.hero-stat-num {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.6rem, 2.8vw, 2.25rem);
+  font-weight: 500;
+  color: #FAFAF7;
+  line-height: 1.1;
+}
+
+.hero-stat-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(250,250,247,0.28);
+  margin-top: 0.2rem;
+}
+
+.hero-stat-sep {
+  width: 1px;
+  height: 34px;
+  background: rgba(201,169,110,0.12);
+  flex-shrink: 0;
+}
+
+.hero-preview {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 960px;
+  padding: 0 2rem;
+  margin-top: 3rem;
+  padding-bottom: 4rem;
+  opacity: 0;
+  transform: translateY(32px) scale(0.97);
+}
+
+.hero-preview-inner {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(201,169,110,0.1);
+  box-shadow: 0 48px 96px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.03);
+  background: #0d0b10;
+}
+
+.hero-preview-bar {
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  height: 34px;
+  background: #13111a;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  gap: 6px;
+}
+
+.hero-preview-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.hero-preview-dot--r { background: rgba(255,95,87,0.55); }
+.hero-preview-dot--y { background: rgba(255,188,46,0.55); }
+.hero-preview-dot--g { background: rgba(40,200,65,0.55); }
+
+.hero-preview-url {
+  margin: 0 auto;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.6rem;
+  color: rgba(255,255,255,0.18);
+  letter-spacing: 0.04em;
+  background: rgba(255,255,255,0.04);
+  padding: 0.18rem 0.875rem;
+  border-radius: 4px;
+}
+
+.hero-preview-img {
+  width: 100%;
+  display: block;
+  filter: brightness(0.95);
+  transition: transform 600ms cubic-bezier(0.16,1,0.3,1);
+}
+
+.hero-preview-inner:hover .hero-preview-img {
+  transform: scale(1.015);
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 1.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(250,250,247,0.2);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  z-index: 5;
+  text-decoration: none;
+  transition: color 300ms;
+}
+
+.hero-scroll-hint:hover { color: rgba(201,169,110,0.5); }
+
+.hero-scroll-line {
+  width: 1px;
+  height: 28px;
+  background: linear-gradient(to bottom, rgba(201,169,110,0.4), transparent);
+}
+
+@media (max-width: 640px) {
+  #hero .hero-content { gap: 1.25rem; padding-top: calc(var(--navbar-h, 72px) + 2rem); }
+  .hero-stats { flex-wrap: wrap; justify-content: center; gap: 0.5rem 0; }
+  .hero-stat { padding: 0 1.25rem; }
+  .hero-stat-sep { display: none; }
+  .hero-preview { margin-top: 1.75rem; padding: 0 1rem 3rem; }
+}
+
+/* ---- SPLIT LAYOUT + SCROLLING COLUMNS ---- */
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+}
+
+@media (min-width: 960px) {
+  .hero-inner {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  #hero .hero-content {
+    width: 50%;
+    max-width: none;
+    padding: 0 3rem 0 clamp(2.5rem, 6vw, 5rem) !important;
+    text-align: left;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .hero-headline { max-width: 540px; }
+  .hero-sub { max-width: 440px; }
+  .hero-stats { justify-content: flex-start; }
+  .hero-ctas { justify-content: flex-start; }
+  #hero .hero-rolling-word { text-align: left; }
+
+  .hero-columns {
+    display: flex;
+    width: 50%;
+    height: 100%;
+    gap: 0.75rem;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+  }
+}
+
+@media (max-width: 959px) {
+  .hero-columns { display: none; }
+}
+
+.hero-col {
+  flex: 1;
+  overflow: hidden;
+}
+
+.hero-col--2 {
+  margin-top: -100px;
+}
+
+.hero-col-track {
+  display: flex;
+  flex-direction: column;
+  /* 37s = 28s × 4/3 pour 4 cartes au lieu de 3 */
+  gap: 0.75rem;
+  animation: hero-scroll-up 37s linear infinite;
+}
+
+.hero-col--2 .hero-col-track {
+  animation-duration: 48s;
+}
+
+@keyframes hero-scroll-up {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
+}
+
+.hero-card {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(201,169,110,0.08);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  flex-shrink: 0;
+  background: #0d0b10;
+}
+
+.hero-card-bar {
+  display: flex;
+  align-items: center;
+  padding: 0 0.75rem;
+  height: 26px;
+  background: #13111a;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  gap: 5px;
+}
+
+.hero-card-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.hero-card-dot--r { background: rgba(255,95,87,0.5); }
+.hero-card-dot--y { background: rgba(255,188,46,0.5); }
+.hero-card-dot--g { background: rgba(40,200,65,0.5); }
+
+.hero-card-url {
+  margin: 0 auto;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.55rem;
+  color: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.04);
+  padding: 0.15rem 0.75rem;
+  border-radius: 3px;
+}
+
+.hero-card img {
+  width: 100%;
+  display: block;
+  filter: brightness(0.92);
+}
+
+.hero-columns:hover .hero-col-track {
+  animation-play-state: paused;
+}
+
+/* ===== Faux sites mariage ===== */
+.hcp {
+  width: 100%;
+  aspect-ratio: 16/9;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+.hcp-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  flex-shrink: 0;
+}
+.hcp-nav-brand {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 7px;
+  line-height: 1;
+}
+.hcp-nav-links {
+  display: flex;
+  gap: 6px;
+}
+.hcp-nav-link {
+  font-family: 'Jost', sans-serif;
+  font-size: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.hcp-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  text-align: center;
+  position: relative;
+}
+.hcp-couple {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 13px;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+.hcp-date {
+  font-family: 'Jost', sans-serif;
+  font-size: 4.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin-bottom: 7px;
+}
+.hcp-btn {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 100px;
+  font-family: 'Jost', sans-serif;
+  font-size: 4px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Romantique — crème, rose poudré */
+.hcp--romantique {
+  background: linear-gradient(150deg, #FBF5EE 0%, #F5E0D4 55%, #EDD4CA 100%);
+}
+.hcp--romantique .hcp-nav {
+  border-bottom: 1px solid rgba(160,110,95,0.12);
+}
+.hcp--romantique .hcp-nav-brand { color: #6B3F30; }
+.hcp--romantique .hcp-nav-link  { color: #A06E5F; }
+.hcp--romantique .hcp-couple    { color: #4A2820; }
+.hcp--romantique .hcp-date      { color: #A06E5F; }
+.hcp--romantique .hcp-btn       { background: transparent; color: #6B3F30; border: 1px solid rgba(160,110,95,0.45); }
+.hcp--romantique::before {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 55%; height: 55%;
+  background: radial-gradient(circle at 80% 100%, rgba(235,180,165,0.28) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Chic — noir profond, or */
+.hcp--chic {
+  background: linear-gradient(150deg, #120E08 0%, #221808 60%, #1A1408 100%);
+}
+.hcp--chic .hcp-nav {
+  border-bottom: 1px solid rgba(201,173,110,0.1);
+}
+.hcp--chic .hcp-nav-brand { color: #C9AD6E; }
+.hcp--chic .hcp-nav-link  { color: rgba(201,173,110,0.45); }
+.hcp--chic .hcp-couple    { color: #F5EFE0; }
+.hcp--chic .hcp-date      { color: #C9AD6E; }
+.hcp--chic .hcp-btn       { background: transparent; color: #C9AD6E; border: 1px solid rgba(201,173,110,0.4); }
+.hcp--chic::before {
+  content: '';
+  position: absolute;
+  top: 30%; left: 50%; transform: translateX(-50%);
+  width: 60%; height: 50%;
+  background: radial-gradient(ellipse, rgba(201,173,110,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Champêtre — vert sauge, lin */
+.hcp--champetre {
+  background: linear-gradient(150deg, #EBF0E2 0%, #D8E8C4 55%, #C8D9B0 100%);
+}
+.hcp--champetre .hcp-nav {
+  border-bottom: 1px solid rgba(95,115,60,0.12);
+}
+.hcp--champetre .hcp-nav-brand { color: #3A4E20; }
+.hcp--champetre .hcp-nav-link  { color: #6B8040; }
+.hcp--champetre .hcp-couple    { color: #2A3818; }
+.hcp--champetre .hcp-date      { color: #6B8040; }
+.hcp--champetre .hcp-btn       { background: transparent; color: #3A4E20; border: 1px solid rgba(95,115,60,0.4); }
+.hcp--champetre::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 50%; height: 40%;
+  background: radial-gradient(circle at 0% 100%, rgba(120,150,70,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Silhouette couple watermark */
+.hcp-wm {
+  position: absolute;
+  bottom: 3px;
+  right: 4px;
+  width: 18px;
+  height: auto;
+  opacity: 0.13;
+  pointer-events: none;
+}
+
+/* Royale — émeraude profond, or, cramoisi (Priya & Arjun — couple sud-asiatique) */
+.hcp--royale {
+  background: linear-gradient(150deg, #0D2018 0%, #153325 55%, #0D2018 100%);
+  color: #C9AD6E;
+}
+.hcp--royale .hcp-nav {
+  border-bottom: 1px solid rgba(201,173,110,0.12);
+}
+.hcp--royale .hcp-nav-brand { color: #C9AD6E; font-weight: 500; }
+.hcp--royale .hcp-nav-link  { color: rgba(201,173,110,0.45); }
+.hcp--royale .hcp-couple    { color: #F5EFE0; }
+.hcp--royale .hcp-date      { color: #C9AD6E; }
+.hcp--royale .hcp-btn       { background: transparent; color: #C9AD6E; border: 1px solid rgba(201,173,110,0.45); }
+.hcp--royale::before {
+  content: '';
+  position: absolute;
+  top: 30%; left: 50%; transform: translateX(-50%);
+  width: 70%; height: 60%;
+  background: radial-gradient(ellipse, rgba(190,50,50,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Zen — blanc pur, charbon, argent (Mei & Hiroshi — couple est-asiatique) */
+.hcp--zen {
+  background: linear-gradient(150deg, #F8F8F6 0%, #EFEEEA 55%, #E8E6E0 100%);
+  color: #2C2C2A;
+}
+.hcp--zen .hcp-nav {
+  border-bottom: 1px solid rgba(44,44,42,0.08);
+}
+.hcp--zen .hcp-nav-brand { color: #2C2C2A; font-style: normal; font-weight: 400; letter-spacing: 0.04em; }
+.hcp--zen .hcp-nav-link  { color: rgba(44,44,42,0.4); }
+.hcp--zen .hcp-couple    { color: #1A1A18; }
+.hcp--zen .hcp-date      { color: rgba(44,44,42,0.5); }
+.hcp--zen .hcp-btn       { background: transparent; color: #2C2C2A; border: 1px solid rgba(44,44,42,0.3); }
+.hcp--zen::before {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 45%; height: 45%;
+  background: radial-gradient(circle at 100% 100%, rgba(200,195,185,0.3) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Photo templates (cartes avec vraies photos en background) ─────────────── */
+
+/* Romantique photo — Aisha & Marcus, jardin doré */
+.hcp--photo-romantique {
+  background-image: url('/vitrine/preview-aisha-marcus.jpg');
+  background-size: cover;
+  background-position: center top;
+}
+.hcp--photo-romantique::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(20,8,4,0.68) 100%);
+  z-index: 0;
+}
+.hcp--photo-romantique .hcp-nav { position: relative; z-index: 1; }
+.hcp--photo-romantique .hcp-nav-brand { color: rgba(255,238,218,0.95); }
+.hcp--photo-romantique .hcp-nav-link  { color: rgba(255,210,185,0.55); }
+.hcp--photo-romantique .hcp-body { position: relative; z-index: 1; }
+.hcp--photo-romantique .hcp-couple { color: #FFF5EC; }
+.hcp--photo-romantique .hcp-date   { color: rgba(255,215,175,0.75); }
+.hcp--photo-romantique .hcp-btn    { background: rgba(195,110,75,0.65); color: #fff; border: 1px solid rgba(210,130,90,0.5); }
+
+/* Royale photo — Priya & Arjun, split émeraude / photo */
+.hcp--photo-royale {
+  background: #0B1C12;
+  flex-direction: row;
+  padding: 0;
+  overflow: hidden;
+}
+.hcp-photo-royale-left {
+  width: 52%;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  border-right: 1px solid rgba(201,173,110,0.15);
+}
+.hcp-photo-royale-right {
+  flex: 1;
+  background-image: url('/vitrine/preview-priya-arjun.jpg');
+  background-size: cover;
+  background-position: center top;
+}
+.hcp--photo-royale .hcp-nav { padding: 4px 7px; border-bottom: 1px solid rgba(201,173,110,0.12); }
+.hcp--photo-royale .hcp-nav-brand { color: #C9AD6E; }
+.hcp--photo-royale .hcp-nav-link  { color: rgba(201,173,110,0.4); }
+.hcp--photo-royale .hcp-body { padding: 5px 8px; align-items: flex-start; text-align: left; }
+.hcp--photo-royale .hcp-couple { color: #F5EFE0; font-size: 10px; }
+.hcp--photo-royale .hcp-date   { color: #C9AD6E; }
+.hcp--photo-royale .hcp-btn    { background: transparent; color: #C9AD6E; border: 1px solid rgba(201,173,110,0.4); }
+
+/* Zen photo — Mei & Hiroshi, cerisiers, fade blanc en bas */
+.hcp--photo-zen {
+  background-image: url('/vitrine/preview-mei-hiroshi.jpg');
+  background-size: cover;
+  background-position: center 20%;
+}
+.hcp--photo-zen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(248,248,246,0.0) 35%, rgba(238,232,222,0.93) 100%);
+  z-index: 0;
+}
+.hcp--photo-zen .hcp-nav { position: relative; z-index: 1; border-bottom: 1px solid rgba(44,44,42,0.08); }
+.hcp--photo-zen .hcp-nav-brand { color: rgba(28,28,26,0.8); font-style: normal; font-weight: 400; letter-spacing: 0.04em; }
+.hcp--photo-zen .hcp-nav-link  { color: rgba(44,44,42,0.35); }
+.hcp--photo-zen .hcp-body { position: relative; z-index: 1; justify-content: flex-end; padding-bottom: 9px; }
+.hcp--photo-zen .hcp-couple { color: #1A1A18; }
+.hcp--photo-zen .hcp-date   { color: rgba(44,44,42,0.6); }
+.hcp--photo-zen .hcp-btn    { background: transparent; color: #2C2C2A; border: 1px solid rgba(44,44,42,0.35); }
+
+/* Sauge — vert sauge/lin doux (Yuki & Thomas — couple mixte asiatique/européen) */
+.hcp--sauge {
+  background: linear-gradient(150deg, #EDF0E8 0%, #D5E0CA 55%, #C5D5B8 100%);
+  color: #3A4A28;
+}
+.hcp--sauge .hcp-nav {
+  border-bottom: 1px solid rgba(80,105,50,0.12);
+}
+.hcp--sauge .hcp-nav-brand { color: #3A4A28; }
+.hcp--sauge .hcp-nav-link  { color: rgba(80,105,50,0.6); }
+.hcp--sauge .hcp-couple    { color: #283318; }
+.hcp--sauge .hcp-date      { color: rgba(80,105,50,0.75); }
+.hcp--sauge .hcp-btn       { background: rgba(80,105,50,0.12); color: #3A4A28; border: 1px solid rgba(80,105,50,0.35); }
+.hcp--sauge::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 40%; height: 50%;
+  background: radial-gradient(circle at 100% 0%, rgba(140,170,100,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Dorée — ivoire chaud, or profond (Leila & Karim — couple moyen-oriental) */
+.hcp--doree {
+  background: linear-gradient(150deg, #F8F2E4 0%, #EFE2C5 55%, #E5D5A8 100%);
+  color: #7A5C1E;
+}
+.hcp--doree .hcp-nav {
+  border-bottom: 1px solid rgba(122,92,30,0.12);
+}
+.hcp--doree .hcp-nav-brand { color: #7A5C1E; font-style: normal; font-weight: 500; }
+.hcp--doree .hcp-nav-link  { color: rgba(122,92,30,0.5); }
+.hcp--doree .hcp-couple    { color: #3A2A0A; }
+.hcp--doree .hcp-date      { color: rgba(122,92,30,0.7); }
+.hcp--doree .hcp-btn       { background: rgba(122,92,30,0.1); color: #7A5C1E; border: 1px solid rgba(122,92,30,0.4); }
+.hcp--doree::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 60%; height: 55%;
+  background: radial-gradient(ellipse, rgba(200,160,60,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Tropical — vert jungle, blanc, or tropical (Nara & Luc — couple asie du sud-est) */
+.hcp--tropical {
+  background: linear-gradient(150deg, #0A1A10 0%, #122018 55%, #0D1A0E 100%);
+  color: #7EC8A0;
+}
+.hcp--tropical .hcp-nav {
+  border-bottom: 1px solid rgba(126,200,160,0.12);
+}
+.hcp--tropical .hcp-nav-brand { color: #7EC8A0; }
+.hcp--tropical .hcp-nav-link  { color: rgba(126,200,160,0.4); }
+.hcp--tropical .hcp-couple    { color: #F0F8F4; }
+.hcp--tropical .hcp-date      { color: #7EC8A0; }
+.hcp--tropical .hcp-btn       { background: transparent; color: #7EC8A0; border: 1px solid rgba(126,200,160,0.4); }
+.hcp--tropical::before {
+  content: '';
+  position: absolute;
+  top: 20%; right: 5%;
+  width: 55%; height: 60%;
+  background: radial-gradient(ellipse, rgba(60,140,80,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Couleur watermark pour les styles existants */
+.hcp--romantique { color: #A06E5F; }
+.hcp--chic       { color: #C9AD6E; }
+.hcp--champetre  { color: #6B8040; }
 </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -688,18 +1442,28 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 /* ---- Navbar ---- */
 #navbar {
-  position: fixed; top: 0; left: 0; right: 0;
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 100;
-  padding: 1.25rem 3rem;
+  padding: 0.7rem 1.5rem;
+  width: calc(100% - 2.5rem);
+  max-width: 1100px;
   display: flex; align-items: center; justify-content: space-between;
-  transition: background 0.4s var(--ease-silk), padding 0.4s var(--ease-silk);
+  transition: background 0.4s var(--ease-silk), box-shadow 0.4s var(--ease-silk), border-color 0.4s var(--ease-silk);
+  border-radius: 9999px;
+  border: 1px solid rgba(201,169,110,0.12);
+  background: rgba(8,6,9,0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 #navbar.scrolled {
-  background: rgba(250, 250, 247, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 0.9rem 3rem;
-  border-bottom: 1px solid rgba(201,169,110,0.15);
+  background: rgba(250, 250, 247, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-color: rgba(201,169,110,0.18);
+  box-shadow: 0 2px 24px rgba(0,0,0,0.08);
 }
 .nav-logo {
   font-family: var(--font-display);
@@ -1785,39 +2549,284 @@ footer {
 
 <!-- ========== HERO ========== -->
 <section id="hero">
-  <img src="9f85c7a0-cd52-4f9e-9b64-f6be658feb27" alt="" class="hero-bg-img-el">
-  <div class="hero-bars-top" aria-hidden="true"></div>
-  <div class="hero-bars-bottom" aria-hidden="true"></div>
-  <div class="hero-content">
-    <h1 class="hero-headline">
-      <span class="word-wrap"><span class="hero-word serif-word">Votre</span></span>
-      <span class="word-wrap"><span class="hero-word sans-word" style="font-family: &quot;Times New Roman&quot;">SITE DE MARIAGE</span></span>
-      <span class="word-wrap"><span class="hero-word serif-word">mérite d'être…</span></span>
-    </h1>
-    <div class="hero-rolling-wrap" id="rollingWrap">
-      <span class="hero-rolling-word">Inoubliable</span>
-      <span class="hero-rolling-word">À votre image</span>
-      <span class="hero-rolling-word">Émouvant</span>
-      <span class="hero-rolling-word">Unique</span>
-      <span class="hero-rolling-word">Sur-mesure</span>
+  <div class="hero-inner">
+
+    <!-- Texte gauche -->
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        <span>50+ sites créés &middot; Livré en 5 jours</span>
+      </div>
+
+      <h1 class="hero-headline">
+        Votre site de mariage<br>mérite d'être
+      </h1>
+      <div id="rollingWrap" class="hero-rolling-wrap">
+        <span class="hero-rolling-word">inoubliable</span>
+        <span class="hero-rolling-word">unique</span>
+        <span class="hero-rolling-word">élégant</span>
+        <span class="hero-rolling-word">sur-mesure</span>
+        <span class="hero-rolling-word">votre histoire</span>
+      </div>
+
+      <p class="hero-sub">
+        Design premium sur-mesure, RSVP intégré, galerie photos, compte à rebours.<br>
+        À partir de <strong>290€</strong>, livré en 3 à 5 jours.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="#portfolio" class="hero-btn hero-btn--primary">Voir les designs</a>
+        <a href="#contact" class="hero-btn hero-btn--ghost">
+          Démarrer mon projet
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
+            <path d="M2 6.5h9M8 3l3.5 3.5L8 10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num">50+</span>
+          <span class="hero-stat-label">sites créés</span>
+        </div>
+        <div class="hero-stat-sep" aria-hidden="true"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">4.9<span style="font-size:0.65em">/5</span></span>
+          <span class="hero-stat-label">satisfaction</span>
+        </div>
+        <div class="hero-stat-sep" aria-hidden="true"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">5 jours</span>
+          <span class="hero-stat-label">délai de livraison</span>
+        </div>
+        <div class="hero-stat-sep" aria-hidden="true"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">290€</span>
+          <span class="hero-stat-label">à partir de</span>
+        </div>
+      </div>
     </div>
-    <a href="#contact" class="btn-primary" id="heroCta">
-      <span>Démarrer mon projet</span>
-      <svg class="btn-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
-      </svg>
-    </a>
+
+    <!-- Colonnes défilantes droite — 8 couples, 8 ethnies -->
+    <div class="hero-columns" aria-hidden="true">
+
+      <!-- Colonne 1 : Aisha & Marcus · Priya & Arjun · Mei & Hiroshi · Lucie & Thomas -->
+      <div class="hero-col hero-col--1">
+        <div class="hero-col-track">
+
+          <!-- 1. Aisha & Marcus — afro-caribéen · romantique -->
+          <div class="hero-card">
+            <div class="hero-card-bar">
+              <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
+              <span class="hero-card-url">aisha-marcus.wedoria.studio</span>
+            </div>
+            <div class="hcp hcp--photo-romantique">
+              <div class="hcp-nav">
+                <span class="hcp-nav-brand">Aisha &amp; Marcus</span>
+                <div class="hcp-nav-links"><span class="hcp-nav-link">Notre histoire</span><span class="hcp-nav-link">Programme</span><span class="hcp-nav-link">RSVP</span></div>
+              </div>
+              <div class="hcp-body">
+                <div class="hcp-couple">Aisha &amp; Marcus</div>
+                <div class="hcp-date">14 Août 2026 · Domaine Saint-Clair</div>
+                <div class="hcp-btn">Confirmer ma présence</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Priya & Arjun — sud-asiatique · royale -->
+          <div class="hero-card">
+            <div class="hero-card-bar">
+              <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
+              <span class="hero-card-url">priya-arjun.wedoria.studio</span>
+            </div>
+            <div class="hcp hcp--photo-royale">
+              <div class="hcp-photo-royale-left">
+                <div class="hcp-nav">
+                  <span class="hcp-nav-brand">P &amp; A</span>
+                  <div class="hcp-nav-links"><span class="hcp-nav-link">Histoire</span><span class="hcp-nav-link">Cérémonie</span><span class="hcp-nav-link">RSVP</span></div>
+                </div>
+                <div class="hcp-body">
+                  <div class="hcp-couple">Priya &amp; Arjun</div>
+                  <div class="hcp-date">20 Nov 2026 · Château de Breteuil</div>
+                  <div class="hcp-btn">Rejoindre la fête</div>
+                </div>
+              </div>
+              <div class="hcp-photo-royale-right"></div>
+            </div>
+          </div>
+
+          <!-- 3. Mei & Hiroshi — est-asiatique · zen -->
+          <div class="hero-card">
+            <div class="hero-card-bar">
+              <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
+              <span class="hero-card-url">mei-hiroshi.wedoria.studio</span>
+            </div>
+            <div class="hcp hcp--photo-zen">
+              <div class="hcp-nav">
+                <span class="hcp-nav-brand">Mei &amp; Hiroshi</span>
+                <div class="hcp-nav-links"><span class="hcp-nav-link">Notre amour</span><span class="hcp-nav-link">Le lieu</span><span class="hcp-nav-link">RSVP</span></div>
+              </div>
+              <div class="hcp-body">
+                <div class="hcp-couple">Mei &amp; Hiroshi</div>
+                <div class="hcp-date">8 Mars 2026 · Jardins de Versailles</div>
+                <div class="hcp-btn">Notre cérémonie</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Lucie & Thomas — champêtre -->
+          <div class="hero-card">
+            <div class="hero-card-bar">
+              <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
+              <span class="hero-card-url">lucie-thomas.wedoria.studio</span>
+            </div>
+            <div class="hcp hcp--champetre">
+              <div class="hcp-nav">
+                <span class="hcp-nav-brand">Lucie &amp; Thomas</span>
+                <div class="hcp-nav-links"><span class="hcp-nav-link">Notre amour</span><span class="hcp-nav-link">Le mas</span><span class="hcp-nav-link">RSVP</span></div>
+              </div>
+              <div class="hcp-body">
+                <svg class="hcp-wm" viewBox="0 0 50 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="15" cy="8" r="5" fill="currentColor"/><path d="M9 36 L9 20 Q15 14 21 20 L21 36Z" fill="currentColor"/><circle cx="35" cy="8" r="5" fill="currentColor"/><path d="M21 20 Q35 13 49 20 L49 36 L21 36Z" fill="currentColor"/></svg>
+                <div class="hcp-couple">Lucie &amp; Thomas</div>
+                <div class="hcp-date">5 Juin 2026 · Mas de la Garrigue</div>
+                <div class="hcp-btn">Nous rejoindre</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Duplicates pour loop sans fin -->
+          <div class="hero-card">
+            <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">aisha-marcus.wedoria.studio</span></div>
+            <div class="hcp hcp--photo-romantique"><div class="hcp-nav"><span class="hcp-nav-brand">Aisha &amp; Marcus</span><div class="hcp-nav-links"><span class="hcp-nav-link">Notre histoire</span><span class="hcp-nav-link">Programme</span><span class="hcp-nav-link">RSVP</span></div></div><div class="hcp-body"><div class="hcp-couple">Aisha &amp; Marcus</div><div class="hcp-date">14 Août 2026 · Domaine Saint-Clair</div><div class="hcp-btn">Confirmer ma présence</div></div></div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">priya-arjun.wedoria.studio</span></div>
+            <div class="hcp hcp--photo-royale"><div class="hcp-photo-royale-left"><div class="hcp-nav"><span class="hcp-nav-brand">P &amp; A</span><div class="hcp-nav-links"><span class="hcp-nav-link">Histoire</span><span class="hcp-nav-link">Cérémonie</span><span class="hcp-nav-link">RSVP</span></div></div><div class="hcp-body"><div class="hcp-couple">Priya &amp; Arjun</div><div class="hcp-date">20 Nov 2026 · Château de Breteuil</div><div class="hcp-btn">Rejoindre la fête</div></div></div><div class="hcp-photo-royale-right"></div></div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">mei-hiroshi.wedoria.studio</span></div>
+            <div class="hcp hcp--photo-zen"><div class="hcp-nav"><span class="hcp-nav-brand">Mei &amp; Hiroshi</span><div class="hcp-nav-links"><span class="hcp-nav-link">Notre amour</span><span class="hcp-nav-link">Le lieu</span><span class="hcp-nav-link">RSVP</span></div></div><div class="hcp-body"><div class="hcp-couple">Mei &amp; Hiroshi</div><div class="hcp-date">8 Mars 2026 · Jardins de Versailles</div><div class="hcp-btn">Notre cérémonie</div></div></div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">lucie-thomas.wedoria.studio</span></div>
+            <div class="hcp hcp--champetre"><div class="hcp-nav"><span class="hcp-nav-brand">Lucie &amp; Thomas</span><div class="hcp-nav-links"><span class="hcp-nav-link">Notre amour</span><span class="hcp-nav-link">Le mas</span><span class="hcp-nav-link">RSVP</span></div></div><div class="hcp-body"><svg class="hcp-wm" viewBox="0 0 50 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="15" cy="8" r="5" fill="currentColor"/><path d="M9 36 L9 20 Q15 14 21 20 L21 36Z" fill="currentColor"/><circle cx="35" cy="8" r="5" fill="currentColor"/><path d="M21 20 Q35 13 49 20 L49 36 L21 36Z" fill="currentColor"/></svg><div class="hcp-couple">Lucie &amp; Thomas</div><div class="hcp-date">5 Juin 2026 · Mas de la Garrigue</div><div class="hcp-btn">Nous rejoindre</div></div></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Colonne 2 : Zahara & Kofi · Yuki & Thomas · Leila & Karim · Nara & Luc -->
+      <div class="hero-col hero-col--2">
+        <div class="hero-col-track">
+
+          <!-- 5. Zahara & Kofi — africain · chic sombre -->
+          <div class="hero-card">
+            <div class="hero-card-bar">
+              <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
+              <span class="hero-card-url">zahara-kofi.wedoria.studio</span>
+            </div>
+            <div class="hcp hcp--chic">
+              <div class="hcp-nav">
+                <span class="hcp-nav-brand">Z &amp; K</span>
+                <div class="hcp-nav-links"><span class="hcp-nav-link">L'histoire</span><span class="hcp-nav-link">Le lieu</span><span class="hcp-nav-link">RSVP</span></div>
+              </div>
+              <div class="hcp-body">
+                <svg class="hcp-wm" viewBox="0 0 50 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="15" cy="8" r="5" fill="currentColor"/><path d="M9 36 L9 20 Q15 14 21 20 L21 36Z" fill="currentColor"/><circle cx="35" cy="8" r="5" fill="currentColor"/><path d="M21 20 Q35 13 49 20 L49 36 L21 36Z" fill="currentColor"/></svg>
+                <div class="hcp-couple">Zahara &amp; Kofi</div>
+                <div class="hcp-date">3 Octobre 2026 · Château d'Esclimont</div>
+                <div class="hcp-btn">Nous honorer</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Yuki & Thomas — mixte asiatique/européen · sauge -->
+          <div class="hero-card">
+            <div class="hero-card-bar">
+              <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
+              <span class="hero-card-url">yuki-thomas.wedoria.studio</span>
+            </div>
+            <div class="hcp hcp--sauge">
+              <div class="hcp-nav">
+                <span class="hcp-nav-brand">Yuki &amp; Thomas</span>
+                <div class="hcp-nav-links"><span class="hcp-nav-link">Notre histoire</span><span class="hcp-nav-link">Le jardin</span><span class="hcp-nav-link">RSVP</span></div>
+              </div>
+              <div class="hcp-body">
+                <svg class="hcp-wm" viewBox="0 0 50 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="15" cy="8" r="5" fill="currentColor"/><path d="M9 36 L9 20 Q15 14 21 20 L21 36Z" fill="currentColor"/><circle cx="35" cy="8" r="5" fill="currentColor"/><path d="M21 20 Q35 13 49 20 L49 36 L21 36Z" fill="currentColor"/></svg>
+                <div class="hcp-couple">Yuki &amp; Thomas</div>
+                <div class="hcp-date">21 Juin 2026 · Jardins Botaniques</div>
+                <div class="hcp-btn">Notre mariage</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. Leila & Karim — moyen-oriental · dorée -->
+          <div class="hero-card">
+            <div class="hero-card-bar">
+              <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
+              <span class="hero-card-url">leila-karim.wedoria.studio</span>
+            </div>
+            <div class="hcp hcp--doree">
+              <div class="hcp-nav">
+                <span class="hcp-nav-brand">Leila &amp; Karim</span>
+                <div class="hcp-nav-links"><span class="hcp-nav-link">Notre union</span><span class="hcp-nav-link">Le palais</span><span class="hcp-nav-link">RSVP</span></div>
+              </div>
+              <div class="hcp-body">
+                <svg class="hcp-wm" viewBox="0 0 50 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="15" cy="8" r="5" fill="currentColor"/><path d="M9 36 L9 20 Q15 14 21 20 L21 36Z" fill="currentColor"/><circle cx="35" cy="8" r="5" fill="currentColor"/><path d="M21 20 Q35 13 49 20 L49 36 L21 36Z" fill="currentColor"/></svg>
+                <div class="hcp-couple">Leila &amp; Karim</div>
+                <div class="hcp-date">15 Septembre 2026 · Palais Royal</div>
+                <div class="hcp-btn">Célébrer avec nous</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8. Nara & Luc — asie du sud-est · tropical -->
+          <div class="hero-card">
+            <div class="hero-card-bar">
+              <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
+              <span class="hero-card-url">nara-luc.wedoria.studio</span>
+            </div>
+            <div class="hcp hcp--tropical">
+              <div class="hcp-nav">
+                <span class="hcp-nav-brand">Nara &amp; Luc</span>
+                <div class="hcp-nav-links"><span class="hcp-nav-link">Notre histoire</span><span class="hcp-nav-link">La villa</span><span class="hcp-nav-link">RSVP</span></div>
+              </div>
+              <div class="hcp-body">
+                <svg class="hcp-wm" viewBox="0 0 50 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="15" cy="8" r="5" fill="currentColor"/><path d="M9 36 L9 20 Q15 14 21 20 L21 36Z" fill="currentColor"/><circle cx="35" cy="8" r="5" fill="currentColor"/><path d="M21 20 Q35 13 49 20 L49 36 L21 36Z" fill="currentColor"/></svg>
+                <div class="hcp-couple">Nara &amp; Luc</div>
+                <div class="hcp-date">27 Avril 2026 · Villa Bougainvillea</div>
+                <div class="hcp-btn">Nous rejoindre</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Duplicates pour loop sans fin -->
+          <div class="hero-card">
+            <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">zahara-kofi.wedoria.studio</span></div>
+            <div class="hcp hcp--chic"><div class="hcp-nav"><span class="hcp-nav-brand">Z &amp; K</span><div class="hcp-nav-links"><span class="hcp-nav-link">L'histoire</span><span class="hcp-nav-link">Le lieu</span><span class="hcp-nav-link">RSVP</span></div></div><div class="hcp-body"><svg class="hcp-wm" viewBox="0 0 50 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="15" cy="8" r="5" fill="currentColor"/><path d="M9 36 L9 20 Q15 14 21 20 L21 36Z" fill="currentColor"/><circle cx="35" cy="8" r="5" fill="currentColor"/><path d="M21 20 Q35 13 49 20 L49 36 L21 36Z" fill="currentColor"/></svg><div class="hcp-couple">Zahara &amp; Kofi</div><div class="hcp-date">3 Octobre 2026 · Château d'Esclimont</div><div class="hcp-btn">Nous honorer</div></div></div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">yuki-thomas.wedoria.studio</span></div>
+            <div class="hcp hcp--sauge"><div class="hcp-nav"><span class="hcp-nav-brand">Yuki &amp; Thomas</span><div class="hcp-nav-links"><span class="hcp-nav-link">Notre histoire</span><span class="hcp-nav-link">Le jardin</span><span class="hcp-nav-link">RSVP</span></div></div><div class="hcp-body"><svg class="hcp-wm" viewBox="0 0 50 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="15" cy="8" r="5" fill="currentColor"/><path d="M9 36 L9 20 Q15 14 21 20 L21 36Z" fill="currentColor"/><circle cx="35" cy="8" r="5" fill="currentColor"/><path d="M21 20 Q35 13 49 20 L49 36 L21 36Z" fill="currentColor"/></svg><div class="hcp-couple">Yuki &amp; Thomas</div><div class="hcp-date">21 Juin 2026 · Jardins Botaniques</div><div class="hcp-btn">Notre mariage</div></div></div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">leila-karim.wedoria.studio</span></div>
+            <div class="hcp hcp--doree"><div class="hcp-nav"><span class="hcp-nav-brand">Leila &amp; Karim</span><div class="hcp-nav-links"><span class="hcp-nav-link">Notre union</span><span class="hcp-nav-link">Le palais</span><span class="hcp-nav-link">RSVP</span></div></div><div class="hcp-body"><svg class="hcp-wm" viewBox="0 0 50 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="15" cy="8" r="5" fill="currentColor"/><path d="M9 36 L9 20 Q15 14 21 20 L21 36Z" fill="currentColor"/><circle cx="35" cy="8" r="5" fill="currentColor"/><path d="M21 20 Q35 13 49 20 L49 36 L21 36Z" fill="currentColor"/></svg><div class="hcp-couple">Leila &amp; Karim</div><div class="hcp-date">15 Septembre 2026 · Palais Royal</div><div class="hcp-btn">Célébrer avec nous</div></div></div>
+          </div>
+          <div class="hero-card">
+            <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">nara-luc.wedoria.studio</span></div>
+            <div class="hcp hcp--tropical"><div class="hcp-nav"><span class="hcp-nav-brand">Nara &amp; Luc</span><div class="hcp-nav-links"><span class="hcp-nav-link">Notre histoire</span><span class="hcp-nav-link">La villa</span><span class="hcp-nav-link">RSVP</span></div></div><div class="hcp-body"><svg class="hcp-wm" viewBox="0 0 50 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="15" cy="8" r="5" fill="currentColor"/><path d="M9 36 L9 20 Q15 14 21 20 L21 36Z" fill="currentColor"/><circle cx="35" cy="8" r="5" fill="currentColor"/><path d="M21 20 Q35 13 49 20 L49 36 L21 36Z" fill="currentColor"/></svg><div class="hcp-couple">Nara &amp; Luc</div><div class="hcp-date">27 Avril 2026 · Villa Bougainvillea</div><div class="hcp-btn">Nous rejoindre</div></div></div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
   </div>
-    <a href="#comment" class="btn-discover">
-      <span>Découvrir</span>
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-        <path d="M7 2v10M2 7l5 5 5-5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
-      </svg>
-    </a>
-    <span>
-</span>
-    <div class="scroll-line"></div>
-  
+
+  <a href="#comment" class="hero-scroll-hint">
+    <span>Découvrir</span>
+    <div class="hero-scroll-line"></div>
+  </a>
 </section>
 
 
@@ -1865,8 +2874,8 @@ footer {
           <div class="card-overlay"><a href="https://wedoria-darksaos-projects.vercel.app/templates/romantique/" class="card-overlay-link" target="_blank">Voir le site →</a></div>
         </div>
         <div class="card-info">
-          <p class="card-couple">Manon &amp; Raphaël</p>
-          <p class="card-meta">Octobre 2025 · Château de Vaux, Bourgogne</p>
+          <p class="card-couple">Mei &amp; Hiroshi</p>
+          <p class="card-meta">Avril 2025 · Manoir des Cerisiers, Giverny</p>
         </div>
       </div>
 
@@ -1876,8 +2885,8 @@ footer {
           <div class="card-overlay"><a href="https://wedoria-darksaos-projects.vercel.app/templates/chic/" class="card-overlay-link" target="_blank">Voir le site →</a></div>
         </div>
         <div class="card-info">
-          <p class="card-couple">Camille &amp; Édouard</p>
-          <p class="card-meta">Juillet 2025 · Villa Roquebrune, Côte d'Azur</p>
+          <p class="card-couple">Aisha &amp; Marcus</p>
+          <p class="card-meta">Octobre 2025 · Villa Rothschild, Cannes</p>
         </div>
       </div>
 
@@ -1887,8 +2896,8 @@ footer {
           <div class="card-overlay"><a href="https://wedoria-darksaos-projects.vercel.app/templates/champetre/" class="card-overlay-link" target="_blank">Voir le site →</a></div>
         </div>
         <div class="card-info">
-          <p class="card-couple">Léa &amp; Antoine</p>
-          <p class="card-meta">Mai 2025 · Grange des Beaumonts, Dordogne</p>
+          <p class="card-couple">Lucie &amp; Thomas</p>
+          <p class="card-meta">Juin 2025 · Mas de la Garrigue, Uzès</p>
         </div>
       </div>
 
@@ -1907,21 +2916,21 @@ footer {
       <div class="temoignage-quote">"</div>
       <p class="temoignage-text">Wedoria a su capturer exactement l'ambiance que l'on voulait. Nos invités nous ont dit qu'ils avaient hâte de venir rien qu'après avoir vu le site.</p>
       <div class="temoignage-divider"></div>
-      <p class="temoignage-author">Manon &amp; Raphaël · Château de Vaux, Bourgogne</p>
+      <p class="temoignage-author">Mei &amp; Hiroshi · Manoir des Cerisiers, Giverny</p>
     </div>
 
     <div class="temoignage" data-reveal="" data-delay="150">
       <div class="temoignage-quote">"</div>
       <p class="temoignage-text">En 3 jours, on avait un site magnifique, avec le RSVP qui fonctionnait parfaitement. Un service impeccable, à la hauteur du jour J.</p>
       <div class="temoignage-divider"></div>
-      <p class="temoignage-author">Camille &amp; Édouard · Villa Roquebrune, Côte d'Azur</p>
+      <p class="temoignage-author">Aisha &amp; Marcus · Villa Rothschild, Cannes</p>
     </div>
 
     <div class="temoignage" data-reveal="" data-delay="300">
       <div class="temoignage-quote">"</div>
       <p class="temoignage-text">On voulait quelque chose d'unique, pas un template générique. Wedoria a dépassé toutes nos attentes. Sans prise de tête du début à la fin.</p>
       <div class="temoignage-divider"></div>
-      <p class="temoignage-author">Léa &amp; Antoine · Grange des Beaumonts, Dordogne</p>
+      <p class="temoignage-author">Lucie &amp; Thomas · Mas de la Garrigue, Uzès</p>
     </div>
 
   </div>
