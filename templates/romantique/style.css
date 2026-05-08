@@ -4,13 +4,13 @@
 
 /* ----- Custom Properties ----- */
 :root {
-  --rose: #F2C4CE;
-  --blush: #E8A0B0;
-  --fond: #FAF6F2;
-  --prune: #6B3F4A;
-  --prune-doux: #9B6070;
+  --rose: #FAC8D4;
+  --blush: #E8A0B8;
+  --fond: #FAF7F5;
+  --prune: #6B2B47;
+  --prune-doux: #9B5570;
   --blanc: #FFFFFF;
-  --ombre: rgba(107, 63, 74, 0.12);
+  --ombre: rgba(107, 43, 71, 0.12);
 }
 
 /* ----- Reset & Base ----- */

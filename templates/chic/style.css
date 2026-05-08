@@ -3,13 +3,13 @@
 ═════════════════════════════════════════ */
 
 :root {
-  --noir:      #0A0A0A;
-  --noir-md:   #1A1A1A;
+  --noir:      #0A0A14;
+  --noir-md:   #14192A;
   --ivoire:    #F8F5EE;
   --ivoire-dk: #EDE8DC;
-  --or:        #C9A96E;
-  --or-lt:     #D9BC8A;
-  --or-dk:     #A8844A;
+  --or:        #C4956A;
+  --or-lt:     #D4A880;
+  --or-dk:     #A87850;
   --blanc:     #FFFFFF;
   --texte-clair: #FFFFFF;
   --texte-fonce: #1A1A1A;
