@@ -3,17 +3,17 @@
    ============================================================ */
 
 :root {
-  --sage:      #9E91C0;
-  --sage-dk:   #7D6FA0;
-  --sage-lt:   #C4BADB;
-  --beige:     #C9B496;
-  --beige-lt:  #DCCFB8;
-  --cream:     #F7F4EE;
-  --cream-dk:  #ECE5D8;
-  --brown:     #3D3028;
-  --brown-md:  #5C4A38;
-  --text:      #3D3028;
-  --text-lt:   #7A6555;
+  --sage:      #1C3D2A;
+  --sage-dk:   #0F2A1C;
+  --sage-lt:   #C9A557;
+  --beige:     #9B2335;
+  --beige-lt:  #E8C4A0;
+  --cream:     #FAF5EA;
+  --cream-dk:  #F0E8D5;
+  --brown:     #1C3D2A;
+  --brown-md:  #3D5C47;
+  --text:      #1C3D2A;
+  --text-lt:   #4A7050;
   --serif: 'Playfair Display', Georgia, serif;
   --sans:  'Raleway', sans-serif;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -193,99 +193,119 @@ a {
 
 /* ── Hero ── */
 .hero-section {
-  position: relative;
+  display: flex;
   height: 100vh;
   min-height: 600px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--brown);
   overflow: hidden;
+  background: var(--sage);
 }
 
 #leaves-canvas {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 10;
   pointer-events: none;
 }
 
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-  opacity: 0.6;
+.hero-left {
+  flex: 0 0 45%;
+  background: var(--sage);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 3rem clamp(2rem, 4vw, 4rem) 3rem clamp(2.5rem, 6vw, 5rem);
+  position: relative;
+  z-index: 2;
 }
 
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background: linear-gradient(
-    to top,
-    rgba(61, 48, 40, 0.7) 0%,
-    rgba(61, 48, 40, 0.1) 60%,
-    transparent 100%
-  );
+.hero-right {
+  flex: 0 0 55%;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-couple-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 70% top;
+  transform: scale(1.12) translateY(4%);
+  transform-origin: center top;
 }
 
 .hero-content {
   position: relative;
-  z-index: 3;
-  text-align: center;
-  padding: 2rem;
+  z-index: 2;
+  text-align: left;
   color: white;
+  max-width: 420px;
 }
 
-.hero-crown {
-  width: clamp(120px, 30vw, 200px);
-  margin: 0 auto 1.5rem;
+.hero-ornament {
   color: var(--sage-lt);
+  width: 140px;
+  margin-bottom: 1.75rem;
 }
 
 .hero-invite {
-  font-size: clamp(0.8rem, 2vw, 1rem);
+  font-family: var(--sans);
+  font-size: clamp(0.7rem, 1.5vw, 0.85rem);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  opacity: 0.8;
+  color: rgba(255, 255, 255, 0.65);
   margin-bottom: 0.75rem;
 }
 
 .hero-names {
   font-family: var(--serif);
   font-style: italic;
-  font-size: clamp(3rem, 10vw, 7rem);
+  font-size: clamp(3rem, 6vw, 5.5rem);
   font-weight: 400;
   line-height: 1.1;
-  margin-bottom: 0.75rem;
+  color: #ffffff;
+  margin-bottom: 0;
+}
+
+.hero-divider {
+  width: 50px;
+  height: 1px;
+  background: var(--sage-lt);
+  margin: 1.5rem 0;
 }
 
 .hero-date {
-  font-size: clamp(0.75rem, 1.5vw, 0.9rem);
-  letter-spacing: 0.3em;
+  font-family: var(--sans);
+  font-size: clamp(0.65rem, 1.3vw, 0.8rem);
+  letter-spacing: 0.35em;
   text-transform: uppercase;
-  opacity: 0.75;
-  margin-bottom: 2rem;
+  color: var(--sage-lt);
+  margin-bottom: 2.5rem;
 }
 
 .btn-hero {
   display: inline-block;
   padding: 0.85rem 2.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  font-size: 0.78rem;
-  letter-spacing: 0.15em;
+  border: 1px solid var(--sage-lt);
+  color: var(--sage-lt);
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  border-radius: 2px;
-  transition: background 0.25s, border-color 0.25s, color 0.25s;
-  color: white;
+  transition: background 0.25s, color 0.25s;
 }
 
 .btn-hero:hover {
-  background: var(--sage);
-  border-color: var(--sage);
+  background: var(--sage-lt);
+  color: var(--sage);
+}
+
+@media (max-width: 768px) {
+  .hero-section { flex-direction: column; height: auto; min-height: 100svh; }
+  .hero-left { flex: none; width: 100%; padding: 4rem 2rem 3rem; justify-content: center; }
+  .hero-content { text-align: center; max-width: 100%; }
+  .hero-ornament { margin-left: auto; margin-right: auto; }
+  .hero-divider { margin-left: auto; margin-right: auto; }
+  .hero-right { flex: none; width: 100%; height: 55vw; min-height: 260px; }
 }
 
 /* ── Sections communes ── */

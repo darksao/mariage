@@ -50,21 +50,25 @@
   <!-- 3. HERO -->
   <section id="accueil" class="hero-section">
     <canvas id="leaves-canvas"></canvas>
-    <div class="hero-overlay"></div>
-    <img id="hero-img" class="hero-bg" src="" alt="">
-    <div class="hero-content">
-      <div class="hero-crown">
-        <svg viewBox="0 0 200 60" class="crown-svg" aria-hidden="true">
-          <path d="M10,55 Q30,10 50,30 Q70,50 100,5 Q130,50 150,30 Q170,10 190,55" fill="none" stroke="currentColor" stroke-width="1.5"/>
-          <circle cx="100" cy="5" r="3" fill="currentColor"/>
-          <circle cx="50" cy="30" r="2" fill="currentColor"/>
-          <circle cx="150" cy="30" r="2" fill="currentColor"/>
-        </svg>
+    <div class="hero-left">
+      <div class="hero-content">
+        <div class="hero-ornament" aria-hidden="true">
+          <svg viewBox="0 0 140 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="8" x2="56" y2="8" stroke="currentColor" stroke-width="0.6"/>
+            <path d="M62,8 m-5,0 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0" stroke="currentColor" stroke-width="0.8" fill="none"/>
+            <circle cx="70" cy="8" r="1.5" fill="currentColor"/>
+            <line x1="84" y1="8" x2="140" y2="8" stroke="currentColor" stroke-width="0.6"/>
+          </svg>
+        </div>
+        <p id="hero-invite"></p>
+        <h1 id="hero-names-overlay"></h1>
+        <div class="hero-divider"></div>
+        <p id="hero-date-overlay"></p>
+        <a href="#rsvp" id="hero-cta-overlay" class="btn-hero"></a>
       </div>
-      <p id="hero-invite"></p>
-      <h1 id="hero-names-overlay"></h1>
-      <p id="hero-date-overlay"></p>
-      <a href="#rsvp" id="hero-cta-overlay"></a>
+    </div>
+    <div class="hero-right">
+      <img id="hero-img" class="hero-couple-img" src="" alt="">
     </div>
   </section>
 
