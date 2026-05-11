@@ -47,11 +47,15 @@
 #hero .hero-headline {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.3em;
+  align-items: flex-start;
   margin-bottom: 2.5rem;
   line-height: 1.15;
+}
+#hero .hero-hl-line2 {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 #hero .word-wrap { display: inline-block; }
 #hero .hero-word { display: inline-block; color: #FFFFFF !important; opacity: 1 !important; transform: none !important; animation: none !important; }
@@ -87,30 +91,42 @@
   color: rgba(255,255,255,0.6);
 }
 
-/* Rolling words — slide ticker */
+/* Rolling words — inline ticker (same line as headline) */
 #hero .hero-rolling-wrap {
+  display: inline-block;
+  vertical-align: bottom;
   position: relative;
-  width: 100%;
-  height: clamp(3.5rem, 7vw, 8rem);
-  overflow: visible;
-  margin-bottom: 2.5rem;
+  overflow: hidden;
+  height: 1.1em;
+  margin-bottom: 0;
+  white-space: nowrap;
 }
 #hero .hero-rolling-word {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(4rem, 8vw, 9rem);
+  font-size: inherit;
   color: #C9A96E;
   position: absolute;
-  width: 100%;
-  text-align: center;
   left: 0; top: 0;
+  white-space: nowrap;
   line-height: 1.1;
   letter-spacing: -0.01em;
   transform: translateY(110%);
   opacity: 0;
   transition: none;
   will-change: transform, opacity;
+}
+#hero .hero-rolling-sizer {
+  visibility: hidden;
+  pointer-events: none;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: inherit;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+  display: inline-block;
 }
 /* Enter: slides in from bottom */
 #hero .hero-rolling-word.enter {
@@ -289,11 +305,11 @@
   align-items: center;
   gap: 0.5rem;
   font-family: 'Jost', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 0.85rem 1.875rem;
+  padding: 1.1rem 2.5rem;
   border-radius: 9999px;
   transition: all 260ms cubic-bezier(0.16,1,0.3,1);
   text-decoration: none;
@@ -486,11 +502,9 @@
     justify-content: center;
   }
 
-  .hero-headline { max-width: 540px; }
   .hero-sub { max-width: 440px; }
   .hero-stats { justify-content: flex-start; }
   .hero-ctas { justify-content: flex-start; }
-  #hero .hero-rolling-word { text-align: left; }
 
   .hero-3d-stage {
     width: 50%;
@@ -2510,26 +2524,10 @@ footer {
 
     <!-- Texte gauche -->
     <div class="hero-content">
-      <div class="hero-badge">
-        <span class="hero-badge-dot"></span>
-        <span>50+ sites créés &middot; Livré en 5 jours</span>
-      </div>
-
       <h1 class="hero-headline">
-        Votre site de mariage<br>mérite d'être
+        <span>Votre site de mariage</span>
+        <span class="hero-hl-line2">mérite d'être&nbsp;<span id="rollingWrap" class="hero-rolling-wrap"><span class="hero-rolling-word">inoubliable</span><span class="hero-rolling-word">unique</span><span class="hero-rolling-word">élégant</span><span class="hero-rolling-word">sur-mesure</span><span class="hero-rolling-word">votre histoire</span><span class="hero-rolling-sizer" aria-hidden="true">votre histoire</span></span></span>
       </h1>
-      <div id="rollingWrap" class="hero-rolling-wrap">
-        <span class="hero-rolling-word">inoubliable</span>
-        <span class="hero-rolling-word">unique</span>
-        <span class="hero-rolling-word">élégant</span>
-        <span class="hero-rolling-word">sur-mesure</span>
-        <span class="hero-rolling-word">votre histoire</span>
-      </div>
-
-      <p class="hero-sub">
-        Design premium sur-mesure, RSVP intégré, galerie photos, compte à rebours.<br>
-        À partir de <strong>290€</strong>, livré en 3 à 5 jours.
-      </p>
 
       <div class="hero-ctas">
         <a href="#portfolio" class="hero-btn hero-btn--primary">Voir les designs</a>
