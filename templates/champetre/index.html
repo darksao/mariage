@@ -176,39 +176,98 @@
   <!-- 8. RSVP -->
   <section id="rsvp">
     <div class="section-rsvp reveal-section">
-      <div class="rsvp-floral-bg"></div>
-      <div class="rsvp-inner">
-        <p class="eyebrow">Votre réponse</p>
-        <h2 id="rsvp-titre"></h2>
-        <p id="rsvp-intro" class="rsvp-intro"></p>
-        <form id="rsvp-form" class="rsvp-form" novalidate>
-          <div class="form-row">
-            <input type="text" id="f-prenom" name="prenom" placeholder="Prénom" autocomplete="given-name">
-            <input type="text" id="f-nom" name="nom" placeholder="Nom" autocomplete="family-name">
+      <div class="rsvp-split">
+
+        <!-- Colonne décorative -->
+        <div class="rsvp-deco">
+          <p class="eyebrow">Votre réponse</p>
+          <h2 id="rsvp-titre" class="rsvp-deco-titre"></h2>
+          <p id="rsvp-intro" class="rsvp-deco-intro"></p>
+          <div class="rsvp-deco-ornament" aria-hidden="true">
+            <svg viewBox="0 0 120 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M60 170 Q60 90 60 10" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 5"/>
+              <path d="M60 130 Q35 110 20 85" stroke="currentColor" stroke-width="1" fill="none"/>
+              <path d="M60 130 Q40 115 30 95 Q20 78 28 68 Q36 60 50 72 Q58 82 60 96" stroke="currentColor" stroke-width="0.9" fill="currentColor" fill-opacity="0.08"/>
+              <path d="M60 105 Q85 85 100 60" stroke="currentColor" stroke-width="1" fill="none"/>
+              <path d="M60 105 Q80 90 92 72 Q102 56 94 46 Q86 38 72 50 Q64 60 60 74" stroke="currentColor" stroke-width="0.9" fill="currentColor" fill-opacity="0.08"/>
+              <path d="M60 80 Q40 65 28 42" stroke="currentColor" stroke-width="1" fill="none"/>
+              <path d="M60 80 Q42 68 34 50 Q26 34 35 26 Q44 20 56 32 Q62 42 60 58" stroke="currentColor" stroke-width="0.9" fill="currentColor" fill-opacity="0.08"/>
+              <circle cx="60" cy="10" r="3" fill="currentColor" fill-opacity="0.4"/>
+            </svg>
           </div>
-          <fieldset class="form-presence">
-            <legend>Serez-vous présent(e) ?</legend>
-            <label class="radio-label">
-              <input type="radio" name="presence" value="oui">
-              <span>Oui, avec plaisir !</span>
-            </label>
-            <label class="radio-label">
-              <input type="radio" name="presence" value="non">
-              <span>Non, malheureusement</span>
-            </label>
-          </fieldset>
-          <select id="f-regime" name="regime">
-            <option value="">Régime alimentaire (optionnel)</option>
-            <option value="végétarien">Végétarien</option>
-            <option value="vegan">Vegan</option>
-            <option value="sans-gluten">Sans gluten</option>
-            <option value="halal">Halal</option>
-            <option value="autre">Autre</option>
-          </select>
-          <textarea id="f-message" name="message" placeholder="Un message pour les mariés... (optionnel)" rows="4"></textarea>
-          <button type="submit" id="rsvp-btn" class="btn-submit">Envoyer ma réponse</button>
-          <p id="rsvp-status" class="rsvp-status" aria-live="polite"></p>
-        </form>
+          <div class="rsvp-deco-date">
+            <span id="rsvp-deco-deadline"></span>
+          </div>
+        </div>
+
+        <!-- Colonne formulaire -->
+        <div class="rsvp-body">
+          <form id="rsvp-form" class="rsvp-form" novalidate>
+
+            <!-- Prénom & Nom -->
+            <div class="rsvp-fields-row">
+              <div class="rsvp-field">
+                <input type="text" id="f-prenom" name="prenom" autocomplete="given-name" placeholder=" " required />
+                <label for="f-prenom">Prénom</label>
+              </div>
+              <div class="rsvp-field">
+                <input type="text" id="f-nom" name="nom" autocomplete="family-name" placeholder=" " required />
+                <label for="f-nom">Nom</label>
+              </div>
+            </div>
+
+            <!-- Présence -->
+            <fieldset class="rsvp-presence-fieldset">
+              <legend class="rsvp-field-legend">Serez-vous des nôtres ?</legend>
+              <div class="rsvp-presence-toggle">
+                <label class="presence-pill">
+                  <input type="radio" name="presence" value="oui" required />
+                  <span class="pill-inner">
+                    <svg viewBox="0 0 16 16" fill="none" class="pill-icon"><path d="M3 8.5l3.5 3.5 6.5-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Oui, avec plaisir !
+                  </span>
+                </label>
+                <label class="presence-pill">
+                  <input type="radio" name="presence" value="non" required />
+                  <span class="pill-inner">
+                    <svg viewBox="0 0 16 16" fill="none" class="pill-icon"><path d="M4.5 4.5l7 7M11.5 4.5l-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                    Non, malheureusement
+                  </span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Régime -->
+            <div class="rsvp-field rsvp-field--select">
+              <select id="f-regime" name="regime">
+                <option value="">— Aucune restriction alimentaire —</option>
+                <option value="végétarien">Végétarien</option>
+                <option value="vegan">Vegan</option>
+                <option value="sans-gluten">Sans gluten</option>
+                <option value="halal">Halal</option>
+                <option value="autre">Autre (préciser dans le message)</option>
+              </select>
+              <span class="select-arrow" aria-hidden="true">
+                <svg viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+
+            <!-- Message -->
+            <div class="rsvp-field rsvp-field--textarea">
+              <textarea id="f-message" name="message" rows="3" placeholder=" "></textarea>
+              <label for="f-message">Un mot pour les mariés (optionnel)</label>
+            </div>
+
+            <!-- Bouton -->
+            <button type="submit" id="rsvp-btn" class="btn-submit">
+              <span class="btn-label">Envoyer ma réponse</span>
+              <svg class="btn-leaf" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 22C6 16 4 10 8 5c2-2 5-3 8-2-1 4-3 8-4 10 3-1 6-4 7-7 1 4-1 9-4 12-1 1-2 2-3 2z" fill="currentColor" fill-opacity="0.7"/></svg>
+            </button>
+
+            <p id="rsvp-status" class="rsvp-status" aria-live="polite"></p>
+          </form>
+        </div>
+
       </div>
     </div>
   </section>

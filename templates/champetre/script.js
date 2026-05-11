@@ -90,6 +90,7 @@ function hydrate() {
 
   setText('rsvp-titre', M.rsvp_titre || 'Confirmer votre présence');
   setText('rsvp-intro', M.rsvp_intro || '');
+  setText('rsvp-deco-deadline', M.rsvp_deadline ? `Répondre avant le ${M.rsvp_deadline}` : '');
 
   setText('infos-eyebrow', M.infos_eyebrow || '');
   setText('infos-titre', M.infos_titre || 'Infos Pratiques');
