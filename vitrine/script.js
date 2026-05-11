@@ -68,6 +68,7 @@ function onLoaderComplete() {
   initPortfolio();
   initFormules();
   initTemoignages();
+  initFaq();
   initContact();
   initRevealObserver();
   initMagneticButtons();
@@ -428,6 +429,32 @@ function initTemoignages() {
   items.forEach((item, i) => {
     gsap.to(item, { opacity:1, y:0, duration:0.8, ease:'power3.out', delay:i*0.1,
       scrollTrigger: { trigger:item, start:'top 85%', toggleActions:'play none none reverse' } });
+  });
+}
+
+/* ── FAQ ── */
+function initFaq() {
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item   = btn.closest('.faq-item');
+      const answer = item.querySelector('.faq-a');
+      const icon   = btn.querySelector('.faq-icon');
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+      document.querySelectorAll('.faq-q').forEach(b => {
+        if (b !== btn) {
+          b.setAttribute('aria-expanded', 'false');
+          b.closest('.faq-item').querySelector('.faq-a').hidden = true;
+          b.querySelector('.faq-icon').style.transform = '';
+          b.querySelector('.faq-icon').textContent = '+';
+        }
+      });
+
+      btn.setAttribute('aria-expanded', String(!isOpen));
+      answer.hidden = isOpen;
+      icon.style.transform = isOpen ? '' : 'rotate(45deg)';
+      icon.textContent = isOpen ? '+' : '×';
+    });
   });
 }
 
