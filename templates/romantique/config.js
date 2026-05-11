@@ -69,9 +69,19 @@ const MARIAGE = {
   rsvp_titre: "Confirmer votre présence",
   rsvp_intro: "Votre présence est notre plus beau cadeau. Merci de nous répondre avant le 15 février 2025.",
   photos_ambiance: [{ src: null }, { src: null }, { src: null }],
-  hashtag: "",
-  chanson: { titre: "", artiste: "", description: "", spotify_url: "" },
-  activites: [],
+  hashtag: "#MeiEtHiroshi2025",
+  chanson: {
+    titre:       "La Vie en Rose",
+    artiste:     "Édith Piaf",
+    description: "La chanson qui résume tout ce qu'on ressent quand on est ensemble. Elle joue en boucle depuis notre premier soir à Paris.",
+    spotify_url: "",
+  },
+  activites: [
+    { emoji: "🌸", titre: "Balade dans les jardins",     description: "Explorez les jardins inspirés de Monet, en fleur pour l'occasion." },
+    { emoji: "🎋", titre: "Atelier origami",             description: "Pliez une grue porte-bonheur à offrir aux mariés — tradition japonaise." },
+    { emoji: "🍶", titre: "Saké & vins normands",        description: "Dégustation de sakés japonais et de cidres locaux, en accord parfait." },
+    { emoji: "📸", titre: "Photobooth cerisiers",        description: "Un coin photos sous les branches fleuries pour immortaliser la journée." },
+  ],
   livre_or: { titre: "Livre d'Or", intro: "Laissez-nous un mot, il nous accompagnera toute notre vie.", actif: true },
   // ── Champs spécifiques Romantique ──
   souhaits: [
