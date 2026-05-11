@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr"><head><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Jost:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style id="hero-critical">
 /* ===================== HERO CINÉMATIQUE ===================== */
@@ -512,20 +512,11 @@
   overflow: hidden;
 }
 
-.hero-col--2 {
-  margin-top: -100px;
-}
-
 .hero-col-track {
   display: flex;
   flex-direction: column;
-  /* 37s = 28s × 4/3 pour 4 cartes au lieu de 3 */
   gap: 0.75rem;
-  animation: hero-scroll-up 37s linear infinite;
-}
-
-.hero-col--2 .hero-col-track {
-  animation-duration: 48s;
+  animation: hero-scroll-up 28s linear infinite;
 }
 
 @keyframes hero-scroll-up {
@@ -540,6 +531,9 @@
   box-shadow: 0 12px 40px rgba(0,0,0,0.5);
   flex-shrink: 0;
   background: #0d0b10;
+  display: flex;
+  flex-direction: column;
+  aspect-ratio: 4/3;
 }
 
 .hero-card-bar {
@@ -575,7 +569,8 @@
 .hero-card img {
   width: 100%;
   display: block;
-  aspect-ratio: 16/9;
+  flex: 1;
+  min-height: 0;
   object-fit: cover;
   object-position: top center;
   filter: brightness(0.92);
@@ -2441,6 +2436,33 @@ footer {
 .formule-card   { border-radius: 20px; }
 .temoignage     { border-radius: 16px; background: rgba(201,169,110,0.04); padding: 2rem; }
 .hero-card      { border-radius: 40px 40px 0 0; }
+
+/* Reset for carousel cards — override the feature-section .hero-card rules above */
+.hero-col-track .hero-card {
+  position: static;
+  z-index: auto;
+  background: #0d0b10;
+  border-radius: 10px;
+  margin-top: 0;
+  padding: 0;
+  aspect-ratio: 4/3;
+  display: flex;
+  flex-direction: column;
+}
+.hero-col-track .hero-card img {
+  width: 100%;
+  display: block;
+  flex: 1;
+  min-height: 0;
+  object-fit: cover;
+  object-position: top center;
+  filter: brightness(0.92);
+  transition: transform 600ms cubic-bezier(0.16,1,0.3,1);
+  aspect-ratio: unset;
+  height: auto;
+}
+.hero-col-track .hero-card:hover img { transform: scale(1.02); }
+
 .contact-inner  { border-radius: 24px; background: #FAFAF7; padding: 4rem 3rem; max-width: 740px; margin: 0 auto; box-shadow: 0 4px 40px rgba(0,0,0,0.06); }
 .form-group input,
 .form-group select,
@@ -2614,164 +2636,51 @@ footer {
       </div>
     </div>
 
-    <!-- Colonnes défilantes droite — 8 couples, 8 ethnies -->
+    <!-- Carousel défilant — 3 couples -->
     <div class="hero-columns" aria-hidden="true">
-
-      <!-- Colonne 1 : Aisha & Marcus · Priya & Arjun · Mei & Hiroshi · Lucie & Thomas -->
-      <div class="hero-col hero-col--1">
+      <div class="hero-col">
         <div class="hero-col-track">
 
-          <!-- 1. Aisha & Marcus — afro-caribéen · romantique -->
           <div class="hero-card">
             <div class="hero-card-bar">
               <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
               <span class="hero-card-url">aisha-marcus.wedoria.studio</span>
             </div>
-            <div class="hcp hcp--photo-romantique">
-              <div class="hcp-nav">
-                <span class="hcp-nav-brand">Aisha &amp; Marcus</span>
-                <div class="hcp-nav-links"><span class="hcp-nav-link">Notre histoire</span><span class="hcp-nav-link">Programme</span><span class="hcp-nav-link">RSVP</span></div>
-              </div>
-              <div class="hcp-body">
-                <div class="hcp-couple">Aisha &amp; Marcus</div>
-                <div class="hcp-date">14 Août 2026 · Domaine Saint-Clair</div>
-                <div class="hcp-btn">Confirmer ma présence</div>
-              </div>
-            </div>
+            <img src="/vitrine/preview-aisha-marcus.jpg" alt="Aisha &amp; Marcus">
           </div>
 
-          <!-- 2. Priya & Arjun — sud-asiatique · royale -->
           <div class="hero-card">
             <div class="hero-card-bar">
               <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
               <span class="hero-card-url">priya-arjun.wedoria.studio</span>
             </div>
-            <div class="hcp hcp--photo-royale">
-              <div class="hcp-photo-royale-left">
-                <div class="hcp-nav">
-                  <span class="hcp-nav-brand">P &amp; A</span>
-                  <div class="hcp-nav-links"><span class="hcp-nav-link">Histoire</span><span class="hcp-nav-link">Cérémonie</span><span class="hcp-nav-link">RSVP</span></div>
-                </div>
-                <div class="hcp-body">
-                  <div class="hcp-couple">Priya &amp; Arjun</div>
-                  <div class="hcp-date">20 Nov 2026 · Château de Breteuil</div>
-                  <div class="hcp-btn">Rejoindre la fête</div>
-                </div>
-              </div>
-              <div class="hcp-photo-royale-right"></div>
-            </div>
+            <img src="/vitrine/preview-priya-arjun.jpg" alt="Priya &amp; Arjun">
           </div>
 
-          <!-- 3. Mei & Hiroshi — est-asiatique · zen -->
           <div class="hero-card">
             <div class="hero-card-bar">
               <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
               <span class="hero-card-url">mei-hiroshi.wedoria.studio</span>
             </div>
-            <div class="hcp hcp--photo-zen">
-              <div class="hcp-nav">
-                <span class="hcp-nav-brand">Mei &amp; Hiroshi</span>
-                <div class="hcp-nav-links"><span class="hcp-nav-link">Notre amour</span><span class="hcp-nav-link">Le lieu</span><span class="hcp-nav-link">RSVP</span></div>
-              </div>
-              <div class="hcp-body">
-                <div class="hcp-couple">Mei &amp; Hiroshi</div>
-                <div class="hcp-date">8 Mars 2026 · Jardins de Versailles</div>
-                <div class="hcp-btn">Notre cérémonie</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 4. Lucie & Thomas — champêtre -->
-          <div class="hero-card">
-            <div class="hero-card-bar">
-              <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
-              <span class="hero-card-url">lucie-thomas.wedoria.studio</span>
-            </div>
-            <img src="/vitrine/preview-priya-arjun.jpg" alt="Priya &amp; Arjun · Template champêtre">
+            <img src="/vitrine/preview-mei-hiroshi.jpg" alt="Mei &amp; Hiroshi">
           </div>
 
           <!-- Duplicates pour loop sans fin -->
           <div class="hero-card">
             <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">aisha-marcus.wedoria.studio</span></div>
-            <div class="hcp hcp--photo-romantique"><div class="hcp-nav"><span class="hcp-nav-brand">Aisha &amp; Marcus</span><div class="hcp-nav-links"><span class="hcp-nav-link">Notre histoire</span><span class="hcp-nav-link">Programme</span><span class="hcp-nav-link">RSVP</span></div></div><div class="hcp-body"><div class="hcp-couple">Aisha &amp; Marcus</div><div class="hcp-date">14 Août 2026 · Domaine Saint-Clair</div><div class="hcp-btn">Confirmer ma présence</div></div></div>
+            <img src="/vitrine/preview-aisha-marcus.jpg" alt="Aisha &amp; Marcus">
           </div>
           <div class="hero-card">
             <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">priya-arjun.wedoria.studio</span></div>
-            <div class="hcp hcp--photo-royale"><div class="hcp-photo-royale-left"><div class="hcp-nav"><span class="hcp-nav-brand">P &amp; A</span><div class="hcp-nav-links"><span class="hcp-nav-link">Histoire</span><span class="hcp-nav-link">Cérémonie</span><span class="hcp-nav-link">RSVP</span></div></div><div class="hcp-body"><div class="hcp-couple">Priya &amp; Arjun</div><div class="hcp-date">20 Nov 2026 · Château de Breteuil</div><div class="hcp-btn">Rejoindre la fête</div></div></div><div class="hcp-photo-royale-right"></div></div>
+            <img src="/vitrine/preview-priya-arjun.jpg" alt="Priya &amp; Arjun">
           </div>
           <div class="hero-card">
             <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">mei-hiroshi.wedoria.studio</span></div>
-            <div class="hcp hcp--photo-zen"><div class="hcp-nav"><span class="hcp-nav-brand">Mei &amp; Hiroshi</span><div class="hcp-nav-links"><span class="hcp-nav-link">Notre amour</span><span class="hcp-nav-link">Le lieu</span><span class="hcp-nav-link">RSVP</span></div></div><div class="hcp-body"><div class="hcp-couple">Mei &amp; Hiroshi</div><div class="hcp-date">8 Mars 2026 · Jardins de Versailles</div><div class="hcp-btn">Notre cérémonie</div></div></div>
-          </div>
-          <div class="hero-card">
-            <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">lucie-thomas.wedoria.studio</span></div>
-            <img src="/vitrine/preview-priya-arjun.jpg" alt="Priya &amp; Arjun · Template champêtre">
+            <img src="/vitrine/preview-mei-hiroshi.jpg" alt="Mei &amp; Hiroshi">
           </div>
 
         </div>
       </div>
-
-      <!-- Colonne 2 : Zahara & Kofi · Yuki & Thomas · Leila & Karim · Nara & Luc -->
-      <div class="hero-col hero-col--2">
-        <div class="hero-col-track">
-
-          <!-- 5. Zahara & Kofi — africain · chic sombre -->
-          <div class="hero-card">
-            <div class="hero-card-bar">
-              <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
-              <span class="hero-card-url">zahara-kofi.wedoria.studio</span>
-            </div>
-            <img src="/vitrine/preview-chic.jpg" alt="Aisha &amp; Marcus · Template chic">
-          </div>
-
-          <!-- 6. Yuki & Thomas — mixte asiatique/européen · sauge -->
-          <div class="hero-card">
-            <div class="hero-card-bar">
-              <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
-              <span class="hero-card-url">yuki-thomas.wedoria.studio</span>
-            </div>
-            <img src="/vitrine/preview-aisha-marcus.jpg" alt="Aisha &amp; Marcus · hero shot">
-          </div>
-
-          <!-- 7. Leila & Karim — moyen-oriental · dorée -->
-          <div class="hero-card">
-            <div class="hero-card-bar">
-              <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
-              <span class="hero-card-url">leila-karim.wedoria.studio</span>
-            </div>
-            <img src="/vitrine/preview-mei-hiroshi.jpg" alt="Mei &amp; Hiroshi · Template romantique">
-          </div>
-
-          <!-- 8. Nara & Luc — asie du sud-est · tropical -->
-          <div class="hero-card">
-            <div class="hero-card-bar">
-              <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
-              <span class="hero-card-url">nara-luc.wedoria.studio</span>
-            </div>
-            <img src="/vitrine/preview-priya-arjun.jpg" alt="Priya &amp; Arjun · hero shot">
-          </div>
-
-          <!-- Duplicates pour loop sans fin -->
-          <div class="hero-card">
-            <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">zahara-kofi.wedoria.studio</span></div>
-            <img src="/vitrine/preview-chic.jpg" alt="Aisha &amp; Marcus · Template chic">
-          </div>
-          <div class="hero-card">
-            <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">yuki-thomas.wedoria.studio</span></div>
-            <img src="/vitrine/preview-aisha-marcus.jpg" alt="Aisha &amp; Marcus · hero shot">
-          </div>
-          <div class="hero-card">
-            <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">leila-karim.wedoria.studio</span></div>
-            <img src="/vitrine/preview-mei-hiroshi.jpg" alt="Mei &amp; Hiroshi · Template romantique">
-          </div>
-          <div class="hero-card">
-            <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">nara-luc.wedoria.studio</span></div>
-            <img src="/vitrine/preview-priya-arjun.jpg" alt="Priya &amp; Arjun · hero shot">
-          </div>
-
-        </div>
-      </div>
-
     </div>
   </div>
 
