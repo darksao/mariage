@@ -107,14 +107,17 @@ function initNavbar() {
 /* ── HERO ── */
 function initHero() {
   initParticles();
+  const els = '.hero-badge,.hero-headline,.hero-sub,.hero-ctas,.hero-stats';
   if (prefersReducedMotion) {
-    document.querySelectorAll('.hero__title,.hero__sub,.hero__cta').forEach(el => { el.style.opacity='1'; el.style.transform='none'; });
+    document.querySelectorAll(els).forEach(el => { el.style.opacity='1'; el.style.transform='none'; });
     return;
   }
-  gsap.timeline({ delay: 0.2 })
-    .to('.hero__title', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, 0)
-    .to('.hero__sub',   { opacity: 1, duration: 0.8, ease: 'power2.out' }, 0.35)
-    .to('.hero__cta',   { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 0.55);
+  gsap.timeline({ delay: 0.1 })
+    .to('.hero-badge',    { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 0)
+    .to('.hero-headline', { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' }, 0.12)
+    .to('.hero-sub',      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 0.28)
+    .to('.hero-ctas',     { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 0.42)
+    .to('.hero-stats',    { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 0.54);
 }
 
 /* ── CANVAS PETALS ── */

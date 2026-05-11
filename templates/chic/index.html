@@ -46,7 +46,8 @@
 
   <!-- Hero #accueil -->
   <section id="accueil" class="hero-section">
-    <img class="hero-bg" src="hero-bg.jpg" alt="Aisha & Marcus">
+    <video id="hero-video" class="hero-video" autoplay muted loop playsinline style="display:none"></video>
+    <img id="hero-bg-img" class="hero-bg" src="hero-bg.jpg" alt="Aisha & Marcus">
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <p id="hero-invite" class="hero-invite" style="display:none"></p>
@@ -56,6 +57,15 @@
       <a href="#rsvp" id="hero-cta-overlay" class="btn-hero"></a>
     </div>
     <div class="hero-scroll"><span class="scroll-chevron">&#8964;</span></div>
+  </section>
+
+  <!-- Histoire #histoire -->
+  <section id="histoire" class="section-histoire reveal-section">
+    <div class="section-header">
+      <p class="eyebrow eyebrow--gold" id="histoire-eyebrow"></p>
+      <h2 class="h2--light" id="histoire-titre"></h2>
+    </div>
+    <div id="histoire-wrap" class="histoire-wrap"></div>
   </section>
 
   <!-- Countdown #countdown -->
@@ -89,6 +99,45 @@
       <h2 class="h2--light">Le Lieu</h2>
     </div>
     <div class="masonry-grid" id="galerie-wrap"></div>
+  </section>
+
+  <!-- Photos ambiance -->
+  <div id="photos-ambiance" class="photos-ambiance" style="display:none">
+    <div class="ambiance-img-wrap"><img id="ambiance-0" class="ambiance-img" src="" alt=""></div>
+    <div class="ambiance-img-wrap"><img id="ambiance-1" class="ambiance-img" src="" alt=""></div>
+    <div class="ambiance-img-wrap"><img id="ambiance-2" class="ambiance-img" src="" alt=""></div>
+  </div>
+
+  <!-- Souhaits #souhaits -->
+  <section id="souhaits" class="section-souhaits reveal-section" style="display:none">
+    <div class="section-header">
+      <p class="eyebrow eyebrow--gold">Nos envies</p>
+      <h2 class="h2--light" id="souhaits-titre">Ce qui nous ferait plaisir</h2>
+    </div>
+    <div class="souhaits-grid" id="souhaits-wrap"></div>
+  </section>
+
+  <!-- Activités #activites -->
+  <section id="activites" class="section-activites reveal-section" style="display:none">
+    <div class="section-header">
+      <p class="eyebrow eyebrow--gold">Pour profiter</p>
+      <h2 class="h2--light">Au Programme pour Vous</h2>
+    </div>
+    <div class="activites-grid" id="activites-wrap"></div>
+  </section>
+
+  <!-- Chanson #chanson -->
+  <section id="chanson" class="section-chanson reveal-section" style="display:none">
+    <div class="chanson-inner">
+      <p class="eyebrow eyebrow--gold">Notre mélodie</p>
+      <div class="chanson-card">
+        <div class="chanson-note" aria-hidden="true">♪</div>
+        <h3 id="chanson-titre" class="chanson-titre"></h3>
+        <p id="chanson-artiste" class="chanson-artiste"></p>
+        <p id="chanson-desc" class="chanson-desc"></p>
+        <a id="chanson-lien" class="chanson-lien" href="#" target="_blank" rel="noopener" style="display:none">Écouter sur Spotify →</a>
+      </div>
+    </div>
   </section>
 
   <!-- Dress Code #dresscode -->
@@ -145,6 +194,35 @@
     </div>
   </section>
 
+  <!-- Livre d'or #livre-or -->
+  <section id="livre-or" class="section-livreor reveal-section" style="display:none">
+    <div class="section-header">
+      <p class="eyebrow eyebrow--gold">Vos mots</p>
+      <h2 class="h2--light" id="livreor-titre"></h2>
+    </div>
+    <p id="livreor-intro" class="livreor-intro"></p>
+    <div class="livreor-layout">
+      <form id="livreor-form" class="livreor-form" novalidate>
+        <input type="text" id="lo-prenom" name="prenom" placeholder="Votre prénom *" required />
+        <textarea id="lo-message" name="message" rows="4" placeholder="Votre message…" required></textarea>
+        <button type="submit" class="btn-submit" id="lo-btn">Laisser un mot</button>
+        <p id="lo-status" class="rsvp-status" aria-live="polite"></p>
+      </form>
+      <div class="livreor-carrousel-wrap" id="livreor-carrousel-wrap" style="display:none">
+        <div class="livreor-track" id="livreor-track"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mot des mariés #mot -->
+  <section id="mot" class="section-mot reveal-section" style="display:none">
+    <div class="mot-inner">
+      <p class="eyebrow eyebrow--gold">Nos mots</p>
+      <blockquote id="mot-texte" class="mot-texte"></blockquote>
+      <p id="mot-signature" class="mot-signature"></p>
+    </div>
+  </section>
+
   <!-- Infos #infos -->
   <section id="infos" class="section-infos reveal-section">
     <div class="section-header">
@@ -157,6 +235,7 @@
   <!-- Footer -->
   <footer class="footer">
     <p class="footer-names" id="footer-names"></p>
+    <p id="footer-hashtag" class="footer-hashtag" style="display:none"></p>
     <div class="footer-rule"></div>
     <p class="footer-citation" id="footer-citation"></p>
     <p class="footer-credit">Wedoria Studio</p>

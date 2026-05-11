@@ -9,7 +9,7 @@ const MARIAGE = {
   email:          "priya.arjun@exemple.com",
   whatsapp:       "06 33 55 77 99",
   langues:        ["fr"],
-  photo_couple:   "hero-bg.jpg",
+  photo_couple:   "priya-arjun-nowording.png",
   photo_couple_caption: "Priya & Arjun · Château de Breteuil",
   hero_intro:     "Vous êtes conviés à la célébration de",
   hero_cta:       "Rejoindre la fête",
@@ -51,7 +51,7 @@ const MARIAGE = {
   dress_eyebrow: "Pour l'occasion",
   dress_titre:   "Code Vestimentaire",
   dress_intro:   "Tenue élégante de fête. Inspirez-vous de notre palette : rouge, vert forêt, ivoire et or. Tenues traditionnelles indiennes bienvenues !",
-  dress_couleurs: [
+  palette: [
     { nom: "Rouge sari",  hex: "#9B2335", eviter: false },
     { nom: "Vert forêt",  hex: "#1C3D2A", eviter: false },
     { nom: "Ivoire",      hex: "#FAF5EA", eviter: false },
@@ -88,5 +88,10 @@ const MARIAGE = {
     { emoji: "🌿", titre: "Balade dans les jardins", description: "Explorez les 80 hectares du parc classé du Château de Breteuil." },
     { emoji: "🎲", titre: "Jeux de société",         description: "Animations et jeux pour tous les âges." },
   ],
+  hashtag: "#PriyaEtArjun",
+  chanson: { titre: "", artiste: "", description: "", spotify_url: "" },
+  souhaits: [],
+  mot_des_maries: "",
+  livre_or: { titre: "Livre d'Or", intro: "Laissez-nous un mot, il nous accompagnera toute notre vie.", actif: true },
   i18n: {},
 };

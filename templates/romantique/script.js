@@ -132,6 +132,80 @@ function hydrate() {
     if (souhaitsSection) souhaitsSection.style.display = 'none';
   }
 
+  // ── Vidéo hero ───────────────────────────────────────────────
+  if (MARIAGE.video_hero && MARIAGE.video_hero.type === 'mp4' && MARIAGE.video_hero.src) {
+    var heroVideo = document.getElementById('hero-video');
+    var heroBgImg = document.getElementById('hero-bg-img');
+    if (heroVideo) {
+      heroVideo.src = MARIAGE.video_hero.src;
+      heroVideo.style.display = 'block';
+    }
+    if (heroBgImg) heroBgImg.style.display = 'none';
+  }
+
+  // ── Photos ambiance ──────────────────────────────────────────
+  var ambianceSection = document.getElementById('photos-ambiance');
+  var ambiancePhotos  = MARIAGE.photos_ambiance || [];
+  var hasAmbiance     = ambiancePhotos.some(function(p) { return p && p.src; });
+  if (hasAmbiance && ambianceSection) {
+    ambianceSection.style.display = '';
+    ambiancePhotos.forEach(function(p, i) {
+      var img = document.getElementById('ambiance-' + i);
+      if (img && p && p.src) {
+        img.src = p.src;
+        img.alt = 'Ambiance ' + (i + 1);
+        if (p.position) img.style.objectPosition = p.position;
+      } else if (img) {
+        img.closest('.ambiance-img-wrap').style.display = 'none';
+      }
+    });
+  }
+
+  // ── Activités ────────────────────────────────────────────────
+  var activitesSection = document.getElementById('activites');
+  var activitesWrap    = document.getElementById('activites-wrap');
+  if (MARIAGE.activites && MARIAGE.activites.length > 0 && activitesWrap) {
+    if (activitesSection) activitesSection.style.display = '';
+    var actHtml = '';
+    MARIAGE.activites.forEach(function(a) {
+      actHtml += '<div class="activite-card reveal-section">' +
+        '<div class="activite-emoji">' + a.emoji + '</div>' +
+        '<h3>' + a.titre + '</h3>' +
+        '<p>' + a.description + '</p>' +
+        '</div>';
+    });
+    activitesWrap.innerHTML = actHtml;
+  }
+
+  // ── Chanson ───────────────────────────────────────────────────
+  var chansonSection = document.getElementById('chanson');
+  var c = MARIAGE.chanson;
+  if (c && c.titre) {
+    if (chansonSection) chansonSection.style.display = '';
+    set('chanson-titre',   c.titre);
+    set('chanson-artiste', c.artiste || '');
+    set('chanson-desc',    c.description || '');
+    var lienEl = document.getElementById('chanson-lien');
+    if (lienEl && c.spotify_url) {
+      lienEl.href = c.spotify_url;
+      lienEl.style.display = '';
+    }
+  }
+
+  // ── Livre d'or ───────────────────────────────────────────────
+  var livreOrSection = document.getElementById('livre-or');
+  if (MARIAGE.livre_or && MARIAGE.livre_or.actif) {
+    if (livreOrSection) livreOrSection.style.display = '';
+    set('livreor-titre', MARIAGE.livre_or.titre || 'Livre d\'Or');
+    set('livreor-intro', MARIAGE.livre_or.intro || '');
+  }
+
+  // ── Hashtag footer ───────────────────────────────────────────
+  if (MARIAGE.hashtag) {
+    var hashtagEl = document.getElementById('footer-hashtag');
+    if (hashtagEl) { hashtagEl.textContent = MARIAGE.hashtag; hashtagEl.style.display = ''; }
+  }
+
   // ── Mot des mariés ───────────────────────────────────────────
   if (MARIAGE.mot_des_maries) {
     set('mot-texte',      MARIAGE.mot_des_maries);
@@ -379,6 +453,62 @@ async function initRsvp() {
   });
 }
 
+// ─── 8. LIVRE D'OR ──────────────────────────────────────────
+
+async function initLivreOr() {
+  var section = document.getElementById('livre-or');
+  if (!section || section.style.display === 'none') return;
+
+  var templateId = (MARIAGE.prenom1 + '-' + MARIAGE.prenom2 + '-romantique')
+    .toLowerCase().replace(/\s+/g, '-').normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+  // Charger messages existants
+  try {
+    var client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    var result = await client.from('livre_or').select('*').eq('template_id', templateId).order('created_at', { ascending: true });
+    if (result.data && result.data.length > 0) renderCarrousel(result.data);
+  } catch(e) { /* Supabase absent — mode local */ }
+
+  // Formulaire
+  var form = document.getElementById('livreor-form');
+  if (!form) return;
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var btn = document.getElementById('lo-btn');
+    var status = document.getElementById('lo-status');
+    var prenom  = document.getElementById('lo-prenom').value.trim();
+    var message = document.getElementById('lo-message').value.trim();
+    if (!prenom || !message) { if (status) status.textContent = 'Merci de remplir les deux champs.'; return; }
+    if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
+    try {
+      var client2 = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      var ins = await client2.from('livre_or').insert([{ template_id: templateId, prenom: prenom, message: message }]);
+      if (ins.error) throw ins.error;
+      if (status) status.textContent = 'Merci ! Votre mot a bien été enregistré. ♡';
+      form.reset();
+      if (btn) { btn.disabled = false; btn.textContent = 'Laisser un mot ♡'; }
+    } catch(err) {
+      if (status) status.textContent = 'Une erreur est survenue. Réessayez plus tard.';
+      if (btn) { btn.disabled = false; btn.textContent = 'Laisser un mot ♡'; }
+    }
+  });
+}
+
+function renderCarrousel(messages) {
+  var wrap  = document.getElementById('livreor-carrousel-wrap');
+  var track = document.getElementById('livreor-track');
+  if (!wrap || !track) return;
+  var html = messages.map(function(m) {
+    return '<div class="livreor-card">' +
+      '<p class="livreor-message">“' + m.message + '”</p>' +
+      '<p class="livreor-prenom">— ' + m.prenom + '</p>' +
+    '</div>';
+  }).join('');
+  // Dupliquer pour boucle seamless
+  track.innerHTML = html + html;
+  wrap.style.display = '';
+}
+
 // ─── INIT ────────────────────────────────────────────────────
 
 // Run immediately (sync)
@@ -392,4 +522,5 @@ document.addEventListener('DOMContentLoaded', function() {
   initReveal();
   initCarousel();
   initRsvp();
+  initLivreOr();
 });

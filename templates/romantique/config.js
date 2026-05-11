@@ -50,7 +50,7 @@ const MARIAGE = {
   dress_eyebrow: "",
   dress_titre:   "",
   dress_intro:   "",
-  dress_couleurs: [],
+  palette: [],
   infos_eyebrow: "Tout ce qu'il faut savoir",
   infos_titre:   "Infos Pratiques",
   infos: [
@@ -69,6 +69,10 @@ const MARIAGE = {
   rsvp_titre: "Confirmer votre présence",
   rsvp_intro: "Votre présence est notre plus beau cadeau. Merci de nous répondre avant le 15 février 2025.",
   photos_ambiance: [{ src: null }, { src: null }, { src: null }],
+  hashtag: "",
+  chanson: { titre: "", artiste: "", description: "", spotify_url: "" },
+  activites: [],
+  livre_or: { titre: "Livre d'Or", intro: "Laissez-nous un mot, il nous accompagnera toute notre vie.", actif: true },
   // ── Champs spécifiques Romantique ──
   souhaits: [
     { emoji: "✈️", titre: "Voyage de noces", description: "Une contribution à notre lune de miel au Japon serait merveilleuse.", lien: "" },

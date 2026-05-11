@@ -48,7 +48,8 @@
 
   <!-- HERO poétique -->
   <section id="accueil" class="hero-section">
-    <img class="hero-bg" src="hero-bg.jpg" alt="Mei & Hiroshi">
+    <video id="hero-video" class="hero-video" autoplay muted loop playsinline style="display:none"></video>
+    <img id="hero-bg-img" class="hero-bg" src="hero-bg.jpg" alt="Mei & Hiroshi">
     <div class="hero-overlay"></div>
     <canvas id="petales-canvas"></canvas>
     <div class="hero-content">
@@ -85,6 +86,36 @@
       <button class="carousel-prev" aria-label="Précédent">&#8592;</button>
       <button class="carousel-next" aria-label="Suivant">&#8594;</button>
       <div id="carousel-dots" class="carousel-dots"></div>
+    </div>
+  </section>
+
+  <!-- PHOTOS AMBIANCE pleine largeur -->
+  <div id="photos-ambiance" class="photos-ambiance" style="display:none">
+    <div class="ambiance-img-wrap"><img id="ambiance-0" class="ambiance-img" src="" alt=""></div>
+    <div class="ambiance-img-wrap"><img id="ambiance-1" class="ambiance-img" src="" alt=""></div>
+    <div class="ambiance-img-wrap"><img id="ambiance-2" class="ambiance-img" src="" alt=""></div>
+  </div>
+
+  <!-- ACTIVITÉS -->
+  <section id="activites" class="section-activites reveal-section" style="display:none">
+    <div class="section-header">
+      <p class="eyebrow">Pour vous amuser</p>
+      <h2>Au Programme pour Vous</h2>
+    </div>
+    <div class="activites-grid" id="activites-wrap"></div>
+  </section>
+
+  <!-- CHANSON -->
+  <section id="chanson" class="section-chanson reveal-section" style="display:none">
+    <div class="chanson-inner">
+      <p class="eyebrow">Notre mélodie</p>
+      <div class="chanson-card">
+        <div class="chanson-note" aria-hidden="true">♪</div>
+        <h3 id="chanson-titre" class="chanson-titre"></h3>
+        <p id="chanson-artiste" class="chanson-artiste"></p>
+        <p id="chanson-desc" class="chanson-desc"></p>
+        <a id="chanson-lien" class="chanson-lien" href="#" target="_blank" rel="noopener" style="display:none">Écouter sur Spotify →</a>
+      </div>
     </div>
   </section>
 
@@ -141,6 +172,26 @@
     </div>
   </section>
 
+  <!-- LIVRE D'OR -->
+  <section id="livre-or" class="section-livreor reveal-section" style="display:none">
+    <div class="section-header">
+      <p class="eyebrow">Vos mots</p>
+      <h2 id="livreor-titre"></h2>
+    </div>
+    <p id="livreor-intro" class="livreor-intro"></p>
+    <div class="livreor-layout">
+      <form id="livreor-form" class="livreor-form" novalidate>
+        <input type="text" id="lo-prenom" name="prenom" placeholder="Votre prénom *" required />
+        <textarea id="lo-message" name="message" rows="4" placeholder="Votre message…" required></textarea>
+        <button type="submit" class="btn-submit" id="lo-btn">Laisser un mot ♡</button>
+        <p id="lo-status" class="rsvp-status" aria-live="polite"></p>
+      </form>
+      <div class="livreor-carrousel-wrap" id="livreor-carrousel-wrap" style="display:none">
+        <div class="livreor-track" id="livreor-track"></div>
+      </div>
+    </div>
+  </section>
+
   <!-- MOT DES MARIÉS -->
   <section id="mot" class="section-mot reveal-section">
     <div class="mot-inner">
@@ -155,6 +206,7 @@
   <!-- FOOTER -->
   <footer class="footer">
     <p class="footer-names" id="footer-names"></p>
+    <p id="footer-hashtag" class="footer-hashtag" style="display:none"></p>
     <p class="footer-citation" id="footer-citation"></p>
     <p class="footer-credit">Site créé avec <a href="https://wedoria.studio" target="_blank">Wedoria Studio</a></p>
   </footer>

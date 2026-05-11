@@ -105,6 +105,94 @@ function hydrate() {
         </div>`).join('');
   }
 
+  // Vidéo hero
+  if (M.video_hero && M.video_hero.type === 'mp4' && M.video_hero.src) {
+    const hv = document.getElementById('hero-video');
+    if (hv) { hv.src = M.video_hero.src; hv.style.display = 'block'; }
+  }
+
+  // Photos ambiance — slot 1 déjà utilisé pour le domaine ; slots 2 et 3 en section pleine largeur
+  const ambianceSection = document.getElementById('photos-ambiance');
+  const ambiancePhotos  = M.photos_ambiance || [];
+  const hasAmbiance     = ambiancePhotos.some(p => p && p.src);
+  if (hasAmbiance && ambianceSection) {
+    ambianceSection.style.display = '';
+    ambiancePhotos.forEach((p, i) => {
+      const img = document.getElementById('ambiance-' + i);
+      if (img && p && p.src) {
+        img.src = p.src;
+        img.alt = 'Ambiance ' + (i + 1);
+        if (p.position) img.style.objectPosition = p.position;
+      } else if (img) {
+        img.closest('.ambiance-img-wrap').style.display = 'none';
+      }
+    });
+  }
+
+  // Dress code
+  const dressSection = document.querySelector('.section-dresscode');
+  if (M.dress_titre && dressSection) {
+    dressSection.style.display = '';
+    setText('dress-eyebrow', M.dress_eyebrow || '');
+    setText('dress-titre',   M.dress_titre   || '');
+    setText('dress-intro',   M.dress_intro   || '');
+    const swatchesWrap = document.getElementById('dress-swatches');
+    if (swatchesWrap && M.palette && M.palette.length) {
+      swatchesWrap.innerHTML = M.palette.map(c => `
+        <div class="dress-swatch ${c.eviter ? 'swatch--eviter' : ''}">
+          <div class="swatch-circle" style="background:${c.hex}"></div>
+          <p class="swatch-nom">${c.nom}${c.eviter ? ' ✗' : ''}</p>
+        </div>`).join('');
+    }
+  }
+
+  // Souhaits
+  const souhaitsSection = document.querySelector('.section-souhaits');
+  const souhaitsWrap    = document.getElementById('souhaits-wrap');
+  if (M.souhaits && M.souhaits.length > 0 && souhaitsWrap) {
+    if (souhaitsSection) souhaitsSection.style.display = '';
+    souhaitsWrap.innerHTML = M.souhaits.map(s => `
+      <div class="souhait-card">
+        <span class="souhait-emoji">${s.emoji || ''}</span>
+        <h3>${s.titre}</h3>
+        <p>${s.description}</p>
+        ${s.lien ? `<a class="souhait-lien" href="${s.lien}" target="_blank">Voir →</a>` : ''}
+      </div>`).join('');
+  }
+
+  // Chanson
+  const chansonSection = document.querySelector('.section-chanson');
+  if (M.chanson && M.chanson.titre && chansonSection) {
+    chansonSection.style.display = '';
+    setText('chanson-titre',   M.chanson.titre);
+    setText('chanson-artiste', M.chanson.artiste || '');
+    setText('chanson-desc',    M.chanson.description || '');
+    const lienEl = document.getElementById('chanson-lien');
+    if (lienEl && M.chanson.spotify_url) { lienEl.href = M.chanson.spotify_url; lienEl.style.display = ''; }
+  }
+
+  // Livre d'or
+  const livreOrSection = document.querySelector('.section-livreor');
+  if (M.livre_or && M.livre_or.actif && livreOrSection) {
+    livreOrSection.style.display = '';
+    setText('livreor-titre', M.livre_or.titre || 'Livre d\'Or');
+    setText('livreor-intro', M.livre_or.intro || '');
+  }
+
+  // Mot des mariés
+  const motSection = document.querySelector('.section-mot');
+  if (M.mot_des_maries && motSection) {
+    motSection.style.display = '';
+    setText('mot-texte',     M.mot_des_maries);
+    setText('mot-signature', `${M.prenom1} & ${M.prenom2}`);
+  }
+
+  // Hashtag footer
+  if (M.hashtag) {
+    const hashEl = document.getElementById('footer-hashtag');
+    if (hashEl) { hashEl.textContent = M.hashtag; hashEl.style.display = ''; }
+  }
+
   setText('footer-citation', M.citation || '');
   setText('footer-names', `${M.prenom1} & ${M.prenom2}`);
 }
@@ -260,13 +348,99 @@ function initRsvp() {
   });
 }
 
+/* ── LIVRE D'OR ── */
+function renderCarrousel(messages) {
+  const wrap  = document.getElementById('livreor-carrousel-wrap');
+  const track = document.getElementById('livreor-track');
+  if (!wrap || !track) return;
+  const html = messages.map(m =>
+    `<div class="livreor-card">
+      <p class="livreor-message">"${m.message}"</p>
+      <p class="livreor-prenom">— ${m.prenom}</p>
+    </div>`
+  ).join('');
+  track.innerHTML = html + html;
+  wrap.style.display = '';
+}
+
+async function initLivreOr() {
+  const section = document.querySelector('.section-livreor');
+  if (!section || section.style.display === 'none') return;
+
+  const templateId = (MARIAGE.prenom1 + '-' + MARIAGE.prenom2 + '-champetre')
+    .toLowerCase().replace(/\s+/g, '-').normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+  try {
+    const { data } = await db.from('livre_or').select('*').eq('template_id', templateId).order('created_at');
+    if (data && data.length > 0) renderCarrousel(data);
+  } catch(e) { /* Supabase absent */ }
+
+  const form = document.getElementById('livreor-form');
+  if (!form) return;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn    = document.getElementById('lo-btn');
+    const status = document.getElementById('lo-status');
+    const prenom  = document.getElementById('lo-prenom').value.trim();
+    const message = document.getElementById('lo-message').value.trim();
+    if (!prenom || !message) { if (status) status.textContent = 'Merci de remplir les deux champs.'; return; }
+    if (btn) { btn.disabled = true; btn.textContent = 'Envoi…'; }
+    try {
+      const { error } = await db.from('livre_or').insert([{ template_id: templateId, prenom, message }]);
+      if (error) throw error;
+      if (status) status.textContent = '🌿 Merci ! Votre mot a bien été enregistré.';
+      form.reset();
+    } catch {
+      if (status) status.textContent = 'Une erreur est survenue. Réessayez plus tard.';
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = 'Laisser un mot 🌿'; }
+    }
+  });
+}
+
 /* ── INIT ── */
 hydrate();
 runLoader();
 initNav();
-initLeaves();
+// initLeaves(); // animation feuilles désactivée
 initReveal();
 document.addEventListener('DOMContentLoaded', () => {
   initMap();
   initRsvp();
+  initLivreOr();
 });
+
+/* ── HERO ENTRANCE (GSAP) ── */
+function initHeroEntrance() {
+  if (typeof gsap === 'undefined') return;
+  const tl = gsap.timeline({ delay: 0.3 });
+  tl.fromTo('.hero-invite',
+    { opacity: 0, y: 18 },
+    { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }
+  )
+  .fromTo('.hero-names',
+    { opacity: 0, y: 32 },
+    { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' },
+    '-=0.4'
+  )
+  .fromTo('.hero-divider',
+    { opacity: 0, scaleX: 0.4 },
+    { opacity: 1, scaleX: 1, duration: 0.7, ease: 'power2.out', transformOrigin: 'left center' },
+    '-=0.5'
+  )
+  .fromTo('.hero-date',
+    { opacity: 0, y: 14 },
+    { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' },
+    '-=0.4'
+  )
+  .fromTo('.btn-hero',
+    { opacity: 0, y: 10 },
+    { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
+    '-=0.3'
+  )
+  .fromTo('.hero-couple-img',
+    { scale: 1.06, opacity: 0 },
+    { scale: 1, opacity: 1, duration: 1.4, ease: 'power3.out' },
+    0
+  );
+}

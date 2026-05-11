@@ -6,7 +6,7 @@
   <title>Mariage Champêtre</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -27,30 +27,34 @@
 
   <!-- 2. NAV -->
   <nav id="navbar">
-    <div class="nav-logo">
-      <span id="nav-p1"></span>
-      <span class="nav-amp">&amp;</span>
-      <span id="nav-p2"></span>
+    <div class="nav-container">
+      <div class="nav-logo">
+        <span id="nav-p1"></span>
+        <span class="nav-amp">&amp;</span>
+        <span id="nav-p2"></span>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#histoire">Notre histoire</a></li>
+        <li><a href="#programme">Programme</a></li>
+        <li><a href="#domaine">Le Domaine</a></li>
+        <li><a href="#activites">Activités</a></li>
+        <li><a href="#rsvp">RSVP</a></li>
+        <li><a href="#infos">Infos pratiques</a></li>
+      </ul>
     </div>
-    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="#histoire">Notre histoire</a></li>
-      <li><a href="#programme">Programme</a></li>
-      <li><a href="#domaine">Le Domaine</a></li>
-      <li><a href="#activites">Activités</a></li>
-      <li><a href="#rsvp">RSVP</a></li>
-      <li><a href="#infos">Infos pratiques</a></li>
-    </ul>
   </nav>
 
   <!-- 3. HERO -->
   <section id="accueil" class="hero-section">
+    <video id="hero-video" class="hero-video" autoplay muted loop playsinline style="display:none"></video>
     <canvas id="leaves-canvas"></canvas>
     <div class="hero-left">
+      <span class="hero-year-label">Mariage · 2026</span>
       <div class="hero-content">
         <div class="hero-ornament" aria-hidden="true">
           <svg viewBox="0 0 140 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -60,10 +64,10 @@
             <line x1="84" y1="8" x2="140" y2="8" stroke="currentColor" stroke-width="0.6"/>
           </svg>
         </div>
-        <p id="hero-invite"></p>
-        <h1 id="hero-names-overlay"></h1>
-        <div class="hero-divider"></div>
-        <p id="hero-date-overlay"></p>
+        <p id="hero-invite" class="hero-invite"></p>
+        <h1 id="hero-names-overlay" class="hero-names"></h1>
+        <div class="hero-divider" aria-hidden="true"><span class="hero-divider-gem">✦</span></div>
+        <p id="hero-date-overlay" class="hero-date"></p>
         <a href="#rsvp" id="hero-cta-overlay" class="btn-hero"></a>
       </div>
     </div>
@@ -112,6 +116,25 @@
     </div>
   </section>
 
+  <!-- PHOTOS AMBIANCE pleine largeur -->
+  <div id="photos-ambiance" class="photos-ambiance" style="display:none">
+    <div class="ambiance-img-wrap"><img id="ambiance-0" class="ambiance-img" src="" alt=""></div>
+    <div class="ambiance-img-wrap"><img id="ambiance-1" class="ambiance-img" src="" alt=""></div>
+    <div class="ambiance-img-wrap"><img id="ambiance-2" class="ambiance-img" src="" alt=""></div>
+  </div>
+
+  <!-- 6b. DRESS CODE -->
+  <section id="dresscode">
+    <div class="section-dresscode reveal-section" style="display:none">
+      <div class="section-header">
+        <p class="eyebrow" id="dress-eyebrow"></p>
+        <h2 id="dress-titre"></h2>
+      </div>
+      <p id="dress-intro" class="dress-intro"></p>
+      <div class="dress-swatches" id="dress-swatches"></div>
+    </div>
+  </section>
+
   <!-- 7. ACTIVITES -->
   <section id="activites">
     <div class="section-activites reveal-section">
@@ -120,6 +143,33 @@
         <h2>Les Activités</h2>
       </div>
       <div class="activites-grid" id="activites-wrap"></div>
+    </div>
+  </section>
+
+  <!-- SOUHAITS -->
+  <section id="souhaits">
+    <div class="section-souhaits reveal-section" style="display:none">
+      <div class="section-header">
+        <p class="eyebrow">Nos envies</p>
+        <h2>Ce qui nous ferait plaisir</h2>
+      </div>
+      <div class="souhaits-grid" id="souhaits-wrap"></div>
+    </div>
+  </section>
+
+  <!-- CHANSON -->
+  <section id="chanson">
+    <div class="section-chanson reveal-section" style="display:none">
+      <div class="chanson-inner">
+        <p class="eyebrow">Notre mélodie</p>
+        <div class="chanson-card">
+          <div class="chanson-note" aria-hidden="true">♪</div>
+          <h3 id="chanson-titre" class="chanson-titre"></h3>
+          <p id="chanson-artiste" class="chanson-artiste"></p>
+          <p id="chanson-desc" class="chanson-desc"></p>
+          <a id="chanson-lien" class="chanson-lien" href="#" target="_blank" rel="noopener" style="display:none">Écouter sur Spotify →</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -174,10 +224,44 @@
     </div>
   </section>
 
+  <!-- LIVRE D'OR -->
+  <section id="livre-or">
+    <div class="section-livreor reveal-section" style="display:none">
+      <div class="section-header">
+        <p class="eyebrow">Vos mots</p>
+        <h2 id="livreor-titre"></h2>
+      </div>
+      <p id="livreor-intro" class="livreor-intro"></p>
+      <div class="livreor-layout">
+        <form id="livreor-form" class="livreor-form" novalidate>
+          <input type="text" id="lo-prenom" name="prenom" placeholder="Votre prénom *" required />
+          <textarea id="lo-message" name="message" rows="4" placeholder="Votre message…" required></textarea>
+          <button type="submit" id="lo-btn" class="btn-submit">Laisser un mot 🌿</button>
+          <p id="lo-status" class="rsvp-status" aria-live="polite"></p>
+        </form>
+        <div class="livreor-carrousel-wrap" id="livreor-carrousel-wrap" style="display:none">
+          <div class="livreor-track" id="livreor-track"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOT DES MARIÉS -->
+  <section id="mot">
+    <div class="section-mot reveal-section" style="display:none">
+      <div class="mot-inner">
+        <p class="eyebrow">Nos mots</p>
+        <blockquote id="mot-texte" class="mot-texte"></blockquote>
+        <p id="mot-signature" class="mot-signature"></p>
+      </div>
+    </div>
+  </section>
+
   <!-- 10. FOOTER -->
   <footer class="footer">
     <p class="footer-citation" id="footer-citation"></p>
     <p class="footer-names" id="footer-names"></p>
+    <p id="footer-hashtag" class="footer-hashtag" style="display:none"></p>
     <p class="footer-credit">Fait avec <a href="https://wedoria.studio" target="_blank" rel="noopener">Wedoria Studio</a></p>
   </footer>
 

@@ -1,41 +1,47 @@
 {
-  "date": "2026-04-29",
+  "date": "2026-05-07",
   "sprint": {
     "numero": 3,
     "nom": "Stratégie notoriété",
-    "progression": 55
+    "progression": 82
   },
   "agents": {
     "ceo":         { "statut": "actif" },
     "tech-lead":   { "statut": "attente" },
-    "dev":         { "statut": "attente" },
+    "dev":         { "statut": "actif" },
     "designer":    { "statut": "actif" },
     "chef-projet": { "statut": "attente" },
     "marketing":   { "statut": "actif" },
     "commercial":  { "statut": "actif" },
     "support":     { "statut": "actif" }
   },
-  "enCours": [],
+  "enCours": [
+    {
+      "id": "c1",
+      "agent": "dev",
+      "tache": "Commit hero redesign + assets (non commité — en attente validation PM)"
+    }
+  ],
   "aFaire": [
     {
       "id": "s3",
-      "agent": "dev",
+      "agent": "pm",
       "priorite": "bloquant",
-      "tache": "Créer tables Supabase (leads + projets) + configurer Vercel env vars + Resend domaine"
+      "tache": "3 actions manuelles PM (voir escalade e1) : (1) Supabase SQL Editor → coller supabase-migration.sql, (2) Vercel env vars → copier depuis .env.example, (3) Resend → vérifier domaine wedoria.fr"
     },
     {
       "id": "s4",
-      "agent": "dev",
-      "priorite": "important",
-      "tache": "Renommer projet Vercel 'wedoria-vitrine' → 'wedoria-studio' via dashboard Vercel"
+      "agent": "pm",
+      "priorite": "faible",
+      "tache": "Renommer projet Vercel 'wedoria-vitrine' → 'wedoria-studio' via le dashboard Vercel (Settings > General > Project Name)"
     }
   ],
   "escalades": [
     {
       "id": "e1",
-      "date": "2026-04-29",
+      "date": "2026-05-02",
       "agent": "dev",
-      "message": "3 actions manuelles requises pour débloquer le flux E2E : (1) Créer tables Supabase via SQL Editor, (2) Ajouter env vars sur Vercel, (3) Vérifier domaine wedoria.fr dans Resend. Sans ces étapes, les leads ne sont pas enregistrés."
+      "message": "SQL + routes + env.example sont prêts. Plus qu'à exécuter 3 actions manuelles pour débloquer le E2E : (1) Supabase SQL Editor → coller supabase-migration.sql, (2) Vercel dashboard → ajouter les 5 env vars de .env.example, (3) Resend → vérifier domaine wedoria.fr pour contact@wedoria.fr. Estimation : 20 min."
     }
   ],
   "decisions": [
@@ -48,6 +54,16 @@
       "date": "2026-04-29",
       "agent": "dev",
       "decision": "Sprint 3 démarré. FAQ vitrine livrée (t4). Prochaines priorités : SEO, pitch commercial, et déblocage E2E (escalade e1)."
+    },
+    {
+      "date": "2026-05-02",
+      "agent": "dev",
+      "decision": "Automatisation maximale accomplie. Routes Vercel complètes (onboarding, studio, mariage, pitch, dashboard). SQL migration Supabase prête (supabase-migration.sql). .env.example mis à jour avec ANTHROPIC_API_KEY. board.json synchronisé. Seules les 3 actions PM de l'escalade e1 restent bloquantes."
+    },
+    {
+      "date": "2026-05-07",
+      "agent": "designer",
+      "decision": "Hero vitrine entièrement redesigné — esthétique dark tech premium (fond #080609, grille dorée, badge animé, headline serif/sans, stats sociales, preview cards des 7 thèmes mariage). 3 images preview ajoutées (Aisha & Marcus, Mei & Hiroshi, Priya & Arjun). hero-video.mp4 présent. Animations GSAP mises à jour pour correspondre aux nouvelles classes. Prêt à commiter dès validation PM."
     }
   ],
   "termine": [
@@ -70,6 +86,12 @@
     { "id": "t4", "agent": "support", "tache": "FAQ initiale — 5 questions fréquentes (vitrine, accordion)" },
     { "id": "s1", "agent": "marketing", "tache": "SEO vitrine — Open Graph, Twitter Card, JSON-LD (ProfessionalService)" },
     { "id": "s2", "agent": "commercial", "tache": "Pitch commercial livré (pitch.html — 1 page, tarifs, différenciateurs)" },
-    { "id": "s5", "agent": "dev", "tache": "Renommer références wedoria-vitrine → wedoria-studio dans fichiers locaux" }
+    { "id": "s5", "agent": "dev", "tache": "Renommer références wedoria-vitrine → wedoria-studio dans fichiers locaux" },
+    { "id": "s6", "agent": "dev", "tache": "Vitrine séparée du mariage — index-mariage.html, / redirige vers vitrine" },
+    { "id": "s7", "agent": "dev", "tache": "Fix vitrine complet — loader, GSAP CDN, fonts, portfolio IntersectionObserver, section formules, animations cartes, formulaire contact, rolling text" },
+    { "id": "s8", "agent": "dev", "tache": "Routes Vercel complètes — onboarding, studio, mariage, pitch, dashboard" },
+    { "id": "s9", "agent": "dev", "tache": "SQL migration Supabase prête (supabase-migration.sql)" },
+    { "id": "s10", "agent": "dev", "tache": ".env.example mis à jour — ANTHROPIC_API_KEY ajouté, SUPABASE_URL pré-rempli" },
+    { "id": "ds2", "agent": "designer", "tache": "Hero vitrine redesigné — dark tech premium, badge animé, stats, preview cards 7 thèmes, 3 photos preview" }
   ]
 }

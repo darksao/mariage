@@ -1,6 +1,13 @@
 {
   "rewrites": [
     { "source": "/", "destination": "/vitrine/index.html" },
-    { "source": "/vitrine", "destination": "/vitrine/index.html" }
+    { "source": "/vitrine", "destination": "/vitrine/index.html" },
+    { "source": "/onboarding", "destination": "/onboarding/index.html" },
+    { "source": "/studio", "destination": "/studio/studio.html" },
+    { "source": "/studio/clients", "destination": "/studio/clients.html" },
+    { "source": "/studio/preview", "destination": "/studio/preview.html" },
+    { "source": "/mariage", "destination": "/index-mariage.html" },
+    { "source": "/pitch", "destination": "/pitch.html" },
+    { "source": "/dashboard", "destination": "/dashboard.html" }
   ]
 }

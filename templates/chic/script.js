@@ -96,6 +96,109 @@ function hydrate() {
         </div>`).join('');
   }
 
+  // Histoire
+  setText('histoire-eyebrow', M.histoire_eyebrow || '');
+  setText('histoire-titre',   M.histoire_titre || 'Notre Histoire');
+  const histWrap = document.getElementById('histoire-wrap');
+  if (histWrap) {
+    histWrap.innerHTML = (M.histoire || [])
+      .filter(h => h.texte && h.texte.trim())
+      .map(h => `
+        <div class="histoire-item reveal-section">
+          <div class="histoire-meta">
+            <span class="histoire-annee">${h.annee || ''}</span>
+            <h3>${h.titre}</h3>
+          </div>
+          <p>${h.texte}</p>
+        </div>`).join('');
+  }
+
+  // Vidéo hero
+  if (M.video_hero && M.video_hero.type === 'mp4' && M.video_hero.src) {
+    const hv = document.getElementById('hero-video');
+    const hb = document.getElementById('hero-bg-img');
+    if (hv) { hv.src = M.video_hero.src; hv.style.display = 'block'; }
+    if (hb) hb.style.display = 'none';
+  }
+
+  // Photos ambiance
+  const ambianceSection = document.getElementById('photos-ambiance');
+  const ambiancePhotos  = M.photos_ambiance || [];
+  const hasAmbiance     = ambiancePhotos.some(p => p && p.src);
+  if (hasAmbiance && ambianceSection) {
+    ambianceSection.style.display = '';
+    ambiancePhotos.forEach((p, i) => {
+      const img = document.getElementById('ambiance-' + i);
+      if (img && p && p.src) {
+        img.src = p.src;
+        img.alt = 'Ambiance ' + (i + 1);
+        if (p.position) img.style.objectPosition = p.position;
+      } else if (img) {
+        img.closest('.ambiance-img-wrap').style.display = 'none';
+      }
+    });
+  }
+
+  // Souhaits
+  const souhaitsSection = document.getElementById('souhaits');
+  const souhaitsWrap    = document.getElementById('souhaits-wrap');
+  if (M.souhaits && M.souhaits.length > 0 && souhaitsWrap) {
+    if (souhaitsSection) souhaitsSection.style.display = '';
+    souhaitsWrap.innerHTML = M.souhaits.map(s => `
+      <div class="souhait-card reveal-section">
+        <span class="souhait-emoji">${s.emoji || ''}</span>
+        <h3>${s.titre}</h3>
+        <p>${s.description}</p>
+        ${s.lien ? `<a class="souhait-lien" href="${s.lien}" target="_blank">Voir →</a>` : ''}
+      </div>`).join('');
+  }
+
+  // Activités
+  const activitesSection = document.getElementById('activites');
+  const activitesWrap    = document.getElementById('activites-wrap');
+  if (M.activites && M.activites.length > 0 && activitesWrap) {
+    if (activitesSection) activitesSection.style.display = '';
+    activitesWrap.innerHTML = M.activites.map(a => `
+      <div class="activite-card reveal-section">
+        <div class="activite-emoji">${a.emoji || ''}</div>
+        <h3>${a.titre}</h3>
+        <p>${a.description}</p>
+      </div>`).join('');
+  }
+
+  // Chanson
+  const chansonSection = document.getElementById('chanson');
+  if (M.chanson && M.chanson.titre) {
+    if (chansonSection) chansonSection.style.display = '';
+    setText('chanson-titre',   M.chanson.titre);
+    setText('chanson-artiste', M.chanson.artiste || '');
+    setText('chanson-desc',    M.chanson.description || '');
+    const lienEl = document.getElementById('chanson-lien');
+    if (lienEl && M.chanson.spotify_url) { lienEl.href = M.chanson.spotify_url; lienEl.style.display = ''; }
+  }
+
+  // Livre d'or
+  const livreOrSection = document.getElementById('livre-or');
+  if (M.livre_or && M.livre_or.actif) {
+    if (livreOrSection) livreOrSection.style.display = '';
+    setText('livreor-titre', M.livre_or.titre || 'Livre d\'Or');
+    setText('livreor-intro', M.livre_or.intro || '');
+  }
+
+  // Mot des mariés
+  if (M.mot_des_maries) {
+    const motSection = document.getElementById('mot');
+    if (motSection) motSection.style.display = '';
+    setText('mot-texte',     M.mot_des_maries);
+    setText('mot-signature', `${M.prenom1} & ${M.prenom2}`);
+  }
+
+  // Hashtag footer
+  if (M.hashtag) {
+    const hashEl = document.getElementById('footer-hashtag');
+    if (hashEl) { hashEl.textContent = M.hashtag; hashEl.style.display = ''; }
+  }
+
   setText('footer-names', `${M.prenom1} &amp; ${M.prenom2}`);
   setText('footer-citation', M.citation || '');
 }
@@ -279,6 +382,56 @@ function initLightbox() {
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
 }
 
+/* ── LIVRE D'OR ── */
+function renderCarrousel(messages) {
+  const wrap  = document.getElementById('livreor-carrousel-wrap');
+  const track = document.getElementById('livreor-track');
+  if (!wrap || !track) return;
+  const html = messages.map(m =>
+    `<div class="livreor-card">
+      <p class="livreor-message">"${m.message}"</p>
+      <p class="livreor-prenom">— ${m.prenom}</p>
+    </div>`
+  ).join('');
+  track.innerHTML = html + html;
+  wrap.style.display = '';
+}
+
+async function initLivreOr() {
+  const section = document.getElementById('livre-or');
+  if (!section || section.style.display === 'none') return;
+
+  const templateId = (MARIAGE.prenom1 + '-' + MARIAGE.prenom2 + '-chic')
+    .toLowerCase().replace(/\s+/g, '-').normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+  try {
+    const { data } = await db.from('livre_or').select('*').eq('template_id', templateId).order('created_at');
+    if (data && data.length > 0) renderCarrousel(data);
+  } catch(e) { /* Supabase absent */ }
+
+  const form = document.getElementById('livreor-form');
+  if (!form) return;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn    = document.getElementById('lo-btn');
+    const status = document.getElementById('lo-status');
+    const prenom  = document.getElementById('lo-prenom').value.trim();
+    const message = document.getElementById('lo-message').value.trim();
+    if (!prenom || !message) { if (status) status.textContent = 'Merci de remplir les deux champs.'; return; }
+    if (btn) { btn.disabled = true; btn.textContent = '…'; }
+    try {
+      const { error } = await db.from('livre_or').insert([{ template_id: templateId, prenom, message }]);
+      if (error) throw error;
+      if (status) status.textContent = 'Merci. Votre mot a été enregistré.';
+      form.reset();
+    } catch {
+      if (status) status.textContent = 'Une erreur est survenue. Réessayez plus tard.';
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = 'Laisser un mot'; }
+    }
+  });
+}
+
 /* ── INIT ── */
 hydrate();
 runLoader();
@@ -286,4 +439,4 @@ initNav();
 initCountdown();
 initReveal();
 initLightbox();
-document.addEventListener('DOMContentLoaded', initRsvp);
+document.addEventListener('DOMContentLoaded', () => { initRsvp(); initLivreOr(); });
