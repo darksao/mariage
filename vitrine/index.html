@@ -575,7 +575,14 @@
 .hero-card img {
   width: 100%;
   display: block;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  object-position: top center;
   filter: brightness(0.92);
+  transition: transform 600ms cubic-bezier(0.16,1,0.3,1);
+}
+.hero-card:hover img {
+  transform: scale(1.02);
 }
 
 .hero-columns:hover .hero-col-track {
@@ -2680,18 +2687,7 @@ footer {
               <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
               <span class="hero-card-url">lucie-thomas.wedoria.studio</span>
             </div>
-            <div class="hcp hcp--champetre">
-              <div class="hcp-nav">
-                <span class="hcp-nav-brand">Lucie &amp; Thomas</span>
-                <div class="hcp-nav-links"><span class="hcp-nav-link">Notre amour</span><span class="hcp-nav-link">Le mas</span><span class="hcp-nav-link">RSVP</span></div>
-              </div>
-              <div class="hcp-body">
-                <svg class="hcp-wm" viewBox="0 0 50 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="15" cy="8" r="5" fill="currentColor"/><path d="M9 36 L9 20 Q15 14 21 20 L21 36Z" fill="currentColor"/><circle cx="35" cy="8" r="5" fill="currentColor"/><path d="M21 20 Q35 13 49 20 L49 36 L21 36Z" fill="currentColor"/></svg>
-                <div class="hcp-couple">Lucie &amp; Thomas</div>
-                <div class="hcp-date">5 Juin 2026 · Mas de la Garrigue</div>
-                <div class="hcp-btn">Nous rejoindre</div>
-              </div>
-            </div>
+            <img src="/vitrine/preview-champetre.jpg" alt="Priya &amp; Arjun · Template champêtre">
           </div>
 
           <!-- Duplicates pour loop sans fin -->
@@ -2709,7 +2705,7 @@ footer {
           </div>
           <div class="hero-card">
             <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">lucie-thomas.wedoria.studio</span></div>
-            <div class="hcp hcp--champetre"><div class="hcp-nav"><span class="hcp-nav-brand">Lucie &amp; Thomas</span><div class="hcp-nav-links"><span class="hcp-nav-link">Notre amour</span><span class="hcp-nav-link">Le mas</span><span class="hcp-nav-link">RSVP</span></div></div><div class="hcp-body"><svg class="hcp-wm" viewBox="0 0 50 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="15" cy="8" r="5" fill="currentColor"/><path d="M9 36 L9 20 Q15 14 21 20 L21 36Z" fill="currentColor"/><circle cx="35" cy="8" r="5" fill="currentColor"/><path d="M21 20 Q35 13 49 20 L49 36 L21 36Z" fill="currentColor"/></svg><div class="hcp-couple">Lucie &amp; Thomas</div><div class="hcp-date">5 Juin 2026 · Mas de la Garrigue</div><div class="hcp-btn">Nous rejoindre</div></div></div>
+            <img src="/vitrine/preview-champetre.jpg" alt="Priya &amp; Arjun · Template champêtre">
           </div>
 
         </div>
@@ -2725,18 +2721,7 @@ footer {
               <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
               <span class="hero-card-url">zahara-kofi.wedoria.studio</span>
             </div>
-            <div class="hcp hcp--chic">
-              <div class="hcp-nav">
-                <span class="hcp-nav-brand">Z &amp; K</span>
-                <div class="hcp-nav-links"><span class="hcp-nav-link">L'histoire</span><span class="hcp-nav-link">Le lieu</span><span class="hcp-nav-link">RSVP</span></div>
-              </div>
-              <div class="hcp-body">
-                <svg class="hcp-wm" viewBox="0 0 50 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="15" cy="8" r="5" fill="currentColor"/><path d="M9 36 L9 20 Q15 14 21 20 L21 36Z" fill="currentColor"/><circle cx="35" cy="8" r="5" fill="currentColor"/><path d="M21 20 Q35 13 49 20 L49 36 L21 36Z" fill="currentColor"/></svg>
-                <div class="hcp-couple">Zahara &amp; Kofi</div>
-                <div class="hcp-date">3 Octobre 2026 · Château d'Esclimont</div>
-                <div class="hcp-btn">Nous honorer</div>
-              </div>
-            </div>
+            <img src="/vitrine/preview-chic.jpg" alt="Aisha &amp; Marcus · Template chic">
           </div>
 
           <!-- 6. Yuki & Thomas — mixte asiatique/européen · sauge -->
@@ -2745,18 +2730,7 @@ footer {
               <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
               <span class="hero-card-url">yuki-thomas.wedoria.studio</span>
             </div>
-            <div class="hcp hcp--sauge">
-              <div class="hcp-nav">
-                <span class="hcp-nav-brand">Yuki &amp; Thomas</span>
-                <div class="hcp-nav-links"><span class="hcp-nav-link">Notre histoire</span><span class="hcp-nav-link">Le jardin</span><span class="hcp-nav-link">RSVP</span></div>
-              </div>
-              <div class="hcp-body">
-                <svg class="hcp-wm" viewBox="0 0 50 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="15" cy="8" r="5" fill="currentColor"/><path d="M9 36 L9 20 Q15 14 21 20 L21 36Z" fill="currentColor"/><circle cx="35" cy="8" r="5" fill="currentColor"/><path d="M21 20 Q35 13 49 20 L49 36 L21 36Z" fill="currentColor"/></svg>
-                <div class="hcp-couple">Yuki &amp; Thomas</div>
-                <div class="hcp-date">21 Juin 2026 · Jardins Botaniques</div>
-                <div class="hcp-btn">Notre mariage</div>
-              </div>
-            </div>
+            <img src="/vitrine/preview-aisha-marcus.jpg" alt="Aisha &amp; Marcus · hero shot">
           </div>
 
           <!-- 7. Leila & Karim — moyen-oriental · dorée -->
@@ -2765,18 +2739,7 @@ footer {
               <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
               <span class="hero-card-url">leila-karim.wedoria.studio</span>
             </div>
-            <div class="hcp hcp--doree">
-              <div class="hcp-nav">
-                <span class="hcp-nav-brand">Leila &amp; Karim</span>
-                <div class="hcp-nav-links"><span class="hcp-nav-link">Notre union</span><span class="hcp-nav-link">Le palais</span><span class="hcp-nav-link">RSVP</span></div>
-              </div>
-              <div class="hcp-body">
-                <svg class="hcp-wm" viewBox="0 0 50 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="15" cy="8" r="5" fill="currentColor"/><path d="M9 36 L9 20 Q15 14 21 20 L21 36Z" fill="currentColor"/><circle cx="35" cy="8" r="5" fill="currentColor"/><path d="M21 20 Q35 13 49 20 L49 36 L21 36Z" fill="currentColor"/></svg>
-                <div class="hcp-couple">Leila &amp; Karim</div>
-                <div class="hcp-date">15 Septembre 2026 · Palais Royal</div>
-                <div class="hcp-btn">Célébrer avec nous</div>
-              </div>
-            </div>
+            <img src="/vitrine/preview-romantique.jpg" alt="Mei &amp; Hiroshi · Template romantique">
           </div>
 
           <!-- 8. Nara & Luc — asie du sud-est · tropical -->
@@ -2785,36 +2748,25 @@ footer {
               <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
               <span class="hero-card-url">nara-luc.wedoria.studio</span>
             </div>
-            <div class="hcp hcp--tropical">
-              <div class="hcp-nav">
-                <span class="hcp-nav-brand">Nara &amp; Luc</span>
-                <div class="hcp-nav-links"><span class="hcp-nav-link">Notre histoire</span><span class="hcp-nav-link">La villa</span><span class="hcp-nav-link">RSVP</span></div>
-              </div>
-              <div class="hcp-body">
-                <svg class="hcp-wm" viewBox="0 0 50 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="15" cy="8" r="5" fill="currentColor"/><path d="M9 36 L9 20 Q15 14 21 20 L21 36Z" fill="currentColor"/><circle cx="35" cy="8" r="5" fill="currentColor"/><path d="M21 20 Q35 13 49 20 L49 36 L21 36Z" fill="currentColor"/></svg>
-                <div class="hcp-couple">Nara &amp; Luc</div>
-                <div class="hcp-date">27 Avril 2026 · Villa Bougainvillea</div>
-                <div class="hcp-btn">Nous rejoindre</div>
-              </div>
-            </div>
+            <img src="/vitrine/preview-priya-arjun.jpg" alt="Priya &amp; Arjun · hero shot">
           </div>
 
           <!-- Duplicates pour loop sans fin -->
           <div class="hero-card">
             <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">zahara-kofi.wedoria.studio</span></div>
-            <div class="hcp hcp--chic"><div class="hcp-nav"><span class="hcp-nav-brand">Z &amp; K</span><div class="hcp-nav-links"><span class="hcp-nav-link">L'histoire</span><span class="hcp-nav-link">Le lieu</span><span class="hcp-nav-link">RSVP</span></div></div><div class="hcp-body"><svg class="hcp-wm" viewBox="0 0 50 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="15" cy="8" r="5" fill="currentColor"/><path d="M9 36 L9 20 Q15 14 21 20 L21 36Z" fill="currentColor"/><circle cx="35" cy="8" r="5" fill="currentColor"/><path d="M21 20 Q35 13 49 20 L49 36 L21 36Z" fill="currentColor"/></svg><div class="hcp-couple">Zahara &amp; Kofi</div><div class="hcp-date">3 Octobre 2026 · Château d'Esclimont</div><div class="hcp-btn">Nous honorer</div></div></div>
+            <img src="/vitrine/preview-chic.jpg" alt="Aisha &amp; Marcus · Template chic">
           </div>
           <div class="hero-card">
             <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">yuki-thomas.wedoria.studio</span></div>
-            <div class="hcp hcp--sauge"><div class="hcp-nav"><span class="hcp-nav-brand">Yuki &amp; Thomas</span><div class="hcp-nav-links"><span class="hcp-nav-link">Notre histoire</span><span class="hcp-nav-link">Le jardin</span><span class="hcp-nav-link">RSVP</span></div></div><div class="hcp-body"><svg class="hcp-wm" viewBox="0 0 50 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="15" cy="8" r="5" fill="currentColor"/><path d="M9 36 L9 20 Q15 14 21 20 L21 36Z" fill="currentColor"/><circle cx="35" cy="8" r="5" fill="currentColor"/><path d="M21 20 Q35 13 49 20 L49 36 L21 36Z" fill="currentColor"/></svg><div class="hcp-couple">Yuki &amp; Thomas</div><div class="hcp-date">21 Juin 2026 · Jardins Botaniques</div><div class="hcp-btn">Notre mariage</div></div></div>
+            <img src="/vitrine/preview-aisha-marcus.jpg" alt="Aisha &amp; Marcus · hero shot">
           </div>
           <div class="hero-card">
             <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">leila-karim.wedoria.studio</span></div>
-            <div class="hcp hcp--doree"><div class="hcp-nav"><span class="hcp-nav-brand">Leila &amp; Karim</span><div class="hcp-nav-links"><span class="hcp-nav-link">Notre union</span><span class="hcp-nav-link">Le palais</span><span class="hcp-nav-link">RSVP</span></div></div><div class="hcp-body"><svg class="hcp-wm" viewBox="0 0 50 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="15" cy="8" r="5" fill="currentColor"/><path d="M9 36 L9 20 Q15 14 21 20 L21 36Z" fill="currentColor"/><circle cx="35" cy="8" r="5" fill="currentColor"/><path d="M21 20 Q35 13 49 20 L49 36 L21 36Z" fill="currentColor"/></svg><div class="hcp-couple">Leila &amp; Karim</div><div class="hcp-date">15 Septembre 2026 · Palais Royal</div><div class="hcp-btn">Célébrer avec nous</div></div></div>
+            <img src="/vitrine/preview-romantique.jpg" alt="Mei &amp; Hiroshi · Template romantique">
           </div>
           <div class="hero-card">
             <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">nara-luc.wedoria.studio</span></div>
-            <div class="hcp hcp--tropical"><div class="hcp-nav"><span class="hcp-nav-brand">Nara &amp; Luc</span><div class="hcp-nav-links"><span class="hcp-nav-link">Notre histoire</span><span class="hcp-nav-link">La villa</span><span class="hcp-nav-link">RSVP</span></div></div><div class="hcp-body"><svg class="hcp-wm" viewBox="0 0 50 38" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="15" cy="8" r="5" fill="currentColor"/><path d="M9 36 L9 20 Q15 14 21 20 L21 36Z" fill="currentColor"/><circle cx="35" cy="8" r="5" fill="currentColor"/><path d="M21 20 Q35 13 49 20 L49 36 L21 36Z" fill="currentColor"/></svg><div class="hcp-couple">Nara &amp; Luc</div><div class="hcp-date">27 Avril 2026 · Villa Bougainvillea</div><div class="hcp-btn">Nous rejoindre</div></div></div>
+            <img src="/vitrine/preview-priya-arjun.jpg" alt="Priya &amp; Arjun · hero shot">
           </div>
 
         </div>
@@ -2898,6 +2850,39 @@ footer {
         <div class="card-info">
           <p class="card-couple">Priya &amp; Arjun</p>
           <p class="card-meta">Novembre 2026 · Château de Breteuil, Choisel</p>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-reveal="" data-delay="300">
+        <div class="card-visual card-summer">
+          <img src="/vitrine/preview-aisha-marcus.jpg" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;" alt="Aisha & Marcus — hero" loading="lazy">
+          <div class="card-overlay"><a href="https://wedoria-darksaos-projects.vercel.app/templates/chic/" class="card-overlay-link" target="_blank">Voir le site →</a></div>
+        </div>
+        <div class="card-info">
+          <p class="card-couple">Aisha &amp; Marcus</p>
+          <p class="card-meta">Octobre 2025 · Villa Rothschild, Cannes · Chic</p>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-reveal="" data-delay="400">
+        <div class="card-visual card-country">
+          <img src="/vitrine/preview-priya-arjun.jpg" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;" alt="Priya & Arjun — hero" loading="lazy">
+          <div class="card-overlay"><a href="https://wedoria-darksaos-projects.vercel.app/templates/champetre/" class="card-overlay-link" target="_blank">Voir le site →</a></div>
+        </div>
+        <div class="card-info">
+          <p class="card-couple">Priya &amp; Arjun</p>
+          <p class="card-meta">Novembre 2026 · Château de Breteuil · Champêtre</p>
+        </div>
+      </div>
+
+      <div class="portfolio-card" data-reveal="" data-delay="500">
+        <div class="card-visual card-autumn">
+          <img src="/vitrine/preview-mei-hiroshi.jpg" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;" alt="Mei & Hiroshi — hero" loading="lazy">
+          <div class="card-overlay"><a href="https://wedoria-darksaos-projects.vercel.app/templates/romantique/" class="card-overlay-link" target="_blank">Voir le site →</a></div>
+        </div>
+        <div class="card-info">
+          <p class="card-couple">Mei &amp; Hiroshi</p>
+          <p class="card-meta">Avril 2025 · Manoir des Cerisiers, Giverny · Romantique</p>
         </div>
       </div>
 
