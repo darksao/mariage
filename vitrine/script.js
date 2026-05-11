@@ -380,9 +380,6 @@ function initPortfolio() {
   const isDesktop = () => window.matchMedia('(min-width: 1024px)').matches;
 
   if (!isDesktop() || prefersReducedMotion) {
-    track.style.overflowX = 'auto';
-    track.style.scrollSnapType = 'x mandatory';
-    cards.forEach(c => c.style.scrollSnapAlign = 'start');
     return;
   }
 

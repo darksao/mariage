@@ -96,9 +96,11 @@
   display: inline-block;
   vertical-align: baseline;
   position: relative;
-  overflow: hidden;
-  height: 1.2em;
-  margin-bottom: -0.15em;
+  overflow: visible;
+  /* clip-path préserve le baseline (contrairement à overflow:hidden) */
+  clip-path: inset(0 -200px -0.3em -200px);
+  height: 1.15em;
+  margin-bottom: 0;
   white-space: nowrap;
 }
 #hero .hero-rolling-word {
@@ -108,6 +110,8 @@
   font-size: inherit;
   color: #C9A96E;
   position: absolute;
+  display: block;
+  height: auto;
   left: 0; top: 0;
   white-space: nowrap;
   line-height: 1.1;
@@ -443,22 +447,7 @@
 }
 
 .hero-scroll-hint {
-  position: absolute;
-  bottom: 1.75rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  color: rgba(250,250,247,0.2);
-  font-family: 'Jost', sans-serif;
-  font-size: 0.58rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  z-index: 5;
-  text-decoration: none;
-  transition: color 300ms;
+  display: none;
 }
 
 .hero-scroll-hint:hover { color: rgba(201,169,110,0.5); }
@@ -475,6 +464,16 @@
   .hero-stat { padding: 0 1.25rem; }
   .hero-stat-sep { display: none; }
   .hero-preview { margin-top: 1.75rem; padding: 0 1rem 3rem; }
+}
+
+@media (max-width: 480px) {
+  #hero .hero-content { padding-left: 1.25rem; padding-right: 1.25rem; gap: 1rem; padding-top: calc(60px + 2.5rem); }
+  /* Réduire la taille et laisser le mot doré passer à la ligne */
+  #hero .hero-headline { font-size: clamp(2.2rem, 8.5vw, 3rem); }
+  #hero .hero-hl-line2 { flex-wrap: wrap; white-space: normal; gap: 0; }
+  #hero .hero-rolling-wrap { width: 100%; clip-path: inset(-0.1em -100vw -0.4em -100vw); }
+  .hero-btn { padding: 1rem 2rem; font-size: 0.78rem; width: 100%; justify-content: center; text-align: center; }
+  .hero-ctas { flex-direction: column; align-items: stretch; gap: 0.75rem; width: 100%; }
 }
 
 /* ---- SPLIT LAYOUT + SCROLLING COLUMNS ---- */
@@ -515,6 +514,47 @@
 
 @media (max-width: 959px) {
   .hero-3d-stage { display: none; }
+  #hero { height: auto; min-height: 100svh; overflow-x: hidden; overflow-y: visible; }
+}
+
+/* ── MOBILE SLIDER ── */
+.hero-mobile-slider {
+  display: none;
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  overflow: hidden;
+  padding: 1.5rem 0 2.5rem;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+@media (max-width: 959px) {
+  .hero-mobile-slider { display: block; }
+}
+.hero-mobile-track {
+  display: flex;
+  gap: 1.25rem;
+  width: max-content;
+  animation: mobileSlide 18s linear infinite;
+}
+.hero-mobile-track:hover { animation-play-state: paused; }
+.hero-mobile-card {
+  flex-shrink: 0;
+  width: 58vw;
+  max-width: 280px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+}
+.hero-mobile-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+}
+@keyframes mobileSlide {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 .hero-3d-stage {
@@ -1953,6 +1993,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   position: relative;
   overflow: hidden;
   background: var(--cream);
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  cursor: pointer;
 }
 .card-visual {
   width: 100%;
@@ -2347,8 +2391,8 @@ footer {
 @media (max-width: 900px) {
   .nav-links, .nav-cta { display: none; }
   .hamburger { display: flex; }
-  #navbar { padding: 1.25rem 1.5rem; }
-  #navbar.scrolled { padding: 0.9rem 1.5rem; }
+  #navbar { padding: 0.7rem 1.25rem; width: calc(100% - 3rem); }
+  #navbar.scrolled { padding: 0.6rem 1.25rem; }
 
   .steps { flex-direction: column; gap: 3rem; }
   .steps::before, .steps::after { display: none; }
@@ -2360,6 +2404,18 @@ footer {
   .footer-top { flex-direction: column; }
 }
 
+@media (max-width: 1023px) {
+  .portfolio-track-wrap {
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    cursor: default;
+    scrollbar-width: none;
+  }
+  .portfolio-track-wrap::-webkit-scrollbar { display: none; }
+  .portfolio-card { scroll-snap-align: start; }
+}
 @media (max-width: 600px) {
   .hero-title { font-size: clamp(2.2rem, 10vw, 3.5rem); }
   .manifeste-text { font-size: 1.4rem; }
@@ -2566,6 +2622,18 @@ footer {
     <div class="hero-3d-stage" aria-label="Aperçu des designs">
       <div class="hero-3d-drag"></div>
     </div>
+
+    <!-- Mobile carousel (auto-scroll) -->
+    <div class="hero-mobile-slider" aria-hidden="true">
+      <div class="hero-mobile-track">
+        <div class="hero-mobile-card"><img src="/vitrine/preview-aisha-marcus.jpg" alt="Aisha &amp; Marcus"></div>
+        <div class="hero-mobile-card"><img src="/vitrine/preview-priya-arjun.jpg" alt="Priya &amp; Arjun"></div>
+        <div class="hero-mobile-card"><img src="/vitrine/preview-mei-hiroshi.jpg" alt="Mei &amp; Hiroshi"></div>
+        <div class="hero-mobile-card"><img src="/vitrine/preview-aisha-marcus.jpg" alt=""></div>
+        <div class="hero-mobile-card"><img src="/vitrine/preview-priya-arjun.jpg" alt=""></div>
+        <div class="hero-mobile-card"><img src="/vitrine/preview-mei-hiroshi.jpg" alt=""></div>
+      </div>
+    </div>
   </div>
 
   <a href="#comment" class="hero-scroll-hint">
@@ -2613,39 +2681,40 @@ footer {
   <div class="portfolio-track-wrap" id="portfolioWrap">
     <div class="portfolio-track" id="portfolioTrack">
 
-      <div class="portfolio-card" data-reveal="" data-delay="0">
+      <a class="portfolio-card" href="https://wedoria-darksaos-projects.vercel.app/templates/chic/" target="_blank" data-reveal="" data-delay="0">
         <div class="card-visual card-summer">
           <img src="/vitrine/preview-aisha-marcus.jpg" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;" alt="Aisha & Marcus" loading="lazy">
-          <div class="card-overlay"><a href="https://wedoria-darksaos-projects.vercel.app/templates/chic/" class="card-overlay-link" target="_blank">Voir le site →</a></div>
+          <div class="card-overlay"><span class="card-overlay-link">Voir le site →</span></div>
         </div>
         <div class="card-info">
           <p class="card-couple">Aisha &amp; Marcus</p>
           <p class="card-meta">Octobre 2025 · Villa Rothschild, Cannes · Chic</p>
         </div>
-      </div>
+      </a>
 
-      <div class="portfolio-card" data-reveal="" data-delay="100">
+      <a class="portfolio-card" href="https://wedoria-darksaos-projects.vercel.app/templates/champetre/" target="_blank" data-reveal="" data-delay="100">
         <div class="card-visual card-country">
           <img src="/vitrine/preview-priya-arjun.jpg" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:80% center;" alt="Priya & Arjun" loading="lazy">
-          <div class="card-overlay"><a href="https://wedoria-darksaos-projects.vercel.app/templates/champetre/" class="card-overlay-link" target="_blank">Voir le site →</a></div>
+          <div class="card-overlay"><span class="card-overlay-link">Voir le site →</span></div>
         </div>
         <div class="card-info">
           <p class="card-couple">Priya &amp; Arjun</p>
           <p class="card-meta">Novembre 2026 · Château de Breteuil · Champêtre</p>
         </div>
-      </div>
+      </a>
 
-      <div class="portfolio-card" data-reveal="" data-delay="200">
+      <a class="portfolio-card" href="https://wedoria-darksaos-projects.vercel.app/templates/romantique/" target="_blank" data-reveal="" data-delay="200">
         <div class="card-visual card-autumn">
           <img src="/vitrine/preview-mei-hiroshi.jpg" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;" alt="Mei & Hiroshi" loading="lazy">
-          <div class="card-overlay"><a href="https://wedoria-darksaos-projects.vercel.app/templates/romantique/" class="card-overlay-link" target="_blank">Voir le site →</a></div>
+          <div class="card-overlay"><span class="card-overlay-link">Voir le site →</span></div>
         </div>
         <div class="card-info">
           <p class="card-couple">Mei &amp; Hiroshi</p>
           <p class="card-meta">Avril 2025 · Manoir des Cerisiers, Giverny · Romantique</p>
         </div>
-      </div>
+      </a>
 
+    </div>
   </div>
 </section>
 

@@ -522,6 +522,17 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 .footer__bottom { padding: var(--sp-4) var(--sp-6); text-align: center; }
 .footer__bottom p { font-size: 0.75rem; color: rgba(250,250,247,0.2); letter-spacing: 0.04em; }
 
+/* ── SMALL PHONE (≤480px) ── */
+@media (max-width: 480px) {
+  .hero__content { padding-left: var(--sp-4); padding-right: var(--sp-4); }
+  .manifeste__inner { padding-top: var(--sp-16); padding-bottom: var(--sp-16); padding-left: var(--sp-4); padding-right: var(--sp-4); }
+  .process__number { font-size: 3.5rem; }
+  .formule-card { padding: var(--sp-6); }
+  .temoignage { padding: var(--sp-6); }
+  .form-input, .form-select, .form-textarea { font-size: 1rem; }
+  .footer__inner { gap: var(--sp-6); }
+}
+
 /* ── REDUCED MOTION ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }

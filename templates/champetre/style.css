@@ -696,7 +696,7 @@ a {
   border-bottom: 1.5px solid rgba(28,61,42,0.2);
   background: transparent;
   font-family: var(--sans);
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--text);
   outline: none;
   transition: border-color 0.25s;
@@ -825,7 +825,7 @@ a {
   border-bottom: 1.5px solid rgba(28,61,42,0.2);
   background: transparent;
   font-family: var(--sans);
-  font-size: 0.88rem;
+  font-size: 1rem;
   color: var(--text-lt);
   outline: none;
   appearance: none;
@@ -1092,7 +1092,7 @@ a {
 .livreor-intro { max-width: 500px; margin: 0 auto 2.5rem; font-size: 0.95rem; color: var(--text-lt); line-height: 1.7; }
 .livreor-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 900px; margin: 0 auto; align-items: start; }
 .livreor-form { display: flex; flex-direction: column; gap: 1rem; text-align: left; }
-.livreor-form input, .livreor-form textarea { width: 100%; padding: 0.85rem 1rem; border: 1px solid #d5caaf; background: white; font-family: var(--sans); font-size: 0.9rem; color: var(--text); border-radius: var(--r); resize: vertical; }
+.livreor-form input, .livreor-form textarea { width: 100%; padding: 0.85rem 1rem; border: 1px solid #d5caaf; background: white; font-family: var(--sans); font-size: 1rem; color: var(--text); border-radius: var(--r); resize: vertical; }
 .livreor-form input:focus, .livreor-form textarea:focus { outline: none; border-color: var(--sage); }
 .livreor-carrousel-wrap { height: 340px; overflow: hidden; }
 .livreor-track { display: flex; flex-direction: column; gap: 1rem; animation: livreor-scroll 30s linear infinite; }
@@ -1109,4 +1109,21 @@ a {
   .photos-ambiance { grid-template-columns: 1fr; height: auto; }
   .ambiance-img-wrap { height: 30vw; }
   .livreor-layout { grid-template-columns: 1fr; }
+}
+
+/* ── Small phone (≤480px) ── */
+@media (max-width: 480px) {
+  .hero-left { padding: 4.5rem 1.25rem 3rem; }
+  .hero-right { height: 55vw; min-height: 200px; }
+  .hero-names { font-size: clamp(2.8rem, 11vw, 4.5rem); }
+  .hero-invite { font-size: 0.75rem; }
+  .hist-item { flex: 0 0 min(280px, 80vw); }
+  .rsvp-split { gap: 2rem; }
+  .rsvp-field input,
+  .rsvp-field textarea,
+  .rsvp-field--select select { font-size: 1rem; }
+  .livreor-form input,
+  .livreor-form textarea { font-size: 1rem; min-height: 48px; }
+  .btn-submit { width: 100%; justify-content: center; }
+  .section-infos .infos-grid { gap: 1.25rem; }
 }

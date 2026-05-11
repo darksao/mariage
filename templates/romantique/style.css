@@ -30,6 +30,7 @@ body {
   color: var(--prune);
   margin: 0;
   line-height: 1.7;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -816,7 +817,7 @@ a {
   border-bottom: 1.5px solid var(--blush);
   background: transparent;
   font-family: 'Nunito', sans-serif;
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--prune);
   padding: 0.4rem 0;
   outline: none;
@@ -1237,7 +1238,7 @@ a {
   border-radius: 8px;
   background: var(--blanc);
   font-family: 'Nunito', sans-serif;
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--prune);
   resize: vertical;
 }
@@ -1346,4 +1347,29 @@ a {
   .souhaits-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ── Small phone (≤480px) ── */
+@media (max-width: 480px) {
+  .hero-left { padding: 4.5rem 1.25rem 3rem; }
+  .hero-right { height: 55vw; min-height: 200px; }
+  .hero-names { font-size: clamp(2.8rem, 11vw, 4.5rem); }
+
+  #histoire,
+  #programme,
+  #souhaits,
+  #rsvp,
+  #mot { padding: 3rem 1rem; }
+
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group select,
+  .form-group textarea { font-size: 1rem; padding: 0.6rem 0; }
+
+  .livreor-form input,
+  .livreor-form textarea { font-size: 1rem; min-height: 48px; }
+
+  .btn-submit { width: 100%; justify-content: center; }
+  .souhaits-grid { grid-template-columns: 1fr; }
+  .programme-cards { gap: 1rem; }
 }
