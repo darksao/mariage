@@ -492,96 +492,50 @@
   .hero-ctas { justify-content: flex-start; }
   #hero .hero-rolling-word { text-align: left; }
 
-  .hero-columns {
-    display: flex;
+  .hero-3d-stage {
     width: 50%;
     height: 100%;
-    gap: 0.75rem;
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
-    mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+    flex-shrink: 0;
   }
 }
 
 @media (max-width: 959px) {
-  .hero-columns { display: none; }
+  .hero-3d-stage { display: none; }
 }
 
-.hero-col {
-  flex: 1;
-  overflow: hidden;
+.hero-3d-stage {
+  position: relative;
+  max-width: 1220px;
+  perspective: 3400px;
+  user-select: none;
+  touch-action: pan-y;
 }
 
-.hero-col-track {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  animation: hero-scroll-up 28s linear infinite;
+.hero-3d-drag {
+  position: absolute;
+  inset: 0;
+  cursor: grab;
+  transform-style: preserve-3d;
+  transform: rotateX(3deg) rotateY(-4deg);
 }
 
-@keyframes hero-scroll-up {
-  from { transform: translateY(0); }
-  to   { transform: translateY(-50%); }
+.hero-3d-drag:active {
+  cursor: grabbing;
 }
 
-.hero-card {
-  border-radius: 10px;
-  overflow: hidden;
-  border: 1px solid rgba(201,169,110,0.08);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
-  flex-shrink: 0;
-  background: #0d0b10;
-  display: flex;
-  flex-direction: column;
-  aspect-ratio: 4/3;
+.hero-3d-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 62%;
+  will-change: transform, opacity;
 }
 
-.hero-card-bar {
-  display: flex;
-  align-items: center;
-  padding: 0 0.75rem;
-  height: 26px;
-  background: #13111a;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  gap: 5px;
-}
-
-.hero-card-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-
-.hero-card-dot--r { background: rgba(255,95,87,0.5); }
-.hero-card-dot--y { background: rgba(255,188,46,0.5); }
-.hero-card-dot--g { background: rgba(40,200,65,0.5); }
-
-.hero-card-url {
-  margin: 0 auto;
-  font-family: 'Jost', sans-serif;
-  font-size: 0.55rem;
-  color: rgba(255,255,255,0.15);
-  background: rgba(255,255,255,0.04);
-  padding: 0.15rem 0.75rem;
-  border-radius: 3px;
-}
-
-.hero-card img {
+.hero-3d-card img {
   width: 100%;
+  height: auto;
+  border-radius: 18px;
   display: block;
-  flex: 1;
-  min-height: 0;
-  object-fit: cover;
-  object-position: top center;
-  filter: brightness(0.92);
-  transition: transform 600ms cubic-bezier(0.16,1,0.3,1);
-}
-.hero-card:hover img {
-  transform: scale(1.02);
-}
-
-.hero-columns:hover .hero-col-track {
-  animation-play-state: paused;
 }
 
 /* ===== Faux sites mariage ===== */
@@ -2437,32 +2391,6 @@ footer {
 .temoignage     { border-radius: 16px; background: rgba(201,169,110,0.04); padding: 2rem; }
 .hero-card      { border-radius: 40px 40px 0 0; }
 
-/* Reset for carousel cards — override the feature-section .hero-card rules above */
-.hero-col-track .hero-card {
-  position: static;
-  z-index: auto;
-  background: #0d0b10;
-  border-radius: 10px;
-  margin-top: 0;
-  padding: 0;
-  aspect-ratio: 4/3;
-  display: flex;
-  flex-direction: column;
-}
-.hero-col-track .hero-card img {
-  width: 100%;
-  display: block;
-  flex: 1;
-  min-height: 0;
-  object-fit: cover;
-  object-position: top center;
-  filter: brightness(0.92);
-  transition: transform 600ms cubic-bezier(0.16,1,0.3,1);
-  aspect-ratio: unset;
-  height: auto;
-}
-.hero-col-track .hero-card:hover img { transform: scale(1.02); }
-
 .contact-inner  { border-radius: 24px; background: #FAFAF7; padding: 4rem 3rem; max-width: 740px; margin: 0 auto; box-shadow: 0 4px 40px rgba(0,0,0,0.06); }
 .form-group input,
 .form-group select,
@@ -2636,51 +2564,9 @@ footer {
       </div>
     </div>
 
-    <!-- Carousel défilant — 3 couples -->
-    <div class="hero-columns" aria-hidden="true">
-      <div class="hero-col">
-        <div class="hero-col-track">
-
-          <div class="hero-card">
-            <div class="hero-card-bar">
-              <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
-              <span class="hero-card-url">aisha-marcus.wedoria.studio</span>
-            </div>
-            <img src="/vitrine/preview-aisha-marcus.jpg" alt="Aisha &amp; Marcus">
-          </div>
-
-          <div class="hero-card">
-            <div class="hero-card-bar">
-              <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
-              <span class="hero-card-url">priya-arjun.wedoria.studio</span>
-            </div>
-            <img src="/vitrine/preview-priya-arjun.jpg" alt="Priya &amp; Arjun">
-          </div>
-
-          <div class="hero-card">
-            <div class="hero-card-bar">
-              <span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span>
-              <span class="hero-card-url">mei-hiroshi.wedoria.studio</span>
-            </div>
-            <img src="/vitrine/preview-mei-hiroshi.jpg" alt="Mei &amp; Hiroshi">
-          </div>
-
-          <!-- Duplicates pour loop sans fin -->
-          <div class="hero-card">
-            <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">aisha-marcus.wedoria.studio</span></div>
-            <img src="/vitrine/preview-aisha-marcus.jpg" alt="Aisha &amp; Marcus">
-          </div>
-          <div class="hero-card">
-            <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">priya-arjun.wedoria.studio</span></div>
-            <img src="/vitrine/preview-priya-arjun.jpg" alt="Priya &amp; Arjun">
-          </div>
-          <div class="hero-card">
-            <div class="hero-card-bar"><span class="hero-card-dot hero-card-dot--r"></span><span class="hero-card-dot hero-card-dot--y"></span><span class="hero-card-dot hero-card-dot--g"></span><span class="hero-card-url">mei-hiroshi.wedoria.studio</span></div>
-            <img src="/vitrine/preview-mei-hiroshi.jpg" alt="Mei &amp; Hiroshi">
-          </div>
-
-        </div>
-      </div>
+    <!-- Carousel 3D -->
+    <div class="hero-3d-stage" aria-label="Aperçu des designs">
+      <div class="hero-3d-drag"></div>
     </div>
   </div>
 
@@ -3033,5 +2919,120 @@ document.querySelectorAll(".faq-q").forEach(function(btn) {
     }
   });
 });
+</script>
+<script>
+/* ── Carousel 3D Hero ── */
+(function() {
+  var IMAGES = [
+    { src: '/vitrine/preview-aisha-marcus.jpg', alt: 'Aisha & Marcus' },
+    { src: '/vitrine/preview-priya-arjun.jpg',  alt: 'Priya & Arjun' },
+    { src: '/vitrine/preview-mei-hiroshi.jpg',  alt: 'Mei & Hiroshi' },
+  ];
+
+  var stage = document.querySelector('.hero-3d-stage');
+  var drag  = document.querySelector('.hero-3d-drag');
+  if (!stage || !drag) return;
+
+  var progress = 0;
+  var isDragging = false;
+  var pointerStartX = null;
+  var pointerStartY = null;
+  var lastTime = performance.now();
+
+  var cardEls = IMAGES.map(function(img) {
+    var figure = document.createElement('figure');
+    figure.className = 'hero-3d-card';
+    var imgEl = document.createElement('img');
+    imgEl.src     = img.src;
+    imgEl.alt     = img.alt;
+    imgEl.width   = 1200;
+    imgEl.height  = 780;
+    imgEl.loading = 'lazy';
+    figure.appendChild(imgEl);
+    drag.appendChild(figure);
+    return figure;
+  });
+
+  function getCardStyle(cardIndex, prog) {
+    var N = IMAGES.length;
+    var a = ((cardIndex / N) + prog) % 1;
+    var VISIBLE_RANGE = 0.72;
+    var o = a > 0 && a < VISIBLE_RANGE;
+    var l = o ? a / VISIBLE_RANGE : 0;
+    var u = Math.min(
+      Math.min(1, Math.max(0, l / 0.06)),
+      Math.min(1, Math.max(0, (1 - l) / 0.08))
+    );
+    var H = Math.PI / 2 * 90;
+    var P = 240;
+    var M = 280 + H + 240;
+    var F = 280 / M;
+    var G = (280 + H) / M;
+    var x = o
+      ? Math.sin((l < F ? l / (2 * F) : 0.5 + (l - F) / (2 * (1 - F))) * Math.PI)
+      : 0;
+    var n, s;
+    if (l < F) {
+      n = -10;
+      s = -300 + (l / F) * 280;
+    } else if (l < G) {
+      var angle = (180 + (l - F) / (G - F) * 90) * Math.PI / 180;
+      n = 80 + 90 * Math.cos(angle);
+      s = -20 - 90 * Math.sin(angle);
+    } else {
+      n = 80 + (l - G) / (1 - G) * P;
+      s = 70;
+    }
+    return {
+      zIndex:        Math.round(u * 100) + 20,
+      opacity:       o ? u * (0.4 + 0.6 * x) : 0,
+      transform:     'translate3d(calc(-50% + ' + n + '%),calc(-50% + ' + s + '%),' + (-1000 + 1280 * x) + 'px) rotateX(' + (4 - 2 * x) + 'deg) rotateY(' + (-3 + 6 * l) + 'deg) rotateZ(0deg) scale(' + (0.44 + 0.74 * x) + ')',
+      pointerEvents: x > 0.72 ? 'auto' : 'none',
+    };
+  }
+
+  function render(prog) {
+    cardEls.forEach(function(el, i) {
+      var style = getCardStyle(i, prog);
+      el.style.zIndex        = style.zIndex;
+      el.style.opacity       = style.opacity;
+      el.style.transform     = style.transform;
+      el.style.pointerEvents = style.pointerEvents;
+    });
+  }
+
+  function tick(now) {
+    var dt = now - lastTime;
+    lastTime = now;
+    if (!isDragging) {
+      progress = (progress + 45e-6 * dt) % 1;
+    }
+    render(progress);
+    requestAnimationFrame(tick);
+  }
+
+  drag.addEventListener('pointerdown', function(e) {
+    pointerStartX = e.clientX;
+    pointerStartY = e.clientY;
+    isDragging = true;
+    e.currentTarget.setPointerCapture(e.pointerId);
+  });
+
+  drag.addEventListener('pointermove', function(e) {
+    if (pointerStartX === null) return;
+    var dx = e.clientX - pointerStartX;
+    var dy = e.clientY - pointerStartY;
+    progress = (progress + 8e-4 * (dy + 0.25 * dx) + 1) % 1;
+    pointerStartX = e.clientX;
+    pointerStartY = e.clientY;
+  });
+
+  function stopDrag() { pointerStartX = null; pointerStartY = null; isDragging = false; }
+  drag.addEventListener('pointerup',     stopDrag);
+  drag.addEventListener('pointercancel', stopDrag);
+
+  lastTime = performance.now();
+  requestAnimationFrame(tick);
+})();
 </script>
 </body></html>
