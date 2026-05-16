@@ -1,0 +1,43 @@
+{
+  "planPath": "docs/superpowers/plans/2026-05-16-sprint4.md",
+  "tasks": [
+    {
+      "id": 1,
+      "subject": "Task 1: wedoria.fr — DNS records OVH",
+      "status": "pending",
+      "description": "**Goal:** Documenter les 2 A records à ajouter dans OVH pour que wedoria.fr pointe sur Vercel.\n\n**Files:**\n- Create: `docs/sprint4/dns-instructions.md`\n\n**Acceptance Criteria:**\n- [ ] Fichier créé avec les 2 records exacts à copier dans OVH\n- [ ] Instructions claires pour le PM\n\n**Verify:** PM ajoute les records, puis wedoria.fr charge le site vitrine\n\n```json:metadata\n{\"files\": [\"docs/sprint4/dns-instructions.md\"], \"verifyCommand\": \"\", \"acceptanceCriteria\": [\"docs/sprint4/dns-instructions.md créé avec les 2 records A exacts\"], \"requiresUserVerification\": true, \"userVerificationPrompt\": \"As-tu ajouté les 2 records A dans OVH ? wedoria.fr charge-t-il correctement ?\"}\n```"
+    },
+    {
+      "id": 2,
+      "subject": "Task 2: 9 posts Instagram batch",
+      "status": "pending",
+      "blockedBy": [1],
+      "description": "**Goal:** Rédiger les 9 posts Instagram finaux (texte + hashtags + consigne visuelle) pour 3 semaines de contenu.\n\n**Files:**\n- Create: `docs/sprint4/posts-instagram.md`\n\n**Acceptance Criteria:**\n- [ ] 9 posts complets avec texte + hashtags + consigne visuelle\n- [ ] Calendrier lun/mer/ven sur 3 semaines\n- [ ] Chaque post ≤ 2200 caractères\n\n**Verify:** Lecture humaine\n\n```json:metadata\n{\"files\": [\"docs/sprint4/posts-instagram.md\"], \"verifyCommand\": \"\", \"acceptanceCriteria\": [\"9 posts rédigés\", \"Calendrier lun/mer/ven\", \"Chaque post ≤ 2200 caractères\"], \"requiresUserVerification\": false}\n```"
+    },
+    {
+      "id": 3,
+      "subject": "Task 3: Template DM photographes + critères sélection",
+      "status": "pending",
+      "description": "**Goal:** Rédiger le DM de prise de contact avec les photographes et les critères pour choisir les 10 cibles.\n\n**Files:**\n- Create: `docs/sprint4/dm-photographes.md`\n\n**Acceptance Criteria:**\n- [ ] DM court ≤ 300 caractères\n- [ ] Version longue email rédigée\n- [ ] Critères de sélection des 10 photographes définis\n- [ ] Template relance J+7 inclus\n\n```json:metadata\n{\"files\": [\"docs/sprint4/dm-photographes.md\"], \"verifyCommand\": \"\", \"acceptanceCriteria\": [\"DM court ≤ 300 caractères\", \"Version longue email\", \"Critères sélection définis\", \"Relance J+7\"], \"requiresUserVerification\": true, \"userVerificationPrompt\": \"As-tu envoyé les 10 DMs aux photographes ?\"}\n```"
+    },
+    {
+      "id": 4,
+      "subject": "Task 4: Article SEO + page /blog",
+      "status": "pending",
+      "description": "**Goal:** Rédiger l'article SEO (~800 mots) et créer la page vitrine/blog.html.\n\n**Files:**\n- Create: `docs/sprint4/article-seo.md`\n- Create: `vitrine/blog.html`\n- Modify: `vitrine/index.html`\n\n**Acceptance Criteria:**\n- [ ] Article ~800 mots avec mot-clé dans H1\n- [ ] vitrine/blog.html valide sans noindex\n- [ ] Meta description ≤ 160 caractères\n- [ ] Lien blog dans nav vitrine\n\n**Verify:** Ouvrir vitrine/blog.html dans navigateur\n\n```json:metadata\n{\"files\": [\"vitrine/blog.html\", \"docs/sprint4/article-seo.md\", \"vitrine/index.html\"], \"verifyCommand\": \"\", \"acceptanceCriteria\": [\"Article ~800 mots\", \"blog.html valide\", \"Meta description ≤ 160 chars\", \"Lien dans nav\"], \"requiresUserVerification\": false}\n```"
+    },
+    {
+      "id": 5,
+      "subject": "Task 5: Email de livraison client",
+      "status": "pending",
+      "description": "**Goal:** Rédiger le template d'email de remise du site client avec guide d'utilisation.\n\n**Files:**\n- Create: `docs/sprint4/email-livraison.md`\n\n**Acceptance Criteria:**\n- [ ] Email de remise avec URL + 3 points essentiels\n- [ ] Guide d'utilisation rapide inclus\n- [ ] Template relance témoignage J+14\n\n```json:metadata\n{\"files\": [\"docs/sprint4/email-livraison.md\"], \"verifyCommand\": \"\", \"acceptanceCriteria\": [\"Email remise rédigé\", \"Guide utilisation inclus\", \"Relance témoignage J+14\"], \"requiresUserVerification\": false}\n```"
+    },
+    {
+      "id": 6,
+      "subject": "Task 6: board.json — Sprint 4 activé",
+      "status": "pending",
+      "description": "**Goal:** Mettre à jour board.json pour refléter le démarrage du Sprint 4.\n\n**Files:**\n- Modify: `board.json`\n\n**Acceptance Criteria:**\n- [ ] Sprint 4 défini (numéro 4, nom, progression 0)\n- [ ] 4 tâches dans aFaire avec agents assignés\n\n**Verify:** grep sprint4 board.json\n\n```json:metadata\n{\"files\": [\"board.json\"], \"verifyCommand\": \"grep sprint4 board.json\", \"acceptanceCriteria\": [\"Sprint 4 dans board.json\", \"4 tâches aFaire\"], \"requiresUserVerification\": false}\n```"
+    }
+  ],
+  "lastUpdated": "2026-05-16T00:00:00Z"
+}
