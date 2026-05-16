@@ -1,9 +1,10 @@
 {
-  "date": "2026-05-07",
+  "date": "2026-05-16",
   "sprint": {
-    "numero": 3,
-    "nom": "Stratégie notoriété",
-    "progression": 82
+    "numero": 4,
+    "nom": "Lancement public & Premier client",
+    "progression": 0,
+    "sprint3_valide": true
   },
   "agents": {
     "ceo":         { "statut": "actif" },
@@ -15,35 +16,14 @@
     "commercial":  { "statut": "actif" },
     "support":     { "statut": "actif" }
   },
-  "enCours": [
-    {
-      "id": "c1",
-      "agent": "dev",
-      "tache": "Commit hero redesign + assets (non commité — en attente validation PM)"
-    }
-  ],
+  "enCours": [],
   "aFaire": [
-    {
-      "id": "s3",
-      "agent": "pm",
-      "priorite": "bloquant",
-      "tache": "3 actions manuelles PM (voir escalade e1) : (1) Supabase SQL Editor → coller supabase-migration.sql, (2) Vercel env vars → copier depuis .env.example, (3) Resend → vérifier domaine wedoria.fr"
-    },
-    {
-      "id": "s4",
-      "agent": "pm",
-      "priorite": "faible",
-      "tache": "Renommer projet Vercel 'wedoria-vitrine' → 'wedoria-studio' via le dashboard Vercel (Settings > General > Project Name)"
-    }
+    { "id": "sp4-a", "agent": "pm", "priorite": "bloquant", "tache": "OVH : ajouter 2 records A (voir docs/sprint4/dns-instructions.md) pour wedoria.fr et www.wedoria.fr → 76.76.21.21" },
+    { "id": "sp4-b", "agent": "pm", "priorite": "haute", "tache": "Créer compte Instagram @wedoriastudio + rédiger bio + publier Post 1 (voir docs/sprint4/posts-instagram.md)" },
+    { "id": "sp4-c", "agent": "pm", "priorite": "haute", "tache": "Envoyer 10 DMs photographes (voir docs/sprint4/dm-photographes.md pour critères + template)" },
+    { "id": "sp4-d", "agent": "dev", "priorite": "haute", "tache": "Publier vitrine/blog.html en prod (vercel --prod depuis wedoria-studio)" }
   ],
-  "escalades": [
-    {
-      "id": "e1",
-      "date": "2026-05-02",
-      "agent": "dev",
-      "message": "SQL + routes + env.example sont prêts. Plus qu'à exécuter 3 actions manuelles pour débloquer le E2E : (1) Supabase SQL Editor → coller supabase-migration.sql, (2) Vercel dashboard → ajouter les 5 env vars de .env.example, (3) Resend → vérifier domaine wedoria.fr pour contact@wedoria.fr. Estimation : 20 min."
-    }
-  ],
+  "escalades": [],
   "decisions": [
     {
       "date": "2026-04-24",
@@ -64,6 +44,26 @@
       "date": "2026-05-07",
       "agent": "designer",
       "decision": "Hero vitrine entièrement redesigné — esthétique dark tech premium (fond #080609, grille dorée, badge animé, headline serif/sans, stats sociales, preview cards des 7 thèmes mariage). 3 images preview ajoutées (Aisha & Marcus, Mei & Hiroshi, Priya & Arjun). hero-video.mp4 présent. Animations GSAP mises à jour pour correspondre aux nouvelles classes. Prêt à commiter dès validation PM."
+    },
+    {
+      "date": "2026-05-15",
+      "agent": "ceo",
+      "decision": "Audit escalade e1 (13 jours) : (1) Vercel env vars — déjà faites (5/5 en place), escalade close. (2) Supabase SQL — projet DNS injoignable, probablement pausé free tier, action PM requise. (3) Resend domaine — accès impossible sans clé, action PM requise. Nouvelle alerte : ANTHROPIC_API_KEY manquante dans Vercel (api/theme.js). wedoria.fr pas encore configuré comme domaine custom Vercel."
+    },
+    {
+      "date": "2026-05-16",
+      "agent": "ceo",
+      "decision": "Escalade e1 clôturée. Supabase SQL migration exécutée par PM (action 1 ✅). Resend domaine wedoria.fr reporté — PM conserve l'hébergement gratuit Vercel pour l'instant, FROM_EMAIL restera onboarding@resend.dev. Seul blocant restant : ANTHROPIC_API_KEY manquante dans Vercel (api/theme.js)."
+    },
+    {
+      "date": "2026-05-16",
+      "agent": "ceo",
+      "decision": "Sprint 3 validé (sprint3_valide: true). Marketing livre : 3 canaux, 5 mots-clés SEO, calendrier éditorial 4 semaines, 3 posts Instagram, stratégie lancement mois 1-3. Commercial livre : qualification leads, templates contact + proposition, relances J+3/J+7/J+14, 5 objections + réponses. E2E débloqué (Supabase ✅, Vercel env vars ✅, ANTHROPIC_API_KEY ✅). Prochaine étape à définir avec PM."
+    },
+    {
+      "date": "2026-05-16",
+      "agent": "ceo",
+      "decision": "Sprint 4 démarré — Lancement public & Premier client. Domaines wedoria.fr et www.wedoria.fr ajoutés sur Vercel. DNS instructions créées pour OVH. Contenu Sprint 4 en cours de production (posts Instagram, DM photographes, article SEO, email livraison)."
     }
   ],
   "termine": [
@@ -92,6 +92,15 @@
     { "id": "s8", "agent": "dev", "tache": "Routes Vercel complètes — onboarding, studio, mariage, pitch, dashboard" },
     { "id": "s9", "agent": "dev", "tache": "SQL migration Supabase prête (supabase-migration.sql)" },
     { "id": "s10", "agent": "dev", "tache": ".env.example mis à jour — ANTHROPIC_API_KEY ajouté, SUPABASE_URL pré-rempli" },
-    { "id": "ds2", "agent": "designer", "tache": "Hero vitrine redesigné — dark tech premium, badge animé, stats, preview cards 7 thèmes, 3 photos preview" }
+    { "id": "ds2", "agent": "designer", "tache": "Hero vitrine redesigné — dark tech premium, badge animé, stats, preview cards 7 thèmes, 3 photos preview" },
+    { "id": "s11", "agent": "dev", "tache": "Hero vitrine commité — rolling words, carousel 3D, responsive mobile (commits 11-12 mai)" },
+    { "id": "s12", "agent": "dev", "tache": "Templates industrialisés — config unifié, 6 nouvelles sections, données simulées 3 thèmes" },
+    { "id": "s13", "agent": "designer", "tache": "RSVP champêtre redesigné — split layout, floating labels, pill radios" },
+    { "id": "s14", "agent": "dev", "tache": "FAQ accordion + step-desc plus lisible" },
+    { "id": "s15", "agent": "ceo", "tache": "Vercel env vars vérifiées : 5/5 déjà en place (SUPABASE_URL, SUPABASE_SERVICE_KEY, RESEND_API_KEY, PM_EMAIL, FROM_EMAIL)" },
+    { "id": "s16", "agent": "pm", "tache": "Supabase SQL migration exécutée — tables leads, projets, livre_or créées en prod" },
+    { "id": "s17", "agent": "ceo", "tache": "ANTHROPIC_API_KEY ajoutée dans Vercel production + redéploiement (api/theme.js débloqué)" },
+    { "id": "m1", "agent": "marketing", "tache": "Stratégie acquisition : 3 canaux (Instagram, partenariats, SEO), 5 mots-clés, calendrier 4 semaines, 3 posts exemples, plan lancement mois 1-3" },
+    { "id": "co1", "agent": "commercial", "tache": "Process complet : qualification leads, template premier contact, template proposition, relances J+3/J+7/J+14, 5 objections + réponses" }
   ]
 }
