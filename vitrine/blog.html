@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Créer un site internet pour son mariage — Guide 2026 | Wedoria Studio</title>
+  <meta name="description" content="Créer un site internet pour votre mariage : avantages, contenu, coût et timing. Guide complet 2026 par Wedoria, spécialiste des sites mariage premium.">
+  <link rel="canonical" href="https://wedoria.fr/blog">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A96E;
+      --gold-light: #e8d5b0;
+      --dark: #1a1008;
+      --text: #2c2416;
+      --muted: #7a6a54;
+      --bg: #faf8f5;
+      --bg-warm: #f5f0e8;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Jost', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      font-weight: 300;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== NAV ===== */
+    nav#navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 3rem;
+      background: rgba(250, 248, 245, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(201, 169, 110, 0.18);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--dark);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--gold);
+    }
+
+    .nav-cta {
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--bg);
+      background: var(--gold);
+      text-decoration: none;
+      padding: 0.55rem 1.4rem;
+      border-radius: 2px;
+      transition: opacity 0.2s;
+    }
+
+    .nav-cta:hover { opacity: 0.85; }
+
+    @media (max-width: 768px) {
+      nav#navbar { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+    }
+
+    /* ===== HERO ARTICLE ===== */
+    .article-hero {
+      background: var(--bg-warm);
+      border-bottom: 1px solid rgba(201, 169, 110, 0.2);
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+    }
+
+    .article-hero .eyebrow {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+
+    .article-hero h1 {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--dark);
+      line-height: 1.2;
+      max-width: 800px;
+      margin: 0 auto 1.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .article-hero .meta {
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ===== ARTICLE ===== */
+    .article-wrap {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    .article-wrap p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+
+    .article-wrap h2 {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      color: var(--dark);
+      line-height: 1.25;
+      margin: 3rem 0 1.2rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid rgba(201, 169, 110, 0.3);
+    }
+
+    .article-wrap ul,
+    .article-wrap ol {
+      margin: 0 0 1.5rem 1.2rem;
+    }
+
+    .article-wrap li {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .article-wrap strong {
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .article-wrap a {
+      color: var(--gold);
+      text-decoration: underline;
+      text-decoration-color: rgba(201, 169, 110, 0.4);
+      transition: text-decoration-color 0.2s;
+    }
+
+    .article-wrap a:hover {
+      text-decoration-color: var(--gold);
+    }
+
+    /* Lead paragraph */
+    .article-wrap .lead {
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(201, 169, 110, 0.2);
+    }
+
+    /* Highlight box */
+    .highlight-box {
+      background: var(--bg-warm);
+      border-left: 3px solid var(--gold);
+      padding: 1.5rem 1.8rem;
+      margin: 2rem 0 2.5rem;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .highlight-box p {
+      margin-bottom: 0;
+      font-size: 0.98rem;
+    }
+
+    /* Comparison table */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0 2rem;
+      font-size: 0.95rem;
+    }
+
+    .compare-table th {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--bg-warm);
+      padding: 0.8rem 1rem;
+      text-align: left;
+      border-bottom: 2px solid rgba(201, 169, 110, 0.3);
+    }
+
+    .compare-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(201, 169, 110, 0.15);
+      vertical-align: top;
+    }
+
+    .compare-table tr:last-child td { border-bottom: none; }
+
+    .compare-table .highlighted td {
+      background: rgba(201, 169, 110, 0.06);
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    /* ===== CTA BLOCK ===== */
+    .cta-block {
+      background: var(--dark);
+      color: #fff;
+      text-align: center;
+      padding: 4rem 2rem;
+      margin: 3rem 0 0;
+    }
+
+    .cta-block .cta-eyebrow {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .cta-block h2 {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      border: none;
+      padding: 0;
+    }
+
+    .cta-block p {
+      color: rgba(255,255,255,0.65);
+      font-size: 1rem;
+      max-width: 480px;
+      margin: 0 auto 2rem;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dark);
+      background: var(--gold);
+      text-decoration: none;
+      padding: 1rem 2.5rem;
+      border-radius: 2px;
+      transition: opacity 0.2s;
+    }
+
+    .cta-btn:hover { opacity: 0.85; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--bg-warm);
+      border-top: 1px solid rgba(201, 169, 110, 0.2);
+      text-align: center;
+      padding: 2rem;
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav id="navbar">
+  <a href="/" class="nav-logo">Wedoria</a>
+  <ul class="nav-links">
+    <li><a href="/#portfolio">Portfolio</a></li>
+    <li><a href="/#formules">Formules</a></li>
+    <li><a href="/#comment">Comment ça marche</a></li>
+    <li><a href="/#faq">FAQ</a></li>
+    <li><a href="/blog" class="active">Blog</a></li>
+    <li><a href="/#contact">Contact</a></li>
+  </ul>
+  <a href="/#contact" class="nav-cta">Démarrer →</a>
+</nav>
+
+<!-- ===== HERO ARTICLE ===== -->
+<header class="article-hero">
+  <p class="eyebrow">Guide mariage · 2026</p>
+  <h1>Créer un site internet pour son mariage</h1>
+  <p class="meta">Mis à jour en mai 2026 · 5 min de lecture</p>
+</header>
+
+<!-- ===== ARTICLE ===== -->
+<main>
+  <article class="article-wrap">
+
+    <p class="lead">Vous organisez votre mariage et vous vous demandez si créer un site internet est vraiment utile ? La réponse courte : oui, et de plus en plus de couples le font. Voici tout ce que vous devez savoir.</p>
+
+    <h2>Pourquoi créer un site internet pour son mariage ?</h2>
+
+    <p>Un site mariage remplace des dizaines d'échanges répétitifs. Lieu, programme, plan d'accès, confirmation de présence : tout est au même endroit, accessible 24h/24 depuis n'importe quel téléphone.</p>
+
+    <p><strong>Les 5 avantages concrets :</strong></p>
+
+    <ol>
+      <li><strong>RSVP automatique</strong> — vos invités confirment leur présence en ligne. Vous recevez les réponses sans relancer chacun par SMS.</li>
+      <li><strong>Informations centralisées</strong> — adresse, horaires, hébergements proches, dress code : une seule URL à partager.</li>
+      <li><strong>Compte à rebours</strong> — un décompte en temps réel vers le grand jour.</li>
+      <li><strong>Livre d'or numérique</strong> — vos proches laissent des messages que vous gardez pour toujours.</li>
+      <li><strong>Souvenir permanent</strong> — contrairement aux faire-part papier, votre site reste accessible après le mariage.</li>
+    </ol>
+
+    <h2>Quelles informations mettre sur un site mariage ?</h2>
+
+    <p>Un bon site contient au minimum :</p>
+
+    <ul>
+      <li>La date et le lieu (avec carte intégrée)</li>
+      <li>Le programme (cérémonie, cocktail, dîner, soirée)</li>
+      <li>Le formulaire RSVP (avec choix du menu si applicable)</li>
+      <li>Les infos pratiques (parking, hôtels, contact d'urgence)</li>
+      <li>Le dress code si vous en avez un</li>
+    </ul>
+
+    <p>En option : galerie de photos du couple, liste de mariage, hashtag Instagram.</p>
+
+    <h2>Créer son site soi-même ou faire appel à un professionnel ?</h2>
+
+    <p><strong>Faire soi-même (Wix, WordPress, Canva)</strong><br>
+    Avantages : gratuit ou peu cher. Inconvénients : comptez 10 à 20 heures pour un résultat correct. Quand vous êtes en pleine organisation, ces heures manquent. Les templates génériques ne sont pas pensés pour le mariage.</p>
+
+    <p><strong>Faire appel à un spécialiste mariage</strong><br>
+    Avantages : résultat professionnel, pensé mariage de A à Z, livré rapidement. Pour qui ? Les couples qui veulent un site à leur image sans y passer leurs week-ends.</p>
+
+    <h2>Combien coûte un site internet pour un mariage ?</h2>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Option</th>
+          <th>Tarif</th>
+          <th>Résultat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Template DIY (Wix, Squarespace)</td>
+          <td>0 à 30 €/mois</td>
+          <td>Souvent générique</td>
+        </tr>
+        <tr>
+          <td>Site sur mesure (agence généraliste)</td>
+          <td>1 500 à 5 000 €</td>
+          <td>Délais longs</td>
+        </tr>
+        <tr class="highlighted">
+          <td>Spécialiste mariage (Wedoria)</td>
+          <td>Tarif intermédiaire</td>
+          <td>Livraison en 48h</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Quand créer son site mariage ?</h2>
+
+    <p>Idéalement 6 à 12 mois avant la cérémonie. Rien ne vous empêche de le créer 2 mois avant — un bon prestataire livre en 48 à 72h.</p>
+
+    <div class="highlight-box">
+      <p>Le plus tôt est le mieux : un site ouvert tôt permet de centraliser les RSVP dès les premières invitations et d'éviter les allers-retours par SMS ou e-mail pendant des semaines.</p>
+    </div>
+
+    <h2>Wedoria Studio : votre site mariage en 48h</h2>
+
+    <p>Chez Wedoria, on crée des sites mariage premium clé en main. Vous remplissez un formulaire de personnalisation, on s'occupe du reste. Résultat en 48h : site élégant, mobile, avec RSVP, countdown, livre d'or et programme.</p>
+
+  </article>
+
+  <!-- ===== CTA ===== -->
+  <div class="cta-block">
+    <p class="cta-eyebrow">Wedoria Studio</p>
+    <h2>Votre site mariage, livré en 48h</h2>
+    <p>Site élégant, mobile, avec RSVP, countdown et livre d'or. Clé en main.</p>
+    <a href="/#contact" class="cta-btn">Démarrer mon site →</a>
+  </div>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p>© 2026 Wedoria Studio · Sites de mariage sur-mesure</p>
+</footer>
+
+</body>
+</html>
